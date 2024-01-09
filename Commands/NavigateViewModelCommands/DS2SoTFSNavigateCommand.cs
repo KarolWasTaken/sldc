@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace sldc.Commands.NavigateViewModelCommands
 {
+    // the reason all these navigate command are separate is incase i need a given navigate command to do something special 
+    // that the other commands dont need to do.
     class DS2SoTFSNavigateCommand : CommandBase
     {
         private readonly MainWindowViewModel _mainWindowViewModel;

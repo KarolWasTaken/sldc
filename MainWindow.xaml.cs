@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using sldc.Themes.AppThemes;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,32 @@ namespace sldc
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool IsDarkTheme = true;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ChangeTheme()
+        {
+            if (IsDarkTheme)
+            {
+                AppThemeChanger.ChangeTheme(new Uri("Themes/AppThemes/LightTheme.xaml", UriKind.Relative));
+            }
+            else
+            {
+                AppThemeChanger.ChangeTheme(new Uri("Themes/AppThemes/DarkTheme.xaml", UriKind.Relative));
+            }
+            IsDarkTheme = !IsDarkTheme;
+        }
+
+        private void DarkThemePressed(object sender, RoutedEventArgs e)
+        {
+            ChangeTheme();
+        }
+        private void LightThemePressed(object sender, RoutedEventArgs e)
+        {
+            ChangeTheme();
         }
     }
 }

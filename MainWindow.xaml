@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         xmlns:Views="clr-namespace:sldc.View"
         xmlns:ViewModels="clr-namespace:sldc.ViewModel" 
-        Title="MainWindow" Height="650" Width="1000">
-    <Grid>
+        Title="MainWindow" Height="650" Width="1000"
+        ResizeMode="CanMinimize">
+    <Grid Background="{DynamicResource Shade}">
         <!--#region Responsible for changing view model for navigation -->
         <Grid.Resources>
             <DataTemplate DataType="{x:Type ViewModels:DSREViewModel}">
@@ -31,17 +32,38 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!--#region navigation buttons-->
         <StackPanel Grid.Column="0">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Margin" Value="10,10,10,0"/>
                 </Style>
             </StackPanel.Resources>
-            <Button Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
-            <Button Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"/>
-            <Button Content="DS3" Command="{Binding DS3NavigateCommand}"/>
-            <Button Content="ER" Command="{Binding ERNavigateCommand}"/>
+            <Button Content="DS: RE" Command="{Binding DSRENavigateCommand}"
+                    Background="{DynamicResource Primary}"
+                    Foreground="{DynamicResource TextColour}"
+                    BorderBrush="{DynamicResource Accent}"/>
+            <Button Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"
+                    Background="{DynamicResource Primary}"
+                    Foreground="{DynamicResource TextColour}"
+                    BorderBrush="{DynamicResource Accent}"/>
+            <Button Content="DS3" Command="{Binding DS3NavigateCommand}"
+                    Background="{DynamicResource Primary}"
+                    Foreground="{DynamicResource TextColour}"
+                    BorderBrush="{DynamicResource Accent}"/>
+            <Button Content="ER" Command="{Binding ERNavigateCommand}"
+                    Background="{DynamicResource Primary}"
+                    Foreground="{DynamicResource TextColour}"
+                    BorderBrush="{DynamicResource Accent}"/>
+            
+            <!-- temp -->
+            <CheckBox Content="DarkTheme" IsChecked="True" Checked="DarkThemePressed"
+                      Unchecked="LightThemePressed"
+                      Margin="10,50,0,0"
+                      Foreground="{DynamicResource TextColour}"/>
         </StackPanel>
+        <!--#endregion-->
+        
 
         <ContentControl Content="{Binding CurrentViewModel}"
                         Grid.Column="1"/>

@@ -9,6 +9,7 @@ namespace sldc.Stores
 {
     public class NavigationStore
     {
+        // store that holds the current viewmodel
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
         {

@@ -22,6 +22,8 @@ namespace sldc.Commands
 
         public void ChangeViewModel()
         {
+            // when this is ran (when a navcommand is ran), it'll tell all the subscribers of this event
+            // to execute their subscribed event (MainWindowViewModel.cs OnCurrentViewModelChanged())
             _navigationStore.CurrentViewModel = _createViewModel();
         }
     }
