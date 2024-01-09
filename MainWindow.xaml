@@ -41,19 +41,19 @@
             </StackPanel.Resources>
             <Button Content="DS: RE" Command="{Binding DSRENavigateCommand}"
                     Background="{DynamicResource Primary}"
-                    Foreground="{DynamicResource TextColour}"
+                    Foreground="{DynamicResource PrimaryTextColour}"
                     BorderBrush="{DynamicResource Accent}"/>
             <Button Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"
                     Background="{DynamicResource Primary}"
-                    Foreground="{DynamicResource TextColour}"
+                    Foreground="{DynamicResource PrimaryTextColour}"
                     BorderBrush="{DynamicResource Accent}"/>
             <Button Content="DS3" Command="{Binding DS3NavigateCommand}"
                     Background="{DynamicResource Primary}"
-                    Foreground="{DynamicResource TextColour}"
+                    Foreground="{DynamicResource PrimaryTextColour}"
                     BorderBrush="{DynamicResource Accent}"/>
             <Button Content="ER" Command="{Binding ERNavigateCommand}"
                     Background="{DynamicResource Primary}"
-                    Foreground="{DynamicResource TextColour}"
+                    Foreground="{DynamicResource PrimaryTextColour}"
                     BorderBrush="{DynamicResource Accent}"/>
             
             <!-- temp -->
