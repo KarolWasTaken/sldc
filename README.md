@@ -9,4 +9,4 @@ Death counter for all souls-like games on pc
 
 ## MainWindow design
 
-![MainWindow Design](https://github.com/KarolWasTaken/sldc/blob/master/GITHUB-RESOURCES/mainwindow.pn
+![MainWindow Design](https://github.com/KarolWasTaken/sldc/blob/master/GITHUB-RESOURCES/mainwindow.png)
