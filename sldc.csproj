@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="GITHUB-RESOURCES\" />
+    <Folder Include="Themes\" />
   </ItemGroup>
 
 </Project>
