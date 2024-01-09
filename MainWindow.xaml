@@ -9,7 +9,7 @@
         xmlns:ViewModels="clr-namespace:sldc.ViewModel" 
         Title="MainWindow" Height="650" Width="1000"
         ResizeMode="CanMinimize">
-    <Grid Background="{DynamicResource Shade}">
+    <Grid Background="{DynamicResource Background}">
         <!--#region Responsible for changing view model for navigation -->
         <Grid.Resources>
             <DataTemplate DataType="{x:Type ViewModels:DSREViewModel}">
@@ -35,8 +35,12 @@
         <!--#region navigation buttons-->
         <StackPanel Grid.Column="0">
             <StackPanel.Resources>
-                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SecondaryButtonStyle}">
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}">
                     <Setter Property="Margin" Value="10,10,10,0"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="FontSize" Value="10"/>
+                    <Setter Property="Padding" Value="6"/>
+                    <Setter Property="FontSize" Value="12"/>
                 </Style>
             </StackPanel.Resources>
             <Button Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
@@ -54,6 +58,7 @@
         
 
         <ContentControl Content="{Binding CurrentViewModel}"
-                        Grid.Column="1"/>
+                        Grid.Column="1"
+                        Opacity="0.5"/>
     </Grid>
 </Window>

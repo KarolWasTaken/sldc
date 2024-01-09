@@ -1,4 +1,4 @@
-﻿using sldc.Themes.AppThemes;
+﻿using sldc.Themes;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,11 +27,11 @@ namespace sldc
         {
             if (IsDarkTheme)
             {
-                AppThemeChanger.ChangeTheme(new Uri("Themes/AppThemes/LightTheme.xaml", UriKind.Relative));
+                AppThemeChanger.ChangeTheme(new Uri("Themes/LightTheme.xaml", UriKind.Relative));
             }
             else
             {
-                AppThemeChanger.ChangeTheme(new Uri("Themes/AppThemes/DarkTheme.xaml", UriKind.Relative));
+                AppThemeChanger.ChangeTheme(new Uri("Themes/DarkTheme.xaml", UriKind.Relative));
             }
             IsDarkTheme = !IsDarkTheme;
         }

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
-namespace sldc.Themes.AppThemes
+namespace sldc.Themes
 {
     public class AppThemeChanger
     {
@@ -15,8 +16,9 @@ namespace sldc.Themes.AppThemes
             {
                 Source = themeuri
             };
-            App.Current.Resources.Clear();
-            App.Current.Resources.MergedDictionaries.Add(theme);
+            Application.Current.Resources.Clear();
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(theme);
         }
     }
 }
