@@ -57,7 +57,7 @@
                     BorderBrush="{DynamicResource Accent}"/>
             
             <!-- temp -->
-            <CheckBox Content="DarkTheme" IsChecked="True" Checked="DarkThemePressed"
+            <CheckBox Content="LightTheme" Checked="DarkThemePressed"
                       Unchecked="LightThemePressed"
                       Margin="10,50,0,0"
                       Foreground="{DynamicResource TextColour}"/>
