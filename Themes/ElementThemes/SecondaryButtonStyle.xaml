@@ -22,17 +22,17 @@
                         </Border.Effect>
                         <ContentPresenter TextBlock.TextAlignment="Center"/>
                     </Border>
-                    <!--<ControlTemplate.Triggers>
+                    <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="border" Property="Opacity" Value="0.8" />
-                            --><!-- Change focus color --><!--
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Primary}" />
+                             <!--Change focus color--> 
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Primary}"/>
                             <Setter TargetName="border" Property="TextBlock.Foreground" Value="{DynamicResource Secondary}"/>
                         </Trigger>
-                            --><!-- Other triggers if needed --><!--
-                    </ControlTemplate.Triggers>-->
+                             <!--Other triggers if needed--> 
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -35,7 +35,7 @@
         <!--#region navigation buttons-->
         <StackPanel Grid.Column="0">
             <StackPanel.Resources>
-                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}">
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SecondaryButtonStyle}">
                     <Setter Property="Margin" Value="10,10,10,0"/>
                     <Setter Property="Height" Value="30"/>
                     <Setter Property="FontSize" Value="10"/>
