@@ -9,8 +9,90 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\DS2-card-image.png" />
+    <None Remove="Themes\Fonts\Inter-Black.ttf" />
+    <None Remove="Themes\Fonts\Inter-BlackItalic.ttf" />
+    <None Remove="Themes\Fonts\Inter-Bold.ttf" />
+    <None Remove="Themes\Fonts\Inter-BoldItalic.ttf" />
+    <None Remove="Themes\Fonts\Inter-ExtraBold.ttf" />
+    <None Remove="Themes\Fonts\Inter-ExtraBoldItalic.ttf" />
+    <None Remove="Themes\Fonts\Inter-ExtraLight.ttf" />
+    <None Remove="Themes\Fonts\Inter-ExtraLightItalic.ttf" />
+    <None Remove="Themes\Fonts\Inter-Italic.ttf" />
+    <None Remove="Themes\Fonts\Inter-Light.ttf" />
+    <None Remove="Themes\Fonts\Inter-LightItalic.ttf" />
+    <None Remove="Themes\Fonts\Inter-Medium.ttf" />
+    <None Remove="Themes\Fonts\Inter-MediumItalic.ttf" />
+    <None Remove="Themes\Fonts\Inter-Regular.ttf" />
+    <None Remove="Themes\Fonts\Inter-SemiBold.ttf" />
+    <None Remove="Themes\Fonts\Inter-SemiBoldItalic.ttf" />
+    <None Remove="Themes\Fonts\Inter-Thin.ttf" />
+    <None Remove="Themes\Fonts\Inter-ThinItalic.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="GITHUB-RESOURCES\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\DS2-card-image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-Black.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-BlackItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-BoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-ExtraBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-ExtraBoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-ExtraLight.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-ExtraLightItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-Italic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-Light.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-LightItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-Medium.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-MediumItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-SemiBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-SemiBoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-Thin.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\Inter-ThinItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

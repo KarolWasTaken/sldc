@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush Color="#1C2126" x:Key="TextColour"/>
     <SolidColorBrush Color="#D7D7D7" x:Key="Background"/>
-    <SolidColorBrush Color="#E8E8E8" x:Key="Backgroud_Level_2"/>
-    <SolidColorBrush Color="#F0F0F0" x:Key="Backgroud_Level_3"/>
+    <SolidColorBrush Color="#E8E8E8" x:Key="Background_Level_2"/>
+    <SolidColorBrush Color="#F0F0F0" x:Key="Background_Level_3"/>
     <SolidColorBrush Color="#D11B1A" x:Key="Primary"/>
     <SolidColorBrush Color="#F0EFE7" x:Key="Secondary"/>
 

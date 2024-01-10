@@ -9,7 +9,7 @@
         xmlns:ViewModels="clr-namespace:sldc.ViewModel" 
         Title="MainWindow" Height="650" Width="1000"
         ResizeMode="CanMinimize">
-    <Grid Background="{DynamicResource Background}">
+    <Grid Background="{DynamicResource Background_Level_2}">
         <!--#region Responsible for changing view model for navigation -->
         <Grid.Resources>
             <DataTemplate DataType="{x:Type ViewModels:DSREViewModel}">
@@ -41,6 +41,7 @@
                     <Setter Property="FontSize" Value="10"/>
                     <Setter Property="Padding" Value="6"/>
                     <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Background" Value="{DynamicResource Background_Level_3}"/>
                 </Style>
             </StackPanel.Resources>
             <Button Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
@@ -55,8 +56,9 @@
                       Foreground="{DynamicResource TextColour}"/>
         </StackPanel>
         <!--#endregion-->
-        
 
+        <Rectangle Grid.Column="1"
+                   Fill="{DynamicResource Background}"/>
         <ContentControl Content="{Binding CurrentViewModel}"
                         Grid.Column="1"/>
     </Grid>

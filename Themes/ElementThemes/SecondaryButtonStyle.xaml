@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style x:Key="SecondaryButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Background" Value="{DynamicResource Backgroud_Level_2}"/>
+        <Setter Property="Background" Value="{DynamicResource Background_Level_2}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextColour}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Secondary}"/>
         <Setter Property="Template">

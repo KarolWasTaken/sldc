@@ -17,6 +17,7 @@ namespace sldc.Themes
         {
             new Uri("Themes/ElementThemes/PrimaryButtonStyle.xaml", UriKind.Relative),
             new Uri("Themes/ElementThemes/SecondaryButtonStyle.xaml", UriKind.Relative),
+            new Uri("Themes/ElementThemes/TextBlockStyles.xaml", UriKind.Relative)
         };
 
 
@@ -35,13 +36,20 @@ namespace sldc.Themes
                 };
                 theme.MergedDictionaries.Add(additionalTheme);
             }
+            // debug
             //foreach (var key in theme.Keys)
             //{
             //    MessageBox.Show(key.ToString());
             //}
+
             // clears all previous themes and resources
             Application.Current.Resources.Clear();
             Application.Current.Resources.MergedDictionaries.Clear();
+            // Load the FontFamily resource
+            FontFamily interFontFamily = new FontFamily(new Uri("pack://application:,,,Themes/Fonts/"), "./#Inter");
+            Application.Current.Resources["Inter"] = interFontFamily;
+            // adds fonts to resources
+            Application.Current.Resources.Add(new FontFamily(new Uri("pack://application:,,,/"), "./Themes/Fonts/#Inter"), UriKind.Relative);
             // adds the new one (light or dark theme)
             Application.Current.Resources.MergedDictionaries.Add(theme);
         }

@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:sldc.View"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="850">
+             d:DesignHeight="650" d:DesignWidth="850"
+             TextOptions.TextFormattingMode="Ideal">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -16,25 +17,86 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <StackPanel Margin="30,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Grid.ColumnSpan="2">
+            <TextBlock Style="{StaticResource HeaderTextStyle}">
+                DARK SOULS II:<LineBreak/>Scholar of The First Sin
+            </TextBlock>
+            <TextBlock Style="{StaticResource SubHeaderTextStyle}"
+                       Width="800"
+                       TextOptions.TextRenderingMode="Aliased">
+                sub-heading here
+            </TextBlock>
+        </StackPanel>
+
+        <Border Grid.ColumnSpan="2"
+                Width="400" 
+                Height="250"
+                Margin="30,150,0,0"
+                Background="{DynamicResource Background_Level_2}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                CornerRadius="10">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                                  BlurRadius="10"
+                                  Color="Black"
+                                  Opacity="0.4"/>
+            </Border.Effect>
+            
+        </Border>
+        
+        <!--#region Game card cover -->
+        <Border x:Name="Mask"
+                Grid.Column="1"
+                Margin="0,0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                CornerRadius="1000"
+                Background="Yellow">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                          BlurRadius="10"
+                          Color="Black"
+                          Opacity="0.4"/>
+            </Border.Effect>
+            <Image RenderOptions.BitmapScalingMode="HighQuality">
+                <Image.Source>
+                    <BitmapImage UriSource="/Resources/DS2-card-image.png"/>
+                </Image.Source>
+            </Image>
+        </Border>
+
+
         <!--#region navigation buttons-->
         <DockPanel Grid.Column="0" Grid.Row="1"
                    Grid.ColumnSpan="2"
-                   Margin="20,0,0,0">
+                   Margin="30,0,0,0">
             <DockPanel.Resources>
                 <Style TargetType="{x:Type Button}" BasedOn="{StaticResource PrimaryButtonStyle}">
                     <Setter Property="Margin" Value="0,0,30,0"/>
                     <Setter Property="Height" Value="60"/>
                     <Setter Property="Width" Value="120"/>
                     <Setter Property="FontSize" Value="10"/>
-                    <Setter Property="Padding" Value="0,17,0,0"/>
-                    <Setter Property="FontSize" Value="17"/>
+                    <Setter Property="Padding" Value="0,20,0,0"/>
+                    <Setter Property="FontSize" Value="14"/>
                     <Setter Property="HorizontalAlignment" Value="Left" />
+                    <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
+                    <Setter Property="FontWeight" Value="Regular"/>
                 </Style>
             </DockPanel.Resources>
-            <Button Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
-            <Button Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"/>
-            <Button Content="DS3" Command="{Binding DS3NavigateCommand}"/>
-            <Button Content="ER" Command="{Binding ERNavigateCommand}"/>
+            <Button Content="Connect"/>
+            <Button Content="Reset Count"/>
+            <Button Padding="0,12,0,0"
+                    Width="160">
+                <Button.Content>
+                    <TextBlock TextAlignment="Center">
+                        Open Streamer <LineBreak/> Window
+                    </TextBlock>
+                </Button.Content>
+            </Button>
         </DockPanel>
         <!--#endregion-->
     </Grid>
