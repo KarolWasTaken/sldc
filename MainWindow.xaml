@@ -58,7 +58,6 @@
         
 
         <ContentControl Content="{Binding CurrentViewModel}"
-                        Grid.Column="1"
-                        Opacity="0.5"/>
+                        Grid.Column="1"/>
     </Grid>
 </Window>

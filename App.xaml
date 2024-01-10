@@ -7,6 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/DarkTheme.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/SecondaryButtonStyle.xaml"/>
+                <ResourceDictionary Source="Themes/ElementThemes/PrimaryButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

@@ -1,8 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ElementThemes/SecondaryButtonStyle.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
     <SolidColorBrush Color="#F0EFE7" x:Key="TextColour"/>
     <SolidColorBrush Color="#121212" x:Key="Background"/>
     <SolidColorBrush Color="#1E1E1E" x:Key="Backgroud_Level_2"/>

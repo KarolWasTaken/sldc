@@ -12,43 +12,40 @@ namespace sldc.Themes
 {
     public class AppThemeChanger
     {
+
+        private static List<Uri> ADDITIONAL_STYLES_TO_LOAD = new List<Uri>()
+        {
+            new Uri("Themes/ElementThemes/PrimaryButtonStyle.xaml", UriKind.Relative),
+            new Uri("Themes/ElementThemes/SecondaryButtonStyle.xaml", UriKind.Relative),
+        };
+
+
         public static void ChangeTheme(Uri themeuri)
         {
             ResourceDictionary theme = new ResourceDictionary()
             {
                 Source = themeuri
             };
+            // adds additional themes like button styles.
+            foreach (Uri additonalStyle in ADDITIONAL_STYLES_TO_LOAD)
+            {
+                ResourceDictionary additionalTheme = new ResourceDictionary()
+                {
+                    Source = additonalStyle
+                };
+                theme.MergedDictionaries.Add(additionalTheme);
+            }
+            //foreach (var key in theme.Keys)
+            //{
+            //    MessageBox.Show(key.ToString());
+            //}
+            // clears all previous themes and resources
             Application.Current.Resources.Clear();
             Application.Current.Resources.MergedDictionaries.Clear();
+            // adds the new one (light or dark theme)
             Application.Current.Resources.MergedDictionaries.Add(theme);
-
-            foreach (Window window in Application.Current.Windows)
-            {
-                // Assuming controls need to be refreshed in each window
-                foreach (var control in FindVisualChildren<Control>(window))
-                {
-                    control.ApplyTemplate(); // Force re-application of templates
-                }
-            }
         }
-        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
-        {
-            if (depObj != null)
-            {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-                {
-                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if (child != null && child is T t)
-                    {
-                        yield return t;
-                    }
 
-                    foreach (T childOfChild in FindVisualChildren<T>(child))
-                    {
-                        yield return childOfChild;
-                    }
-                }
-            }
-        }
+
     }
 }

@@ -6,7 +6,36 @@
              xmlns:local="clr-namespace:sldc.View"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="850">
-    <Grid Background="Red">
-            
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--#region navigation buttons-->
+        <DockPanel Grid.Column="0" Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   Margin="20,0,0,0">
+            <DockPanel.Resources>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource PrimaryButtonStyle}">
+                    <Setter Property="Margin" Value="0,0,30,0"/>
+                    <Setter Property="Height" Value="60"/>
+                    <Setter Property="Width" Value="120"/>
+                    <Setter Property="FontSize" Value="10"/>
+                    <Setter Property="Padding" Value="0,17,0,0"/>
+                    <Setter Property="FontSize" Value="17"/>
+                    <Setter Property="HorizontalAlignment" Value="Left" />
+                </Style>
+            </DockPanel.Resources>
+            <Button Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
+            <Button Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"/>
+            <Button Content="DS3" Command="{Binding DS3NavigateCommand}"/>
+            <Button Content="ER" Command="{Binding ERNavigateCommand}"/>
+        </DockPanel>
+        <!--#endregion-->
     </Grid>
 </UserControl>
