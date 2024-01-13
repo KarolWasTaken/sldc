@@ -17,7 +17,8 @@ namespace sldc.Themes
         {
             new Uri("Themes/ElementThemes/PrimaryButtonStyle.xaml", UriKind.Relative),
             new Uri("Themes/ElementThemes/SecondaryButtonStyle.xaml", UriKind.Relative),
-            new Uri("Themes/ElementThemes/TextBlockStyles.xaml", UriKind.Relative)
+            new Uri("Themes/ElementThemes/TextBlockStyles.xaml", UriKind.Relative),
+            new Uri("Themes/ElementThemes/HeaderBackgroundOpacityMask.xaml", UriKind.Relative)
         };
 
 

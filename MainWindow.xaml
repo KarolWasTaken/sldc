@@ -8,7 +8,8 @@
         xmlns:Views="clr-namespace:sldc.View"
         xmlns:ViewModels="clr-namespace:sldc.ViewModel" 
         Title="MainWindow" Height="650" Width="1000"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        TextOptions.TextFormattingMode="Ideal">
     <Grid Background="{DynamicResource Background_Level_2}">
         <!--#region Responsible for changing view model for navigation -->
         <Grid.Resources>
@@ -39,9 +40,9 @@
                     <Setter Property="Margin" Value="10,10,10,0"/>
                     <Setter Property="Height" Value="30"/>
                     <Setter Property="FontSize" Value="10"/>
-                    <Setter Property="Padding" Value="6"/>
                     <Setter Property="FontSize" Value="12"/>
                     <Setter Property="Background" Value="{DynamicResource Background_Level_3}"/>
+                    <Setter Property="Padding" Value="6"/>
                 </Style>
             </StackPanel.Resources>
             <Button Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>

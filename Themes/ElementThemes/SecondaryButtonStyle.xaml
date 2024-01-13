@@ -8,26 +8,30 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="border"
-                        BorderThickness="1"
-                        CornerRadius="0"
-                        Background="{TemplateBinding Background}"
-                        Padding="{TemplateBinding Padding}">
-                        <Border.Effect>
-                            <DropShadowEffect ShadowDepth="0"
-                                              Color="Black"
-                                              Opacity="0.5"
-                                              BlurRadius="20"
-                                              Direction="250"/>
-                        </Border.Effect>
-                        <ContentPresenter TextBlock.TextAlignment="Center"/>
+                        BorderThickness="0"
+                        CornerRadius="0">
+                        <Grid>
+                            <Rectangle x:Name="MainShape" Fill="{TemplateBinding Background}"
+                                       Stroke="Transparent">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      Color="Black"
+                                                      Opacity="0.8"
+                                                      BlurRadius="20"
+                                                      Direction="250"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <ContentPresenter TextBlock.TextAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Primary}" />
-                             <!--Change focus color--> 
+                            <Setter TargetName="MainShape" Property="Stroke" Value="{DynamicResource Primary}"/>
+                            <!--Change focus color--> 
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Primary}"/>
+                            <Setter TargetName="MainShape" Property="Fill" Value="{DynamicResource Primary}"/>
                             <Setter TargetName="border" Property="TextBlock.Foreground" Value="{DynamicResource Secondary}"/>
                         </Trigger>
                              <!--Other triggers if needed--> 

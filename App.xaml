@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Themes/ElementThemes/SecondaryButtonStyle.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/PrimaryButtonStyle.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="Themes/ElementThemes/HeaderBackgroundOpacityMask.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

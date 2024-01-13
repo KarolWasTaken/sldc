@@ -9,7 +9,7 @@
              TextOptions.TextFormattingMode="Ideal">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -47,27 +47,68 @@
             </Border.Effect>
             
         </Border>
-        
+
+
         <!--#region Game card cover -->
-        <Border x:Name="Mask"
-                Grid.Column="1"
+        <Border Grid.Column="1"
                 Margin="0,0,30,0"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                CornerRadius="1000"
-                Background="Yellow">
+                HorizontalAlignment="Center"
+                CornerRadius="20"
+                Width="250"
+                Height="250">
             <Border.Effect>
-                <DropShadowEffect ShadowDepth="0"
-                          BlurRadius="10"
-                          Color="Black"
-                          Opacity="0.4"/>
+                <DropShadowEffect ShadowDepth="3"
+                                  BlurRadius="40"   
+                                  Direction="270"
+                                  Color="Black"
+                                  Opacity="1"/>
             </Border.Effect>
-            <Image RenderOptions.BitmapScalingMode="HighQuality">
+            <Border.Background>
+                <ImageBrush Stretch="Fill">
+                    <ImageBrush.ImageSource>
+                        <BitmapImage UriSource="/Resources/DS2-card-image.png"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Border.Background>
+            <!--<Image RenderOptions.BitmapScalingMode="HighQuality">
                 <Image.Source>
                     <BitmapImage UriSource="/Resources/DS2-card-image.png"/>
                 </Image.Source>
-            </Image>
+            </Image>-->
         </Border>
+        <!--#endregion-->
+        <!--#region Card Overlay-->
+        <Border Grid.Column="1"
+                Margin="0,0,30,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                CornerRadius="20"
+                Width="250"
+                Height="250"
+                Background="Black"
+                OpacityMask="{StaticResource HeaderBackgroundOpacityMask}">
+            <StackPanel HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Margin="10,0,0,10">
+                <TextBlock Text="DARK SOULS II"
+                           FontFamily="{StaticResource Inter}"
+                           FontWeight="Regular"
+                           Opacity="1"
+                           FontSize="20"
+                           Foreground="White"/>
+                <TextBlock Foreground="White"
+                           Text="Scholar of The First Sin"
+                           FontSize="15"
+                           FontFamily="{StaticResource Inter}"
+                           FontWeight="Thin"
+                           Opacity="0.8"/>
+
+            </StackPanel>
+        </Border>
+        <!--#endregion-->
+
+
 
 
         <!--#region navigation buttons-->
