@@ -45,7 +45,14 @@
                                   Color="Black"
                                   Opacity="0.4"/>
             </Border.Effect>
-            
+            <TextBlock Text="{Binding DeathCountText}"
+                       Foreground="{DynamicResource TextColour}"
+                       FontFamily="{StaticResource Inter}"
+                       FontWeight="Bold"
+                       FontSize="40"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="10,0,0,0"/>
         </Border>
         
         <!--#region Game card cover -->
@@ -87,10 +94,11 @@
                     <Setter Property="FontWeight" Value="Regular"/>
                 </Style>
             </DockPanel.Resources>
-            <Button Content="Connect"/>
+            <Button Content="{Binding ConnectionButtonText}" Command="{Binding ConnectDS2Command}"/>
             <Button Content="Reset Count"/>
             <Button Padding="0,12,0,0"
-                    Width="160">
+                    Width="160"
+                    Command="{Binding OpenStreamerWindowCommand}">
                 <Button.Content>
                     <TextBlock TextAlignment="Center">
                         Open Streamer <LineBreak/> Window

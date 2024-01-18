@@ -1,10 +1,12 @@
 ﻿using sldc.Commands.NavigateViewModelCommands;
+using sldc.Model;
 using sldc.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace sldc.ViewModel
@@ -32,6 +34,7 @@ namespace sldc.ViewModel
 
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+
         }
 
         /// <summary>
