@@ -1,4 +1,5 @@
 ﻿using sldc.Commands.NavigateViewModelCommands;
+using sldc.Model;
 using sldc.Stores;
 using sldc.View;
 using sldc.ViewModel;
@@ -16,9 +17,11 @@ namespace sldc
     public partial class App : Application
     {
         private readonly NavigationStore _navigationStore;
+        private readonly StreamerWindowStore _streamerWindowStore;
         public App()
         {
             _navigationStore = new NavigationStore();
+            _streamerWindowStore = new StreamerWindowStore();
         }
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -37,7 +40,7 @@ namespace sldc
         }
         private DS2SoTFSViewModel CreateDS2SoTFSViewModel()
         {
-            return new DS2SoTFSViewModel();
+            return new DS2SoTFSViewModel(_streamerWindowStore);
         }
         private DS3ViewModel CreateDS3ViewModel()
         {
