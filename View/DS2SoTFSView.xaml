@@ -4,9 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:sldc.View"
+             xmlns:converter="clr-namespace:sldc.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="850"
              TextOptions.TextFormattingMode="Ideal">
+    <UserControl.Resources>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
@@ -94,7 +98,8 @@
                 Width="250"
                 Height="250"
                 Background="Black"
-                OpacityMask="{StaticResource HeaderBackgroundOpacityMask}">
+                OpacityMask="{StaticResource HeaderBackgroundOpacityMask}"
+                Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         Margin="10,0,0,10">
@@ -105,7 +110,7 @@
                            FontSize="20"
                            Foreground="White"/>
                 <TextBlock Foreground="White"
-                           Text="Scholar of The First Sin"
+                           Text="{Binding ElapsedTime}"
                            FontSize="15"
                            FontFamily="{StaticResource Inter}"
                            FontWeight="Thin"

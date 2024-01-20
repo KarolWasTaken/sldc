@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".env" />
     <None Remove="Resources\DS2-card-image.png" />
     <None Remove="Themes\Fonts\Inter-Black.ttf" />
     <None Remove="Themes\Fonts\Inter-BlackItalic.ttf" />
@@ -35,12 +36,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="PropertyHook">
       <HintPath>PropertyHook.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include=".env">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\DS2-card-image.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

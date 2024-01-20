@@ -1,4 +1,6 @@
-﻿using sldc.Model;
+﻿using DiscordRPC;
+using sldc.Model;
+using sldc.Stores;
 using sldc.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,11 @@ namespace sldc.Commands
     class ConnectDS2Command : CommandBase
     {
         private DS2SoTFSViewModel _dS2SoTFSViewModel;
-        public ConnectDS2Command(ViewModel.DS2SoTFSViewModel dS2SoTFSViewModel)
+        private DRPClientStore _discordRpcClientStore;
+        public ConnectDS2Command(DS2SoTFSViewModel dS2SoTFSViewModel, DRPClientStore discordRpcClientStore)
         {
             _dS2SoTFSViewModel = dS2SoTFSViewModel;
+            _discordRpcClientStore = discordRpcClientStore;
         }
 
         public override void Execute(object? parameter)
@@ -33,7 +37,10 @@ namespace sldc.Commands
             }
             // if sllvl is not 0, we are in game and we can connect.
             if (ds2h.slLvl != 0)
+            {
                 _dS2SoTFSViewModel.IsConnectedToGame = true;
+                _discordRpcClientStore.CreateClient(DRPClientStore.ENVTokens.DS2_TOKEN);
+            }
             else
             {
                 // couldnt connect to game
