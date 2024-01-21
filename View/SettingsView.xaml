@@ -45,6 +45,7 @@
                                   HorizontalAlignment="Left"
                                   Margin="10,5,0,0"
                                   ItemsSource="{Binding ThemeList}"
+                                  SelectedIndex="{Binding SelectedThemeIndex}"
                                   SelectedItem="{Binding SelectedTheme, UpdateSourceTrigger=PropertyChanged}">
                         </ComboBox>
                     </StackPanel>

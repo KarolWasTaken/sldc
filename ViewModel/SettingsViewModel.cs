@@ -23,7 +23,7 @@ namespace sldc.ViewModel
             get { return _themeList; }
             set { _themeList = value; }
         }
-
+        public int SelectedThemeIndex { get; set; }
         private ThemeType _selectedTheme;
         public ThemeType SelectedTheme
         {
@@ -76,14 +76,14 @@ namespace sldc.ViewModel
             _hookStore = hookStore;
 
             // set enum from settings
-            if (!Enum.TryParse<ThemeType>(Helper.Config["Theme"], out ThemeType EnumString))
+            ThemeType currentTheme = ThemeType.DarkTheme;
+            if (Enum.TryParse<ThemeType>(Helper.Config["Theme"], out ThemeType EnumString))
             {
-                SelectedTheme = EnumString;
+                currentTheme = EnumString;
             }
-            else
-            {
-                SelectedTheme = ThemeType.DarkTheme;
-            }
+            SelectedThemeIndex = (int)currentTheme;
+            SelectedTheme = currentTheme;
+            OnPropertyChanged(nameof(SelectedThemeIndex));
 
             // setup drp button
             if (Helper.Config["IsDRPEnabled"] == "True")
