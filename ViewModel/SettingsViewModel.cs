@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Automation;
@@ -38,7 +39,7 @@ namespace sldc.ViewModel
                 OnPropertyChanged(nameof(ApplyButtonEnabled));
             }
         }
-        public bool DRPStatus;
+        public bool DRPStatus { get; set; }
         private string _drpButtonText;
         public string DRPButtonText
         {
@@ -95,7 +96,7 @@ namespace sldc.ViewModel
                 DRPStatus = false;
                 DRPButtonText = "Enable";
             }
-            
+            OnPropertyChanged(nameof(DRPStatus));
             // set up commands
             RevertSettingsToDefaultCommand = new RevertSettingsToDefaultCommand();
             CommittSettingsChangesCommand = new CommittSettingsChangesCommand(this);
@@ -107,6 +108,7 @@ namespace sldc.ViewModel
         private void ToggleDRP(object paramters)
         {
             DRPStatus = !DRPStatus;
+            OnPropertyChanged(nameof(DRPStatus));
             if (DRPStatus == true)
             {
                 // drp turn on from off
