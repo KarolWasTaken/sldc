@@ -54,10 +54,10 @@
             <Button Content="DS3" Command="{Binding DS3NavigateCommand}"/>
             <Button Content="ER" Command="{Binding ERNavigateCommand}"/>
             <!-- temp -->
-            <CheckBox Content="LightTheme" Checked="DarkThemePressed"
+            <!--CheckBox Content="LightTheme" Checked="DarkThemePressed"
                       Unchecked="LightThemePressed"
                       Margin="10,50,0,0"
-                      Foreground="{DynamicResource TextColour}"/>
+                      Foreground="{DynamicResource TextColour}"/-->
         </StackPanel>
         <!--#endregion-->
         <!-- Bottom region buttons -->

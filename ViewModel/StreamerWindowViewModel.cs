@@ -19,9 +19,9 @@ namespace sldc.ViewModel
 			get { return $"Deaths: {_deathCount}"; }
 		}
 
-		public StreamerWindowViewModel(BaseHook hook, StreamerWindowStore streamerWindowStore)
+		public StreamerWindowViewModel(HookStore hookStore, StreamerWindowStore streamerWindowStore)
         {
-            _hook = hook;
+            _hook = hookStore.hook;
             _deathCount = _hook.Death;
             _hook.DeathCountChanged += OnDeathCountChanged;
             StreamerWindowStore = streamerWindowStore;

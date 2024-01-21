@@ -14,7 +14,7 @@ namespace sldc.ViewModel
 {
     class DS2SoTFSViewModel : ViewModelBase
     {
-        private DS2Hook ds2h;
+        internal DS2Hook ds2h;
         private DRPClientStore _discordRpcClientStore;
         private Stopwatch stopwatch;
         private DispatcherTimer timer;
@@ -93,9 +93,7 @@ namespace sldc.ViewModel
         public DS2SoTFSViewModel(StreamerWindowStore streamerWindowStore, DRPClientStore discordRpcClientStore, HookStore _hookStore)
         {
             _discordRpcClientStore = discordRpcClientStore;
-            _hookStore.hook = new DS2Hook();
-            ds2h = (DS2Hook)_hookStore.hook;
-
+            
             // set up timer for elapsed time
             stopwatch = new Stopwatch();
             timer = new DispatcherTimer();
@@ -105,8 +103,8 @@ namespace sldc.ViewModel
 
 
             // set up commands
-            ConnectDS2Command = new ConnectDS2Command(this, discordRpcClientStore);
-            OpenStreamerWindowCommand = new OpenStreamerWindowComand(ds2h, streamerWindowStore);
+            ConnectDS2Command = new ConnectDS2Command(this, discordRpcClientStore, _hookStore);
+            OpenStreamerWindowCommand = new OpenStreamerWindowComand(_hookStore, streamerWindowStore);
 
             // set up "Connect" button
             ConnectToGameButtonSwap(false);
@@ -133,6 +131,7 @@ namespace sldc.ViewModel
             timer.Stop();
             stopwatch.Restart();
             ElapsedTime = TimeSpan.Zero;
+            _discordRpcClientStore.ElaspedTime = TimeSpan.Zero;
         }
         private void Timer_Tick(object? sender, EventArgs e)
         {
@@ -141,6 +140,7 @@ namespace sldc.ViewModel
             string formattedTime = $"{stopwatch.Elapsed.Hours:D2}:{stopwatch.Elapsed.Minutes:D2}:{stopwatch.Elapsed.Seconds:D2}";
             // Update the ElapsedTime property with the formatted time
             ElapsedTime = TimeSpan.ParseExact(formattedTime, "hh\\:mm\\:ss", null);
+            _discordRpcClientStore.ElaspedTime = ElapsedTime;
         }
     }
 }

@@ -18,8 +18,9 @@ namespace sldc.Stores
         }
         public ENVTokens CurrentClientToken;
 
-        private DiscordRpcClient Client;
+        public DiscordRpcClient Client;
         private RichPresence Presence;
+        public TimeSpan ElaspedTime;
 
         public void CreateClient(ENVTokens ENVToken)
         {
@@ -40,10 +41,27 @@ namespace sldc.Stores
                     gameName = "DARK SOULS™ III";
                     break;
             }
+            Timestamps timeElasped;
+            if (ElaspedTime.TotalMilliseconds > 100)
+            {
+                Timestamps startTime = Timestamps.FromTimeSpan(ElaspedTime);
+                Timestamps test = new Timestamps()
+                {
+                    Start = DateTime.UtcNow - ElaspedTime,
+                    End = null
+                };
+                timeElasped = test;
+
+            }
+            else
+            {
+                timeElasped = Timestamps.Now;
+            }
+
             Presence = new RichPresence()
             {
                 Details = $"Death #0",
-                Timestamps = Timestamps.Now,
+                Timestamps = timeElasped,
                 Assets = new Assets()
                 {
                     LargeImageKey = "large-image",

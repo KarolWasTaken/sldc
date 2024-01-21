@@ -16,10 +16,12 @@ namespace sldc.Commands
     {
         private DS2SoTFSViewModel _dS2SoTFSViewModel;
         private DRPClientStore _discordRpcClientStore;
-        public ConnectDS2Command(DS2SoTFSViewModel dS2SoTFSViewModel, DRPClientStore discordRpcClientStore)
+        private HookStore _hookStore;
+        public ConnectDS2Command(DS2SoTFSViewModel dS2SoTFSViewModel, DRPClientStore discordRpcClientStore, HookStore hookStore)
         {
             _dS2SoTFSViewModel = dS2SoTFSViewModel;
             _discordRpcClientStore = discordRpcClientStore;
+            _hookStore = hookStore;
         }
 
         public override void Execute(object? parameter)
@@ -38,8 +40,11 @@ namespace sldc.Commands
             // if sllvl is not 0, we are in game and we can connect.
             if (ds2h.slLvl != 0)
             {
+                _hookStore.hook = new DS2Hook();
+                _dS2SoTFSViewModel.ds2h = (DS2Hook)_hookStore.hook;
                 _dS2SoTFSViewModel.IsConnectedToGame = true;
-                _discordRpcClientStore.CreateClient(DRPClientStore.ENVTokens.DS2_TOKEN);
+                if(Helper.Config["IsDRPEnabled"] == "True")
+                    _discordRpcClientStore.CreateClient(DRPClientStore.ENVTokens.DS2_TOKEN);
             }
             else
             {
