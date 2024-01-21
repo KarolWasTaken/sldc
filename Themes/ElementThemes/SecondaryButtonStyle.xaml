@@ -16,7 +16,7 @@
                                 <Rectangle.Effect>
                                     <DropShadowEffect ShadowDepth="0"
                                                       Color="Black"
-                                                      Opacity="0.8"
+                                                      Opacity="0.3"
                                                       BlurRadius="20"
                                                       Direction="250"/>
                                 </Rectangle.Effect>

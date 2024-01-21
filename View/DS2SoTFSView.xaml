@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:sldc.View"
              xmlns:converter="clr-namespace:sldc.Converter"
+             xmlns:ElementThemes="clr-namespace:sldc.Themes.ElementThemes"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="850"
              TextOptions.TextFormattingMode="Ideal">
@@ -138,6 +139,7 @@
                     <Setter Property="HorizontalAlignment" Value="Left" />
                     <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
                     <Setter Property="FontWeight" Value="Regular"/>
+                    <Setter Property="ElementThemes:PrimaryButtonStyleHelper.CornerRadius" Value="30"/>
                 </Style>
             </DockPanel.Resources>
             <Button Content="{Binding ConnectionButtonText}" Command="{Binding ConnectDS2Command}"/>

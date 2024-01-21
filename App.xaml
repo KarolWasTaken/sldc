@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Themes/ElementThemes/PrimaryButtonStyle.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/HeaderBackgroundOpacityMask.xaml"/>
+                <ResourceDictionary Source="Themes/ElementThemes/ModernScrollBarStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

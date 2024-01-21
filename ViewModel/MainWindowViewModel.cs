@@ -21,16 +21,19 @@ namespace sldc.ViewModel
         public ICommand DS2SoTFSNavigateCommand { get; }
         public ICommand DS3NavigateCommand { get; }
         public ICommand ERNavigateCommand { get; }
+        public ICommand SettingsNavigateCommand { get; }
         public MainWindowViewModel(NavigationStore navigationStore,
             Func<DSREViewModel> createDSREViewModel,
             Func<DS2SoTFSViewModel> createDS2SoTFSViewModel,
             Func<DS3ViewModel> createDS3ViewModel,
-            Func<ERViewModel> createERViewModel)
+            Func<ERViewModel> createERViewModel,
+            Func<SettingsViewModel> createSettingsViewModel)
         {
             DSRENavigateCommand = new DSRENavigateCommand(this, navigationStore, createDSREViewModel);
             DS2SoTFSNavigateCommand = new DS2SoTFSNavigateCommand(this, navigationStore, createDS2SoTFSViewModel);
             DS3NavigateCommand = new DS3NavigateCommand(this, navigationStore, createDS3ViewModel);
             ERNavigateCommand = new ERNaviagteCommand(this, navigationStore, createERViewModel);
+            SettingsNavigateCommand = new SettingsNavigateCommand(this, navigationStore, createSettingsViewModel);
 
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;

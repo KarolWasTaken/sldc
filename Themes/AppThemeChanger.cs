@@ -12,13 +12,14 @@ namespace sldc.Themes
 {
     public class AppThemeChanger
     {
-
+        // not entirely elegant.
         private static List<Uri> ADDITIONAL_STYLES_TO_LOAD = new List<Uri>()
         {
             new Uri("Themes/ElementThemes/PrimaryButtonStyle.xaml", UriKind.Relative),
             new Uri("Themes/ElementThemes/SecondaryButtonStyle.xaml", UriKind.Relative),
             new Uri("Themes/ElementThemes/TextBlockStyles.xaml", UriKind.Relative),
-            new Uri("Themes/ElementThemes/HeaderBackgroundOpacityMask.xaml", UriKind.Relative)
+            new Uri("Themes/ElementThemes/HeaderBackgroundOpacityMask.xaml", UriKind.Relative),
+            new Uri("Themes/ElementThemes/ModernScrollBarStyle.xaml", UriKind.Relative)
         };
 
 

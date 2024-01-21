@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="sldc.View.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:sldc.View"
+             xmlns:ElementThemes="clr-namespace:sldc.Themes.ElementThemes"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="850">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Style="{StaticResource HeaderTextStyle}"
+                   Margin="30,10,0,0">
+            SETTINGS
+        </TextBlock>
+
+        <ScrollViewer Grid.Row="1" Margin="30,0,10,0" CanContentScroll="False">
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Margin" Value="0,0,0,10"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Border Background="{DynamicResource Background_Level_2}"
+                        Height="70"
+                        CornerRadius="10">
+                    <StackPanel>
+                        <TextBlock Text="Theme"
+                                   FontFamily="{StaticResource Inter}"
+                                   FontWeight="Regular"
+                                   FontSize="20"
+                                   Foreground="{DynamicResource TextColour}"
+                                   Opacity="0.8"
+                                   Margin="10,5,0,0"/>
+                        <ComboBox Width="100"
+                                  HorizontalAlignment="Left"
+                                  Margin="10,5,0,0"
+                                  SelectedItem="Light Theme"
+                                  SelectedIndex="1">
+
+                            <ComboBoxItem Content="Light Theme"/>
+                            <ComboBoxItem Content="Dark Theme"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Border>
+                <Border Background="{DynamicResource Background_Level_2}"
+                        Height="70"
+                        CornerRadius="10">
+                    <StackPanel>
+                        <TextBlock Text="Discord Rich Presence"
+                                   FontFamily="{StaticResource Inter}"
+                                   FontWeight="Regular"
+                                   FontSize="20"
+                                   Foreground="{DynamicResource TextColour}"
+                                   Opacity="0.8"
+                                   Margin="10,5,0,0"/>
+                        <Button Style="{StaticResource PrimaryButtonStyle}"
+                                Background="{DynamicResource Background_Level_3}"
+                                Content="Disable"
+                                HorizontalAlignment="Left"
+                                Margin="10,5,0,0"
+                                Width="100"
+                                Height="25"
+                                Padding="0,3,0,0"
+                                ElementThemes:PrimaryButtonStyleHelper.CornerRadius="8"/>
+                    </StackPanel>
+
+                </Border>
+
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <DockPanel Grid.Row="2"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center">
+            <DockPanel.Resources>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource PrimaryButtonStyle}">
+                    <Setter Property="Height" Value="40"/>
+                    <Setter Property="Width" Value="80"/>
+                    <Setter Property="Padding" Value="0,11,0,0"/>
+                    <Setter Property="Margin" Value="0,0,10,0"/>
+                    <Setter Property="ElementThemes:PrimaryButtonStyleHelper.CornerRadius" Value="20"/>
+                </Style>
+            </DockPanel.Resources>
+            <Button Content="Revert"/>
+            <Button Content="Apply" IsEnabled="False"/>
+        </DockPanel>
+
+    </Grid>
+</UserControl>

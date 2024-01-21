@@ -26,7 +26,6 @@ namespace sldc.ViewModel
             _hook.DeathCountChanged += OnDeathCountChanged;
             StreamerWindowStore = streamerWindowStore;
         }
-
         private void OnDeathCountChanged()
         {
             _deathCount = _hook.Death;

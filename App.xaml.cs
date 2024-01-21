@@ -29,6 +29,7 @@ namespace sldc
         private DS2SoTFSViewModel _dS2SoTFSViewModel;
         private DS3ViewModel _dS3ViewModel;
         private ERViewModel _eRViewModel;
+        private SettingsViewModel _settingsViewModel;
         public App()
         {
             _navigationStore = new NavigationStore();
@@ -42,6 +43,7 @@ namespace sldc
             _dS2SoTFSViewModel = new DS2SoTFSViewModel(_streamerWindowStore, _discordRpcClientStore, _hookStore);
             _dS3ViewModel = new DS3ViewModel();
             _eRViewModel = new ERViewModel();
+            _settingsViewModel = new SettingsViewModel();
         }
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -52,7 +54,15 @@ namespace sldc
 
             MainWindow mainWindow = new MainWindow()
             {
-                DataContext = new MainWindowViewModel(_navigationStore, CreateDSREViewModel, CreateDS2SoTFSViewModel, CreateDS3ViewModel, CreateERViewModel)
+                DataContext = new MainWindowViewModel
+                (
+                    _navigationStore,
+                    CreateDSREViewModel,
+                    CreateDS2SoTFSViewModel,
+                    CreateDS3ViewModel,
+                    CreateERViewModel,
+                    CreateSettingsViewModel
+                )
             };
             mainWindow.Show();
 
@@ -74,6 +84,10 @@ namespace sldc
         private ERViewModel CreateERViewModel()
         {
             return _eRViewModel;
+        }
+        private SettingsViewModel CreateSettingsViewModel()
+        {
+            return _settingsViewModel;
         }
     }
 
