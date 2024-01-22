@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="Themes/ElementThemes/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/HeaderBackgroundOpacityMask.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/ModernScrollBarStyle.xaml"/>
+                <ResourceDictionary Source="Themes/ElementThemes/DeathCounterIslandStyles.xaml"/>
+                <ResourceDictionary Source="Themes/ElementThemes/ImageCardStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

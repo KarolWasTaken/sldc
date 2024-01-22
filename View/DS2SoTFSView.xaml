@@ -29,75 +29,35 @@
             <TextBlock Style="{StaticResource HeaderTextStyle}">
                 DARK SOULS II:<LineBreak/>Scholar of The First Sin
             </TextBlock>
-            <TextBlock Style="{StaticResource SubHeaderTextStyle}"
+            <!--<TextBlock Style="{StaticResource SubHeaderTextStyle}"
                        Width="800"
                        TextOptions.TextRenderingMode="Aliased">
                 sub-heading here
-            </TextBlock>
+            </TextBlock>-->
         </StackPanel>
 
-        <Border Grid.ColumnSpan="2"
-                Width="400" 
-                Height="250"
-                Margin="30,150,0,0"
-                Background="{DynamicResource Background_Level_2}"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                CornerRadius="10">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="0"
-                                  BlurRadius="10"
-                                  Color="Black"
-                                  Opacity="0.4"/>
-            </Border.Effect>
-            <TextBlock Text="{Binding DeathCountText}"
-                       Foreground="{DynamicResource TextColour}"
-                       FontFamily="{StaticResource Inter}"
-                       FontWeight="Bold"
-                       FontSize="40"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Margin="10,0,0,0"/>
+        <Border Style="{StaticResource DeathCounterIsland}">
+            <TextBlock Style="{StaticResource DeathCounterText}"/>
         </Border>
+
 
 
         <!--#region Game card cover -->
         <Border Grid.Column="1"
                 Margin="0,0,30,0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                CornerRadius="20"
-                Width="250"
-                Height="250">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="3"
-                                  BlurRadius="40"   
-                                  Direction="270"
-                                  Color="Black"
-                                  Opacity="1"/>
-            </Border.Effect>
+                Style="{StaticResource CardBorderStyle}">
             <Border.Background>
-                <ImageBrush Stretch="Fill">
+                <ImageBrush Stretch="Fill" >
                     <ImageBrush.ImageSource>
                         <BitmapImage UriSource="/Resources/DS2-card-image.png"/>
                     </ImageBrush.ImageSource>
                 </ImageBrush>
             </Border.Background>
-            <!--<Image RenderOptions.BitmapScalingMode="HighQuality">
-                <Image.Source>
-                    <BitmapImage UriSource="/Resources/DS2-card-image.png"/>
-                </Image.Source>
-            </Image>-->
         </Border>
         <!--#endregion-->
         <!--#region Card Overlay-->
         <Border Grid.Column="1"
-                Margin="0,0,30,0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                CornerRadius="20"
-                Width="250"
-                Height="250"
+                Style="{StaticResource CardBorderStyleNoShadow}"
                 Background="Black"
                 OpacityMask="{StaticResource HeaderBackgroundOpacityMask}"
                 Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -124,29 +84,21 @@
 
 
 
+
         <!--#region navigation buttons-->
         <DockPanel Grid.Column="0" Grid.Row="1"
                    Grid.ColumnSpan="2"
                    Margin="30,0,0,0">
-            <DockPanel.Resources>
-                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource PrimaryButtonStyle}">
-                    <Setter Property="Margin" Value="0,0,30,0"/>
-                    <Setter Property="Height" Value="60"/>
-                    <Setter Property="Width" Value="120"/>
-                    <Setter Property="FontSize" Value="10"/>
-                    <Setter Property="Padding" Value="0,20,0,0"/>
-                    <Setter Property="FontSize" Value="14"/>
-                    <Setter Property="HorizontalAlignment" Value="Left" />
-                    <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
-                    <Setter Property="FontWeight" Value="Regular"/>
-                    <Setter Property="ElementThemes:PrimaryButtonStyleHelper.CornerRadius" Value="30"/>
-                </Style>
-            </DockPanel.Resources>
-            <Button Content="{Binding ConnectionButtonText}" Command="{Binding ConnectDS2Command}"/>
-            <Button Content="Reset Count"/>
+            <Button Content="{Binding ConnectionButtonText}"
+                    Command="{Binding ConnectGameCommand}"
+                    CommandParameter="DS2"
+                    Style="{StaticResource MainButtom}"/>
+            <Button Content="Reset Count"
+                    Style="{StaticResource MainButtom}"/>
             <Button Padding="0,12,0,0"
                     Width="160"
-                    Command="{Binding OpenStreamerWindowCommand}">
+                    Command="{Binding OpenStreamerWindowCommand}"
+                    Style="{StaticResource MainButtom}">
                 <Button.Content>
                     <TextBlock TextAlignment="Center">
                         Open Streamer <LineBreak/> Window

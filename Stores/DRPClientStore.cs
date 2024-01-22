@@ -58,17 +58,31 @@ namespace sldc.Stores
                 timeElasped = Timestamps.Now;
             }
 
-            Presence = new RichPresence()
+            Assets assets;
+            if(Helper.ReturnSettings().EnableDRPCredit == true) 
             {
-                Details = $"Death #0",
-                Timestamps = timeElasped,
-                Assets = new Assets()
+                assets = new Assets()
                 {
                     LargeImageKey = "large-image",
                     LargeImageText = gameName,
                     SmallImageKey = "small-image",
                     SmallImageText = "By Karoll :)"
-                }
+                };
+            }
+            else 
+            {
+                assets = new Assets()
+                {
+                    LargeImageKey = "large-image",
+                    LargeImageText = gameName,
+                };
+            }
+
+            Presence = new RichPresence()
+            {
+                Details = $"Death #0",
+                Timestamps = timeElasped,
+                Assets = assets
             };
             Client.SetPresence(Presence);
         }

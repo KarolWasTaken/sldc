@@ -15,6 +15,7 @@ namespace sldc
     public static class Helper
     {
         public static Settings settings = new Settings();
+       
         public static IConfigurationRoot Config
         {
             get
@@ -30,6 +31,15 @@ namespace sldc
             string json = JsonConvert.SerializeObject(settings, Formatting.Indented);
             File.WriteAllText("appsettings.json", json);
             Config.Reload();
+        }
+        public static Settings ReturnSettings()
+        {
+            // read json file
+            string json = File.ReadAllText("appsettings.json");
+            // Deserialize JSON into Settings object
+            Settings settings = JsonConvert.DeserializeObject<Settings>(json);
+            Helper.settings = settings;
+            return settings;
         }
     }
 

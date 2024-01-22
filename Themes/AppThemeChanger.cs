@@ -19,7 +19,9 @@ namespace sldc.Themes
             new Uri("Themes/ElementThemes/SecondaryButtonStyle.xaml", UriKind.Relative),
             new Uri("Themes/ElementThemes/TextBlockStyles.xaml", UriKind.Relative),
             new Uri("Themes/ElementThemes/HeaderBackgroundOpacityMask.xaml", UriKind.Relative),
-            new Uri("Themes/ElementThemes/ModernScrollBarStyle.xaml", UriKind.Relative)
+            new Uri("Themes/ElementThemes/ModernScrollBarStyle.xaml", UriKind.Relative),
+            new Uri("Themes/ElementThemes/DeathCounterIslandStyles.xaml", UriKind.Relative),
+            new Uri("Themes/ElementThemes/ImageCardStyles.xaml", UriKind.Relative),
         };
 
 

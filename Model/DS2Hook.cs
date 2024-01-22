@@ -28,7 +28,7 @@ namespace sldc.Model
             get => CreateChildPointer(BaseA, 0xD0).ReadInt32(0x168);
         }
         // maybe for drp
-        public int slLvl
+        public override int slLvl
         {
             get => CreateChildPointer(BaseA, 0xD0, 0x490).ReadInt32(0xD0);
         }

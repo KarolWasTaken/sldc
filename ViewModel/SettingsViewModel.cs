@@ -39,19 +39,8 @@ namespace sldc.ViewModel
                 OnPropertyChanged(nameof(ApplyButtonEnabled));
             }
         }
+        public bool EnableDRPCredit { get; set; }
         public bool DRPStatus { get; set; }
-        private string _drpButtonText;
-        public string DRPButtonText
-        {
-            get { return _drpButtonText; }
-            set { 
-                _drpButtonText = value; 
-                OnPropertyChanged(nameof(DRPButtonText));
-                ApplyButtonEnabled = true;
-                OnPropertyChanged(nameof(ApplyButtonEnabled));
-            }
-        }
-
 
         private bool _applyButtonEnabled;
         public bool ApplyButtonEnabled
@@ -69,11 +58,14 @@ namespace sldc.ViewModel
         public ICommand RevertSettingsToDefaultCommand { get; }
         public ICommand CommittSettingsChangesCommand { get; }
         public RelayCommand ToggleDRPCommand { get; private set; }
+        public RelayCommand ToggleDRPCreditCommand { get; private set; }
         public SettingsViewModel(DRPClientStore _discordRpcClientStore, HookStore hookStore)
         {
             // store set up
             _drpClientStore = _discordRpcClientStore;
             _hookStore = hookStore;
+            // grab settings
+            Settings settings = Helper.ReturnSettings();
 
             // set enum from settings
             ThemeType currentTheme = ThemeType.DarkTheme;
@@ -86,21 +78,19 @@ namespace sldc.ViewModel
             OnPropertyChanged(nameof(SelectedThemeIndex));
 
             // setup drp button
-            if (Helper.Config["IsDRPEnabled"] == "True")
-            {
-                DRPStatus = true;
-                DRPButtonText = "Disable";
-            }
-            else
-            {
-                DRPStatus = false;
-                DRPButtonText = "Enable";
-            }
+            DRPStatus = settings.IsDRPEnabled == true;
             OnPropertyChanged(nameof(DRPStatus));
+
+            // setup credit
+            EnableDRPCredit = settings.EnableDRPCredit == true;
+            OnPropertyChanged(nameof(EnableDRPCredit));
+
+
             // set up commands
             RevertSettingsToDefaultCommand = new RevertSettingsToDefaultCommand();
             CommittSettingsChangesCommand = new CommittSettingsChangesCommand(this);
             ToggleDRPCommand = new RelayCommand(ToggleDRP);
+            ToggleDRPCreditCommand = new RelayCommand(ToggleDRPCredit);
 
             ApplyButtonEnabled = false;
         }
@@ -109,24 +99,22 @@ namespace sldc.ViewModel
         {
             DRPStatus = !DRPStatus;
             OnPropertyChanged(nameof(DRPStatus));
-            if (DRPStatus == true)
-            {
-                // drp turn on from off
-                DRPButtonText = "Disable";
-            }
-            else
-            {
-                // drp off from on
-                DRPButtonText = "Enable";
-            }
+            ApplyButtonEnabled = true;
         }
-
+        private void ToggleDRPCredit(object paramters)
+        { 
+            EnableDRPCredit = !EnableDRPCredit;
+            OnPropertyChanged(nameof(EnableDRPCredit));
+            ApplyButtonEnabled = true;
+        }
         public static DRPClientStore.ENVTokens GetEnvTokenFromHook(BaseHook hook)
         {
             switch (hook)
             {
-                case DS2Hook ds2h:
+                case DS2Hook:
                     return DRPClientStore.ENVTokens.DS2_TOKEN;
+                case DS3Hook:
+                    return DRPClientStore.ENVTokens.DS3_TOKEN;
                 default: 
                     throw new NotImplementedException();
             }

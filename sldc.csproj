@@ -12,6 +12,8 @@
     <None Remove=".env" />
     <None Remove="appsettings.json" />
     <None Remove="Resources\DS2-card-image.png" />
+    <None Remove="Resources\DS3-card-image.jpg" />
+    <None Remove="Resources\DSR-card-image.png" />
     <None Remove="Themes\Fonts\Inter-Black.ttf" />
     <None Remove="Themes\Fonts\Inter-BlackItalic.ttf" />
     <None Remove="Themes\Fonts\Inter-Bold.ttf" />
@@ -57,6 +59,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\DS2-card-image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\DS3-card-image.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\DSR-card-image.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Themes\Fonts\Inter-Black.ttf">

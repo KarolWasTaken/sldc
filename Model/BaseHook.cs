@@ -18,6 +18,7 @@ namespace sldc.Model
 
         // abstract variable for death count
         public abstract int Death { get; }
+        public abstract int slLvl { get; }
         // check for deaths flag
         private bool _checkForDeaths;
         public bool CheckForDeaths

@@ -39,8 +39,8 @@ namespace sldc
             // create viewmodels once. This means, when we re-enter them, they
             // will remain the same and wont be re-instantiated.
             _dSREViewModel = new DSREViewModel();
-            _dS2SoTFSViewModel = new DS2SoTFSViewModel(_streamerWindowStore, _discordRpcClientStore, _hookStore);
-            _dS3ViewModel = new DS3ViewModel();
+            _dS2SoTFSViewModel = new DS2SoTFSViewModel(_streamerWindowStore, _discordRpcClientStore, _hookStore, DRPClientStore.ENVTokens.DS2_TOKEN);
+            _dS3ViewModel = new DS3ViewModel(_streamerWindowStore, _discordRpcClientStore, _hookStore, DRPClientStore.ENVTokens.DS3_TOKEN);
             _eRViewModel = new ERViewModel();
         }
         protected override void OnStartup(StartupEventArgs e)

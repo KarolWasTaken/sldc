@@ -4,9 +4,107 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:sldc.View"
+             xmlns:converter="clr-namespace:sldc.Converter"
+             xmlns:ElementThemes="clr-namespace:sldc.Themes.ElementThemes"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="850">
-    <Grid Background="Blue">
-            
+    <UserControl.Resources>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="30,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Grid.ColumnSpan="2">
+            <TextBlock Style="{StaticResource HeaderTextStyle}">
+                DARK SOULS III:
+            </TextBlock>
+            <!--<TextBlock Style="{StaticResource SubHeaderTextStyle}"
+                       Width="800"
+                       TextOptions.TextRenderingMode="Aliased">
+                sub-heading here
+            </TextBlock>-->
+        </StackPanel>
+
+        <Border Style="{StaticResource DeathCounterIsland}">
+            <TextBlock Style="{StaticResource DeathCounterText}"/>
+        </Border>
+
+
+
+        <!--#region Game card cover -->
+        <Border Grid.Column="1"
+                Margin="0,0,30,0"
+                Style="{StaticResource CardBorderStyle}">
+            <Border.Background>
+                <ImageBrush Stretch="Fill" >
+                    <ImageBrush.ImageSource>
+                        <BitmapImage UriSource="/Resources/DS3-card-image.jpg"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Border.Background>
+        </Border>
+        <!--#endregion-->
+        <!--#region Card Overlay-->
+        <Border Grid.Column="1"
+                Style="{StaticResource CardBorderStyleNoShadow}"
+                Background="Black"
+                OpacityMask="{StaticResource HeaderBackgroundOpacityMask}"
+                Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Margin="10,0,0,10">
+                <TextBlock Text="DARK SOULS III"
+                           FontFamily="{StaticResource Inter}"
+                           FontWeight="Regular"
+                           Opacity="1"
+                           FontSize="20"
+                           Foreground="White"/>
+                <TextBlock Foreground="White"
+                           Text="{Binding ElapsedTime}"
+                           FontSize="15"
+                           FontFamily="{StaticResource Inter}"
+                           FontWeight="Thin"
+                           Opacity="0.8"/>
+
+            </StackPanel>
+        </Border>
+        <!--#endregion-->
+
+
+
+
+
+        <!--#region navigation buttons-->
+        <DockPanel Grid.Column="0" Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   Margin="30,0,0,0">
+            <Button Content="{Binding ConnectionButtonText}"
+                    Command="{Binding ConnectGameCommand}"
+                    CommandParameter="DS3"
+                    Style="{StaticResource MainButtom}"/>
+            <Button Content="Reset Count"
+                    Style="{StaticResource MainButtom}"/>
+            <Button Padding="0,12,0,0"
+                    Width="160"
+                    Command="{Binding OpenStreamerWindowCommand}"
+                    Style="{StaticResource MainButtom}">
+                <Button.Content>
+                    <TextBlock TextAlignment="Center">
+                        Open Streamer <LineBreak/> Window
+                    </TextBlock>
+                </Button.Content>
+            </Button>
+        </DockPanel>
+        <!--#endregion-->
     </Grid>
 </UserControl>

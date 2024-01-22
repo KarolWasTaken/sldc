@@ -4,12 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sldc"
+        xmlns:converters="clr-namespace:sldc.Converter"
         mc:Ignorable="d"
         xmlns:Views="clr-namespace:sldc.View"
         xmlns:ViewModels="clr-namespace:sldc.ViewModel" 
         Title="MainWindow" Height="650" Width="1000"
         ResizeMode="CanMinimize"
         TextOptions.TextFormattingMode="Ideal">
+    <Window.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+
     <Grid Background="{DynamicResource Background_Level_2}">
         <!--#region Responsible for changing view model for navigation -->
         <Grid.Resources>

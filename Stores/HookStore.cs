@@ -10,5 +10,6 @@ namespace sldc.Stores
     public class HookStore
     {
         public BaseHook hook;
+        public string HookedGame;
     }
 }
