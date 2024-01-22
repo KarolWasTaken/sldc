@@ -1,4 +1,5 @@
-﻿using sldc.Stores;
+﻿using sldc.Converter;
+using sldc.Stores;
 using sldc.Themes;
 using sldc.ViewModel;
 using System;
@@ -26,18 +27,22 @@ namespace sldc.Commands
             // disable apply button
             _settingsViewModel.ApplyButtonEnabled = false;
 
+            //check if drp needs to reload
+            bool reloadDRP = Helper.settings.EnableDRPCredit != _settingsViewModel.EnableDRPCredit && _settingsViewModel._drpClientStore.Client != null;
+            
             // update settings config
             Helper.settings.Theme = _settingsViewModel.SelectedTheme;
             Helper.settings.IsDRPEnabled = _settingsViewModel.DRPStatus;
+            Helper.settings.EnableDRPCredit = _settingsViewModel.EnableDRPCredit;
             Helper.UpdateSettings();
 
-            // dpr stuff
+            // drp reload if game is already on
             if (_settingsViewModel.DRPStatus == true)
             {
                 // drp turn on from off
                 if (_settingsViewModel._drpClientStore.Client == null && _settingsViewModel._hookStore.hook != null)
                 {
-                    ENVTokens envToken = SettingsViewModel.GetEnvTokenFromHook(_settingsViewModel._hookStore.hook);
+                    ENVTokens envToken = HookToENVTokenConverter.Convert(_settingsViewModel._hookStore.hook);
                     _settingsViewModel._drpClientStore.CreateClient(envToken);
                     _settingsViewModel._drpClientStore.UpdatePresence(envToken, _settingsViewModel._hookStore.hook.Death);
                 }
@@ -63,15 +68,11 @@ namespace sldc.Commands
                     AppThemeChanger.ChangeTheme(new Uri("Themes/DarkTheme.xaml", UriKind.Relative));
                     break;
             }
-            // change credit mode
-            Settings s = Helper.ReturnSettings();
-            bool reloadDRP = s.EnableDRPCredit != _settingsViewModel.EnableDRPCredit && _settingsViewModel._drpClientStore.Client != null;
-            s.EnableDRPCredit = _settingsViewModel.EnableDRPCredit;
-            Helper.settings = s;
-            Helper.UpdateSettings();
+
+            // reload drp if needed
             if (reloadDRP)
             {
-                ENVTokens envToken = SettingsViewModel.GetEnvTokenFromHook(_settingsViewModel._hookStore.hook);
+                ENVTokens envToken = HookToENVTokenConverter.Convert(_settingsViewModel._hookStore.hook);
                 _settingsViewModel._drpClientStore.DisposeClient();
                 _settingsViewModel._drpClientStore.CreateClient(envToken);
                 _settingsViewModel._drpClientStore.UpdatePresence(envToken, _settingsViewModel._hookStore.hook.Death);

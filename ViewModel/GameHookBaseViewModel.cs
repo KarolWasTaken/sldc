@@ -22,6 +22,8 @@ namespace sldc.ViewModel
         private Stopwatch stopwatch;
         private DispatcherTimer timer;
         internal ENVTokens _envToken;
+        internal event Action ConnectedToGame;
+        internal event Action DisconnectedToGame;
 
         // elapsed time for time counter.
         private TimeSpan elapsedTime;
@@ -64,6 +66,8 @@ namespace sldc.ViewModel
                     hook.DeathCountChanged += OnDeathCountChanged;
                     // start timer to show elasped time
                     StartRecording();
+                    // for children to perform special connect logic
+                    ConnectedToGame.Invoke();
                 }
                 else
                 {
@@ -83,6 +87,8 @@ namespace sldc.ViewModel
                     _discordRpcClientStore.DisposeClient();
                     // stop timer to show elasped time
                     StopRecording();
+                    //// for children to perform special disconnect logic
+                    //DisconnectedToGame.Invoke();
                 }
                 OnPropertyChanged(nameof(IsConnectedToGame));
             }

@@ -107,17 +107,5 @@ namespace sldc.ViewModel
             OnPropertyChanged(nameof(EnableDRPCredit));
             ApplyButtonEnabled = true;
         }
-        public static DRPClientStore.ENVTokens GetEnvTokenFromHook(BaseHook hook)
-        {
-            switch (hook)
-            {
-                case DS2Hook:
-                    return DRPClientStore.ENVTokens.DS2_TOKEN;
-                case DS3Hook:
-                    return DRPClientStore.ENVTokens.DS3_TOKEN;
-                default: 
-                    throw new NotImplementedException();
-            }
-        }
     }
 }

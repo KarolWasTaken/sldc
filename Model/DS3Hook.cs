@@ -1,4 +1,5 @@
 ﻿using PropertyHook;
+using sldc.Converter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,45 @@ namespace sldc.Model
         {
             get => CreateChildPointer(BaseA, 0x10).ReadInt32(0x70);
         }
+
+        //public string Covenant
+        //{
+        //    get => CreateChildPointer(BaseA, 0x10).ReadString(0x328, Encoding.Unicode, 4);
+        //}
+        public byte[] Covenant
+        {
+            get => CreateChildPointer(BaseA, 0x10).ReadBytes(0x328, 4);
+        }
+
+
+       
+
+
+
+        public event Action<string> CovenantChanged;
+        internal async override Task DeathUpdater()
+        {
+            string newCov = "";
+            string oldCov = "";
+            while (CheckForDeaths)
+            {
+                var matchingEntry = ByteToCovenantConverter.GetMatchingEntry(Covenant);
+                if (Covenant != null && !matchingEntry.Equals(default(KeyValuePair<byte[], string>)))
+                {
+                    newCov = matchingEntry.Value;
+                    if (newCov != oldCov)
+                    {
+                        CovenantChanged?.Invoke(matchingEntry.Value);
+                        oldCov = newCov;
+                    }
+                }
+                // delay to not throttle cpu
+                await Task.Delay(150);
+                await base.DeathUpdater();
+            }
+
+        }
+        
+
     }
 }

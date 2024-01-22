@@ -117,5 +117,6 @@ namespace sldc.Stores
             };
             Client.SetPresence(Presence);
         }
+
     }
 }

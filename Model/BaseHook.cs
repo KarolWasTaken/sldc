@@ -36,7 +36,7 @@ namespace sldc.Model
             }
         }
         // updater that invokes event to execute subs when deaths change.
-        private async Task DeathUpdater()
+        internal virtual async Task DeathUpdater()
         {
             int oldDeath = 0;
             int newDeath;

@@ -36,7 +36,18 @@
         </StackPanel>
 
         <Border Style="{StaticResource DeathCounterIsland}">
-            <TextBlock Style="{StaticResource DeathCounterText}"/>
+            <Grid>
+                <TextBlock Style="{StaticResource DeathCounterText}"/>
+                
+                <TextBlock Text="hello world"
+                           Style="{StaticResource SubHeaderDeathIslandTextStyle}"
+                           Margin="10,70,0,0"
+                           Width="390"/>
+                <TextBlock Text="{Binding Covenant}"
+                           Style="{StaticResource SubHeaderDeathIslandTextStyle}"
+                           Margin="10,110,0,0"
+                           Width="390"/>
+            </Grid>
         </Border>
 
 
