@@ -22,6 +22,7 @@ namespace sldc.Themes
             new Uri("Themes/ElementThemes/ModernScrollBarStyle.xaml", UriKind.Relative),
             new Uri("Themes/ElementThemes/DeathCounterIslandStyles.xaml", UriKind.Relative),
             new Uri("Themes/ElementThemes/ImageCardStyles.xaml", UriKind.Relative),
+            new Uri("Themes/ElementThemes/TextBoxStyle.xaml", UriKind.Relative),
         };
 
 

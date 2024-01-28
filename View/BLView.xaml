@@ -12,7 +12,7 @@
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converter:BooleanToConnectConverter x:Key="BooleanToConnectConverter"/>
     </UserControl.Resources>
-    <Grid>
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="*"/>
@@ -136,7 +136,10 @@
         <!--#region SelectPlaythrough Popup-->
         <Grid Grid.RowSpan="3" Grid.ColumnSpan="3"
               Grid.Row="0" Grid.Column="0"
-              Visibility="{Binding IsChangePlaythroughDialogueOpen, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+              UseLayoutRounding="True"
+              Visibility="{Binding IsChangePlaythroughDialogueOpen,
+            Converter={StaticResource BooleanToVisibilityConverter},
+            FallbackValue=Collapsed}">
             <Rectangle Fill="Black" Opacity="0.5"/>
             <Grid HorizontalAlignment="Center"
                   VerticalAlignment="Center"
@@ -144,14 +147,14 @@
                   Width="600"
                   Height="400">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="60"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock FontFamily="{StaticResource Inter}"
                            FontWeight="Medium"
                            FontSize="30"
                            Foreground="{DynamicResource TextColour}"
-                           Margin="5,5,0,0"
+                           Margin="15,10,0,0"
                            Text="Playthroughs">
                 </TextBlock>
                 <Button Style="{StaticResource PrimaryButtonStyle}"
@@ -164,11 +167,22 @@
                         Height="25"
                         Padding="0,3,0,0"
                         ElementThemes:PrimaryButtonStyleHelper.CornerRadius="12.5"/>
+                <Button Margin="0,0,35,0"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Background="{DynamicResource Background_Level_3}"
+                        Command="{Binding ToggleCreatePlaythroughDialogue}"
+                        HorizontalAlignment="Right"
+                        Width="25"
+                        Height="25"
+                        ElementThemes:PrimaryButtonStyleHelper.CornerRadius="12.5">
+                    <TextBlock Text="+" FontSize="20"
+                               Margin="3.5,-5.5,0,0"/>
+                </Button>
                 <Border Background="{DynamicResource TextColour}"
-                        Width="550" Height="2"
+                        Width="580" Height="2"
                         VerticalAlignment="Bottom"
                         CornerRadius="2"/>
-                <Grid Grid.Row="1" Margin="15,5,0,0">
+                <Grid Grid.Row="1" Margin="25,15,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -190,7 +204,7 @@
                     </TextBlock>
                     <ScrollViewer Grid.ColumnSpan="2"
                                   CanContentScroll="False"
-                                  Margin="0,30,10,0">
+                                  Margin="0,30,0,0">
                         <StackPanel x:Name="PlaythroughList">
                             <!--<Border Background="{DynamicResource Background_Level_3}"
                                     Height="30"
@@ -198,7 +212,7 @@
                                 <DockPanel Margin="10,0,0,0">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="285"/>
+                                            <ColumnDefinition Width="280"/>
                                             <ColumnDefinition Width="235"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="Playthrough_name"
@@ -244,6 +258,80 @@
                 </Grid>
 
             </Grid>
+        </Grid>
+        <!--#endregion-->
+        
+        <!--#region Create Playthrough-->
+        <Grid Grid.RowSpan="3" Grid.ColumnSpan="3"
+              Grid.Row="0" Grid.Column="0"
+              UseLayoutRounding="True"
+              Visibility="{Binding IsCreatePlaythroughDialogueOpen,
+                    Converter={StaticResource BooleanToVisibilityConverter},
+                    FallbackValue=Visible}">
+            <Rectangle Fill="Black" Opacity="0.8"/>
+            <Border Background="{DynamicResource Background_Level_2}"
+                    Width="400"
+                    Height="200">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock Text="Create Playthrough"
+                                       FontFamily="{StaticResource Inter}"
+                                       FontSize="15"
+                                       Foreground="{StaticResource TextColour}"
+                                       FontWeight="Thin"
+                                       Margin="7,5,0,5"/>
+                            <Button Style="{StaticResource PrimaryButtonStyle}"
+                                    Background="{DynamicResource Background_Level_3}"
+                                    Command="{Binding ToggleCreatePlaythroughDialogue}"
+                                    Content="X"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,5,0"
+                                    Width="25"
+                                    Height="25"
+                                    Padding="0,3,0,0"
+                                    ElementThemes:PrimaryButtonStyleHelper.CornerRadius="12.5"/>
+                            
+                        </DockPanel>
+                        <Border Background="{StaticResource TextColour}"
+                                Width="390"
+                                Height="1"
+                                CornerRadius="2"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Margin="10,0,10,0">
+                        <TextBlock Text="Playthrough Name"
+                                   Style="{StaticResource SubHeaderTextStyle}"
+                                   FontSize="12"/>
+                        <TextBox Text="{Binding CreatePlaythroughName, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource TextBoxStyle}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Margin="10,0,10,0">
+                        <TextBlock Text="Initial Deaths"
+                                   Style="{StaticResource SubHeaderTextStyle}"
+                                   FontSize="12"/>
+                        <TextBox Text="{Binding CreatePlaythroughInitialDeaths, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource TextBoxStyle}"/>
+                    </StackPanel>
+                    <Button Style="{StaticResource PrimaryButtonStyle}"
+                            Background="{DynamicResource Background_Level_3}"
+                            Command="{Binding CreatePlaythrough}"
+                            IsEnabled="{Binding CanCreatePlaythrough}"
+                            Grid.Row="3"
+                            Content="Create Playthrough"
+                            Margin="0,0,5,0"
+                            Width="300"
+                            Height="25"
+                            Padding="0,3,0,0"
+                            ElementThemes:PrimaryButtonStyleHelper.CornerRadius="12.5"
+                            SnapsToDevicePixels="True"/>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>

@@ -29,10 +29,12 @@ namespace sldc.View
     public partial class BLView : UserControl
     {
         private Dictionary<string, UIElement> StackpanelChildren = new Dictionary<string, UIElement>();
+        public bool Subscribed = false;
         public BLView()
         {
             InitializeComponent();
             PopulateChangePlaythroughs();
+            BLViewModel.UpdatePlaythroughList += UpdatePlaythroughListFlagSetter;
         }
 
         public void PopulateChangePlaythroughs()
@@ -71,7 +73,7 @@ namespace sldc.View
 
             // Create Grid
             Grid grid = new Grid();
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(285) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(280) });
             grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(235) });
 
             // Create first TextBlock
@@ -141,18 +143,12 @@ namespace sldc.View
             BLViewModel vm = (BLViewModel)this.DataContext;
             vm.DeletePlaythrough(parameter.ToString());
             PlaythroughList.Children.Remove(StackpanelChildren[FormatBorderName(parameter.ToString())]);
-            SubscribeToVMListUpdates(vm);
         }
         public void SelectPlaythrough(object parameter)
         {
             BLViewModel vm = (BLViewModel)this.DataContext;
             vm.SelectPlaythrough(parameter.ToString());
             vm.TogglePlaythroughDialogueCommand();
-            SubscribeToVMListUpdates(vm);
-        }
-        private void SubscribeToVMListUpdates(BLViewModel vm)
-        {
-            vm.UpdatePlaythroughList += UpdatePlaythroughListFlagSetter;
         }
 
         private void UpdatePlaythroughListFlagSetter()
@@ -167,7 +163,7 @@ namespace sldc.View
 
         private static string FormatBorderName(string name)
         {
-            return name.Replace(" ", "_");
+            return name.Replace(" ", "_").Replace("-", "_");
         }
 
 

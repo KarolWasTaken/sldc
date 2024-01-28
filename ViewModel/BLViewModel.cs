@@ -26,7 +26,7 @@ namespace sldc.ViewModel
         internal DRPClientStore _discordRpcClientStore;
         internal ENVTokens _envToken;
         public HookStore _hookStore;
-        public event Action UpdatePlaythroughList;
+        public static event Action UpdatePlaythroughList;
 
         // elapsed time for time counter.
         private TimeSpan elapsedTime;
@@ -91,11 +91,47 @@ namespace sldc.ViewModel
             }
         }
 
+        private string _createPlaythroughtName;
+        public string CreatePlaythroughName
+        {
+            get
+            {
+                return _createPlaythroughtName;
+            }
+            set
+            {
+                _createPlaythroughtName = value;
+                OnPropertyChanged(nameof(CreatePlaythroughName));
+                OnPropertyChanged(nameof(CanCreatePlaythrough));
+            }
+        }
+        private string _createPlaythroughInitialDeaths;
+        public string CreatePlaythroughInitialDeaths
+        {
+            get
+            {
+                return _createPlaythroughInitialDeaths;
+            }
+            set
+            {
+                string tempHold = value.ToString();
+                if (int.TryParse(tempHold, out int intvalue) || (tempHold == "" || tempHold == " "))
+                {
+                    _createPlaythroughInitialDeaths = value;
+                }
+                OnPropertyChanged(nameof(CreatePlaythroughInitialDeaths));
+                OnPropertyChanged(nameof(CanCreatePlaythrough));
+            }
+        }
 
         public Dictionary<string, int> Playthroughs;
         public string? SelectedPlaythroughName { get; set; }
         private bool _isPlaythroughSelected;
-        public bool IsChangePlaythroughDialogueOpen {  get; set; }
+        public bool IsChangePlaythroughDialogueOpen { get; set; }
+        public bool IsCreatePlaythroughDialogueOpen { get; set; }
+        public bool CanCreatePlaythrough =>
+            CreatePlaythroughName.Length > 0 &&
+            (CreatePlaythroughInitialDeaths != "" || CreatePlaythroughInitialDeaths != " ");
         public bool IsPlaythroughSelected
         {
             get
@@ -111,6 +147,8 @@ namespace sldc.ViewModel
         public ICommand ConnectGameScreenCommand { get; }
         public ICommand OpenStreamerWindowCommand { get; }
         public RelayCommand TogglePlaythroughDialogue { get; private set; }
+        public RelayCommand ToggleCreatePlaythroughDialogue { get; private set; }
+        public RelayCommand CreatePlaythrough { get; private set; }
         public RelayCommand ResetDeathCount { get; private set; }
         public BLViewModel(StreamerWindowStore streamerWindowStore, DRPClientStore discordRpcClientStore, HookStore hookStore, NonHookGamesDataStore nonHookGamesDataStore, ENVTokens envToken)
         {
@@ -123,6 +161,9 @@ namespace sldc.ViewModel
             Playthroughs = _nonHookGamesDataStore.Bloodborne;
             IsPlaythroughSelected = false;
             IsChangePlaythroughDialogueOpen = false;
+            IsCreatePlaythroughDialogueOpen = false;
+            CreatePlaythroughName = "";
+            CreatePlaythroughInitialDeaths = "0";
 
             // subscribe to on death event
             _blHook.OnDeath += _blHook_OnDeath;
@@ -137,14 +178,41 @@ namespace sldc.ViewModel
             OpenStreamerWindowCommand = new OpenStreamerWindowComand(streamerWindowStore);
             ConnectGameScreenCommand = new ConnectGameScreenCommand(this, _discordRpcClientStore, _blHook);
             TogglePlaythroughDialogue = new RelayCommand(TogglePlaythroughDialogueCommand);
+            ToggleCreatePlaythroughDialogue = new RelayCommand(ToggleCreatePlaythroughDialogueCommand);
+            CreatePlaythrough = new RelayCommand(CreatePlaythroughCommand);
             ResetDeathCount = new RelayCommand(ResetDeathCountCommand);
 
+        }
+
+        private void CreatePlaythroughCommand(object obj)
+        {
+            // add the playthrough
+            Playthroughs.Add(CreatePlaythroughName, int.Parse(CreatePlaythroughInitialDeaths));
+            // select it
+            SelectPlaythrough(CreatePlaythroughName);
+            // close dialogues
+            TogglePlaythroughDialogueCommand();
+            ToggleCreatePlaythroughDialogueCommand();
+            // save playthroughs to json
+            GameDeathDataSerialiser.SaveData(_nonHookGamesDataStore, Playthroughs, NON_HOOKABLE_GAME.BLOODBORNE);
+            _nonHookGamesDataStore = GameDeathDataSerialiser.LoadData();
+            OnPlaythroughUpdate();
+            // update drp
+            _discordRpcClientStore.UpdatePresence(DeathCount);
+            // reset properties
+            CreatePlaythroughName = "";
+            CreatePlaythroughInitialDeaths = "0";
         }
 
         internal void TogglePlaythroughDialogueCommand(object parameter = null)
         {
             IsChangePlaythroughDialogueOpen = !IsChangePlaythroughDialogueOpen;
             OnPropertyChanged(nameof(IsChangePlaythroughDialogueOpen));
+        }
+        internal void ToggleCreatePlaythroughDialogueCommand(object parameter = null)
+        {
+            IsCreatePlaythroughDialogueOpen = !IsCreatePlaythroughDialogueOpen;
+            OnPropertyChanged(nameof(IsCreatePlaythroughDialogueOpen));
         }
         private void ResetDeathCountCommand(object parameter)
         {
@@ -173,7 +241,6 @@ namespace sldc.ViewModel
             _nonHookGamesDataStore = GameDeathDataSerialiser.LoadData();
 
             OnPlaythroughUpdate();
-
         }
         internal void SelectPlaythrough(string key)
         {

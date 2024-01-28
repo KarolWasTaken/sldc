@@ -100,10 +100,6 @@ namespace sldc.Model
             referenceImage = ConvertImageTo24bpp(referenceImage);
             capturedImage = ConvertImageTo24bpp(capturedImage);
 
-            //capturedImage.Save("Testtestets.png");
-            //capturedImage.Save("AAcapturedImage.png");
-            //referenceImage.Save("AAreferenceImage.png");
-
             // Create an ExhaustiveTemplateMatching instance
             ExhaustiveTemplateMatching templateMatching = new ExhaustiveTemplateMatching(similarityThreshold);
 
@@ -247,8 +243,6 @@ namespace sldc.Model
             screenCapture = screenCaptureResized;
             return screenCapture;
         }
-
-
 
         // Import the necessary functions for getting window rectangle
         [DllImport("user32.dll")]

@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="Themes/ElementThemes/ModernScrollBarStyle.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/DeathCounterIslandStyles.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/ImageCardStyles.xaml"/>
+                <ResourceDictionary Source="Themes/ElementThemes/TextBoxStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         
