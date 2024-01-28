@@ -10,14 +10,16 @@ namespace sldc.Converter
 {
     public class HookToENVTokenConverter
     {
-        public static DRPClientStore.ENVTokens Convert(BaseHook hook)
+        public static DRPClientStore.ENVTokens Convert(string HookedGame)
         {
-            switch (hook)
+            switch (HookedGame)
             {
-                case DS2Hook:
+                case "DS2":
                     return DRPClientStore.ENVTokens.DS2_TOKEN;
-                case DS3Hook:
+                case "DS3":
                     return DRPClientStore.ENVTokens.DS3_TOKEN;
+                case "BL":
+                    return DRPClientStore.ENVTokens.BL_TOKEN;
                 default:
                     throw new NotImplementedException();
             }

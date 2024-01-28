@@ -1,10 +1,11 @@
 ﻿using PropertyHook;
-using sldc.Converter;
+using sldc.Converter.CovenantConverters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static sldc.Stores.DRPClientStore;
 
 namespace sldc.Model
 {
@@ -25,45 +26,9 @@ namespace sldc.Model
         {
             get => CreateChildPointer(BaseA, 0x10).ReadInt32(0x70);
         }
-
-        //public string Covenant
-        //{
-        //    get => CreateChildPointer(BaseA, 0x10).ReadString(0x328, Encoding.Unicode, 4);
-        //}
-        public byte[] Covenant
+        public override string Covenant
         {
-            get => CreateChildPointer(BaseA, 0x10).ReadBytes(0x328, 4);
+            get => ByteToCovenantConverter.Convert(CreateChildPointer(BaseA, 0x10).ReadBytes(0x328, 4), ENVTokens.DS3_TOKEN);
         }
-
-
-       
-
-
-
-        public event Action<string> CovenantChanged;
-        internal async override Task DeathUpdater()
-        {
-            string newCov = "";
-            string oldCov = "";
-            while (CheckForDeaths)
-            {
-                var matchingEntry = ByteToCovenantConverter.GetMatchingEntry(Covenant);
-                if (Covenant != null && !matchingEntry.Equals(default(KeyValuePair<byte[], string>)))
-                {
-                    newCov = matchingEntry.Value;
-                    if (newCov != oldCov)
-                    {
-                        CovenantChanged?.Invoke(matchingEntry.Value);
-                        oldCov = newCov;
-                    }
-                }
-                // delay to not throttle cpu
-                await Task.Delay(150);
-                await base.DeathUpdater();
-            }
-
-        }
-        
-
     }
 }

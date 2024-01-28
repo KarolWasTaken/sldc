@@ -88,7 +88,7 @@
                         CornerRadius="10">
                     <StackPanel>
                         <DockPanel Margin="10,5,0,0">
-                            <TextBlock Text="Disable DRP Credit"
+                            <TextBlock Text="DRP Credit"
                                        FontFamily="{StaticResource Inter}"
                                        FontWeight="Regular"
                                        FontSize="20"
@@ -113,6 +113,38 @@
                                 Padding="0,3,0,0"
                                 ElementThemes:PrimaryButtonStyleHelper.CornerRadius="8"
                                 Command="{Binding ToggleDRPCreditCommand}"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="{DynamicResource Background_Level_2}"
+                        Height="70"
+                        CornerRadius="10">
+                    <StackPanel>
+                        <DockPanel Margin="10,5,0,0">
+                            <TextBlock Text="Covenant Display"
+                                       FontFamily="{StaticResource Inter}"
+                                       FontWeight="Regular"
+                                       FontSize="20"
+                                       Foreground="{DynamicResource TextColour}"
+                                       Opacity="0.8"/>
+                            <Border Background="{Binding EnableCovenantDisplay, Converter={StaticResource BooleanToColourIndicatorConverter}, FallbackValue=Yellow}"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Width="10"
+                                    Height="10"
+                                    CornerRadius="5"
+                                    Margin="5,2,0,0"/>
+                        </DockPanel>
+
+                        <Button Style="{StaticResource PrimaryButtonStyle}"
+                                Background="{DynamicResource Background_Level_3}"
+                                Content="{Binding EnableCovenantDisplay, Converter={StaticResource BooleanToEnabledConverter}, FallbackValue=Enable}"
+                                HorizontalAlignment="Left"
+                                Margin="10,5,0,0"
+                                Width="100"
+                                Height="25"
+                                Padding="0,3,0,0"
+                                ElementThemes:PrimaryButtonStyleHelper.CornerRadius="8"
+                                Command="{Binding ToggleCovenantDisplayCommand}"/>
                     </StackPanel>
                 </Border>
 

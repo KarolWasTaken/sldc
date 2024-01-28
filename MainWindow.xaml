@@ -30,6 +30,9 @@
             <DataTemplate DataType="{x:Type ViewModels:ERViewModel}">
                 <Views:ERView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModels:BLViewModel}">
+                <Views:BLView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type ViewModels:SettingsViewModel}">
                 <Views:SettingsView/>
             </DataTemplate>
@@ -58,6 +61,7 @@
             <Button Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"/>
             <Button Content="DS3" Command="{Binding DS3NavigateCommand}"/>
             <Button Content="ER" Command="{Binding ERNavigateCommand}"/>
+            <Button Content="BL" Command="{Binding BLNavigateCommand}"/>
             <!-- temp -->
             <!--CheckBox Content="LightTheme" Checked="DarkThemePressed"
                       Unchecked="LightThemePressed"

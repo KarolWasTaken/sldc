@@ -16,7 +16,14 @@ namespace sldc.ViewModel
 {
     public abstract class GameHookBaseViewModel : ViewModelBase
     {
-        internal BaseHook hook { get; set; }
+        private BaseHook _hook;
+
+        public BaseHook Hook
+        {
+            get { return _hookStore.hook; }
+            set { _hookStore.hook = value; }
+        }
+
         internal HookStore _hookStore;
         internal DRPClientStore _discordRpcClientStore;
         private Stopwatch stopwatch;
@@ -44,6 +51,22 @@ namespace sldc.ViewModel
                 return $"Deaths: {DeathCount}";
             }
         }
+        private string _covenant;
+        public string Covenant
+        {
+            get
+            {
+                if (_covenant == null)
+                    return "Covenant: N/A";
+                else
+                    return $"Covenant: {_covenant}";
+            }
+            set
+            {
+                _covenant = value;
+                OnPropertyChanged(nameof(Covenant));
+            }
+        }
         private bool isConnectedToGame;
         public bool IsConnectedToGame
         {
@@ -54,52 +77,55 @@ namespace sldc.ViewModel
 
                 if (isConnectedToGame == true)
                 {
-                    // make connect button say disconnect
-                    ConnectToGameButtonSwap(true);
-
                     // if we conncted to game
                     // subscribe to the deathcountchanged event
                     // which runs when the death count changes
-                    hook.Start();
-                    hook.CheckForDeaths = true;
+                    Hook.Start();
+                    Hook.CheckForDeaths = true;
                     // subscribe to death count changed event
-                    hook.DeathCountChanged += OnDeathCountChanged;
+                    Hook.DeathCountChanged += OnDeathCountChanged;
+                    Hook.CovenantChanged += OnCovenantChanged;
                     // start timer to show elasped time
                     StartRecording();
-                    // for children to perform special connect logic
-                    ConnectedToGame.Invoke();
                 }
                 else
                 {
-                    // maek connect button say connect again
-                    ConnectToGameButtonSwap(false);
-
-                    // reset hooked label
+                    // reset Hooked label
                     _hookStore.HookedGame = null;
 
                     // stop checking deaths
-                    hook.Stop();
-                    hook.CheckForDeaths = false;
-                    // reset death counter
+                    Hook.Stop();
+                    Hook.CheckForDeaths = false;
+                    // reset death counter and covenant
                     DeathCount = 0;
+                    Covenant = null;
                     OnPropertyChanged(nameof(DeathCountText));
+                    OnPropertyChanged(nameof(Covenant));
                     // dispose DRP client
-                    _discordRpcClientStore.DisposeClient();
+                    if(_discordRpcClientStore.Client != null)
+                        _discordRpcClientStore.DisposeClient();
                     // stop timer to show elasped time
                     StopRecording();
-                    //// for children to perform special disconnect logic
-                    //DisconnectedToGame.Invoke();
                 }
                 OnPropertyChanged(nameof(IsConnectedToGame));
             }
         }
-        private void OnDeathCountChanged()
+
+        private void OnCovenantChanged(string covenant)
+        {
+            // change cov on screen
+            Covenant = covenant;
+            // update dpr
+            if(Helper.settings.EnableCovenantDisplay)
+                _discordRpcClientStore.UpdatePresence(covenant);
+        }
+        private void OnDeathCountChanged(int death)
         {
             // change death count
-            DeathCount = hook.Death;
+            DeathCount = death;
             OnPropertyChanged(nameof(DeathCountText));
             // update drp
-            _discordRpcClientStore.UpdatePresence(_envToken, DeathCount);
+            _discordRpcClientStore.UpdatePresence(DeathCount);
         }
 
         public ICommand ConnectGameCommand { get; }
@@ -107,6 +133,7 @@ namespace sldc.ViewModel
 
         public GameHookBaseViewModel(StreamerWindowStore streamerWindowStore, DRPClientStore discordRpcClientStore, HookStore hookStore, ENVTokens envToken)
         {
+            // set up fields
             _discordRpcClientStore = discordRpcClientStore;
             _hookStore = hookStore;
             _envToken = envToken;
@@ -119,21 +146,9 @@ namespace sldc.ViewModel
 
             // set up commands
             OpenStreamerWindowCommand = new OpenStreamerWindowComand(hookStore, streamerWindowStore);
-            ConnectGameCommand = new ConnectGameCommand(this, _discordRpcClientStore, _hookStore);
+            ConnectGameCommand = new ConnectGameCommand(this, _discordRpcClientStore);
 
-            // set up "Connect" button
-            ConnectToGameButtonSwap(false);
-        }
-        
-        public string ConnectionButtonText { get; set; }
-        private void ConnectToGameButtonSwap(bool connectionStatus)
-        {
-            if (connectionStatus == true)
-                ConnectionButtonText = "Disconnect";
-            else
-                ConnectionButtonText = "Connect";
-            OnPropertyChanged(nameof(ConnectionButtonText));
-        }
+        }   
         private void StartRecording()
         {
             stopwatch.Start();
@@ -149,8 +164,6 @@ namespace sldc.ViewModel
         }
         private void Timer_Tick(object? sender, EventArgs e)
         {
-            //string formattedTime2 = $"{elasped.Hours:D2}:{elasped.Minutes:D2}:{elasped.Seconds:D2}";
-
             string formattedTime = $"{stopwatch.Elapsed.Hours:D2}:{stopwatch.Elapsed.Minutes:D2}:{stopwatch.Elapsed.Seconds:D2}";
             // Update the ElapsedTime property with the formatted time
             ElapsedTime = TimeSpan.ParseExact(formattedTime, "hh\\:mm\\:ss", null);

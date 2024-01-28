@@ -1,4 +1,5 @@
 ﻿using PropertyHook;
+using sldc.Converter.CovenantConverters;
 using System;
 using System.Buffers.Text;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static sldc.Stores.DRPClientStore;
 
 namespace sldc.Model
 {
@@ -33,5 +35,9 @@ namespace sldc.Model
             get => CreateChildPointer(BaseA, 0xD0, 0x490).ReadInt32(0xD0);
         }
 
+        public override string Covenant
+        {
+            get => ByteToCovenantConverter.Convert(CreateChildPointer(BaseA, 0xD0, 0x490).ReadBytes(0x1AD, 1), ENVTokens.DS2_TOKEN);
+        }
     }
 }

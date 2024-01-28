@@ -19,6 +19,10 @@ namespace sldc.Commands
             _hookStore = hookStore;
             _streamerWindowStore = streamerWindowStore;
         }
+        public OpenStreamerWindowComand(StreamerWindowStore streamerWindowStore)
+        {
+            _streamerWindowStore = streamerWindowStore;
+        }
         public override void Execute(object? parameter)
         {
             if(_streamerWindowStore.streamerWindow != null)
@@ -27,7 +31,7 @@ namespace sldc.Commands
             }
             StreamerWindow streamerWindow = new StreamerWindow()
             {
-                DataContext = new StreamerWindowViewModel(_hookStore, _streamerWindowStore)
+                DataContext = new StreamerWindowViewModel(_streamerWindowStore, _hookStore)
             };
             _streamerWindowStore.streamerWindow = streamerWindow;
             streamerWindow.Show();

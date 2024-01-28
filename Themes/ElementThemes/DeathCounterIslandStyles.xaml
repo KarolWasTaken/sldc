@@ -22,7 +22,7 @@
         <Setter Property="Foreground" Value="{DynamicResource TextColour}"/>
         <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="FontSize" Value="50"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="10,0,0,0"/>

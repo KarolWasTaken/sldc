@@ -1,4 +1,5 @@
-﻿using sldc.Commands.NavigateViewModelCommands;
+﻿using sldc.Commands;
+using sldc.Commands.NavigateViewModelCommands;
 using sldc.Model;
 using sldc.Stores;
 using System;
@@ -21,18 +22,21 @@ namespace sldc.ViewModel
         public ICommand DS2SoTFSNavigateCommand { get; }
         public ICommand DS3NavigateCommand { get; }
         public ICommand ERNavigateCommand { get; }
+        public ICommand BLNavigateCommand { get; }
         public ICommand SettingsNavigateCommand { get; }
         public MainWindowViewModel(NavigationStore navigationStore,
             Func<DSREViewModel> createDSREViewModel,
             Func<DS2SoTFSViewModel> createDS2SoTFSViewModel,
             Func<DS3ViewModel> createDS3ViewModel,
             Func<ERViewModel> createERViewModel,
+            Func<BLViewModel> createBLViewModel,
             Func<SettingsViewModel> createSettingsViewModel)
         {
             DSRENavigateCommand = new DSRENavigateCommand(this, navigationStore, createDSREViewModel);
             DS2SoTFSNavigateCommand = new DS2SoTFSNavigateCommand(this, navigationStore, createDS2SoTFSViewModel);
             DS3NavigateCommand = new DS3NavigateCommand(this, navigationStore, createDS3ViewModel);
             ERNavigateCommand = new ERNaviagteCommand(this, navigationStore, createERViewModel);
+            BLNavigateCommand = new BLNavigateCommand(this, navigationStore, createBLViewModel);
             SettingsNavigateCommand = new SettingsNavigateCommand(this, navigationStore, createSettingsViewModel);
 
             _navigationStore = navigationStore;

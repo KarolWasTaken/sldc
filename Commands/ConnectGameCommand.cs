@@ -16,12 +16,10 @@ namespace sldc.Commands
     {
         private GameHookBaseViewModel _gameViewModel;
         private DRPClientStore _discordRpcClientStore;
-        private HookStore _hookStore;
-        public ConnectGameCommand(GameHookBaseViewModel gameViewModel, DRPClientStore discordRpcClientStore, HookStore hookStore)
+        public ConnectGameCommand(GameHookBaseViewModel gameViewModel, DRPClientStore discordRpcClientStore)
         {
             _gameViewModel = gameViewModel;
             _discordRpcClientStore = discordRpcClientStore;
-            _hookStore = hookStore;
         }
 
         public override void Execute(object? parameter)
@@ -31,7 +29,6 @@ namespace sldc.Commands
                 MessageBox.Show("You are currently connected to a game.\nDisconnect from it first.");
                 return;
             }
-            _gameViewModel._hookStore.HookedGame = parameter.ToString();
 
             // connect to ds2
             BaseHook hook;
@@ -53,8 +50,8 @@ namespace sldc.Commands
             
             hook.Start();
             Thread.Sleep(150);
-            // if already connected to game, disconnect
-            if(_gameViewModel.IsConnectedToGame == true)
+            //// if already connected to game, disconnect
+            if (_gameViewModel.IsConnectedToGame == true)
             {
                 _gameViewModel.IsConnectedToGame = false;
                 hook.Stop();
@@ -63,24 +60,23 @@ namespace sldc.Commands
             // if sllvl is not 0, we are in game and we can connect.
             if (hook.slLvl != 0)
             {
-                _hookStore.hook = hook;
-                //_dS2SoTFSViewModel.hook = (DS2Hook)_hookStore.hook;
                 DRPClientStore.ENVTokens envToken;
                 switch (parameter.ToString())
                 {
                     case "DS2":
-                        _gameViewModel.hook = new DS2Hook();
+                        _gameViewModel.Hook = new DS2Hook();
                         envToken = DRPClientStore.ENVTokens.DS2_TOKEN;
                         break;
                     case "DS3":
-                        _gameViewModel.hook = new DS3Hook();
+                        _gameViewModel.Hook = new DS3Hook();
                         envToken = DRPClientStore.ENVTokens.DS3_TOKEN;
                         break;
                     default:
                         throw new NotImplementedException();
                 }
                 _gameViewModel.IsConnectedToGame = true;
-                if(Helper.ReturnSettings().IsDRPEnabled == true)
+                _gameViewModel._hookStore.HookedGame = parameter.ToString();
+                if (Helper.ReturnSettings().IsDRPEnabled == true)
                     _discordRpcClientStore.CreateClient(envToken);
             }
             else

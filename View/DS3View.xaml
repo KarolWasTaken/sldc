@@ -10,6 +10,7 @@
              d:DesignHeight="650" d:DesignWidth="850">
     <UserControl.Resources>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converter:BooleanToConnectConverter x:Key="BooleanToConnectConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -36,18 +37,13 @@
         </StackPanel>
 
         <Border Style="{StaticResource DeathCounterIsland}">
-            <Grid>
+            <StackPanel VerticalAlignment="Center">
                 <TextBlock Style="{StaticResource DeathCounterText}"/>
-                
-                <TextBlock Text="hello world"
-                           Style="{StaticResource SubHeaderDeathIslandTextStyle}"
-                           Margin="10,70,0,0"
-                           Width="390"/>
                 <TextBlock Text="{Binding Covenant}"
                            Style="{StaticResource SubHeaderDeathIslandTextStyle}"
-                           Margin="10,110,0,0"
+                           Margin="10,0,0,0"
                            Width="390"/>
-            </Grid>
+            </StackPanel>
         </Border>
 
 
@@ -99,11 +95,9 @@
         <DockPanel Grid.Column="0" Grid.Row="1"
                    Grid.ColumnSpan="2"
                    Margin="30,0,0,0">
-            <Button Content="{Binding ConnectionButtonText}"
+            <Button Content="{Binding IsConnectedToGame, Converter={StaticResource BooleanToConnectConverter}, FallbackValue=Connect}"
                     Command="{Binding ConnectGameCommand}"
                     CommandParameter="DS3"
-                    Style="{StaticResource MainButtom}"/>
-            <Button Content="Reset Count"
                     Style="{StaticResource MainButtom}"/>
             <Button Padding="0,12,0,0"
                     Width="160"

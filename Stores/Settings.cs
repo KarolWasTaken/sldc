@@ -16,5 +16,6 @@ namespace sldc.Stores
         public ThemeType Theme;
         public bool IsDRPEnabled;
         public bool EnableDRPCredit;
+        public bool EnableCovenantDisplay;
     }
 }

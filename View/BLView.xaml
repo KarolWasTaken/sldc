@@ -1,0 +1,249 @@
+﻿<UserControl x:Class="sldc.View.BLView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:sldc.View"
+             xmlns:converter="clr-namespace:sldc.Converter"
+             xmlns:ElementThemes="clr-namespace:sldc.Themes.ElementThemes"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="850">
+    <UserControl.Resources>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converter:BooleanToConnectConverter x:Key="BooleanToConnectConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="30,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Grid.ColumnSpan="2">
+            <TextBlock Style="{StaticResource HeaderTextStyle}">
+                Bloodborne:
+            </TextBlock>
+            <TextBlock Style="{StaticResource SubHeaderTextStyle}"
+                       Width="800"
+                       TextOptions.TextRenderingMode="Aliased"
+                       Text="{Binding SelectedPlaythroughName}">
+            </TextBlock>
+        </StackPanel>
+
+        <Border Style="{StaticResource DeathCounterIsland}">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource DeathCounterText}"/>
+            </StackPanel>
+        </Border>
+
+
+
+        <!--#region Game card cover -->
+        <Border Grid.Column="1"
+                Margin="0,0,30,0"
+                Style="{StaticResource CardBorderStyle}">
+            <Border.Background>
+                <ImageBrush Stretch="Fill" >
+                    <ImageBrush.ImageSource>
+                        <BitmapImage UriSource="/Resources/BL-card-image.png"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Border.Background>
+        </Border>
+        <!--#endregion-->
+        <!--#region Card Overlay-->
+        <Border Grid.Column="1"
+                Style="{StaticResource CardBorderStyleNoShadow}"
+                Background="Black"
+                OpacityMask="{StaticResource HeaderBackgroundOpacityMask}"
+                Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Margin="10,0,0,10">
+                <TextBlock Text="Bloodborne"
+                           FontFamily="{StaticResource Inter}"
+                           FontWeight="Regular"
+                           Opacity="1"
+                           FontSize="20"
+                           Foreground="White"/>
+                <TextBlock Foreground="White"
+                           Text="{Binding ElapsedTime}"
+                           FontSize="15"
+                           FontFamily="{StaticResource Inter}"
+                           FontWeight="Thin"
+                           Opacity="0.8"/>
+
+            </StackPanel>
+        </Border>
+        <!--#endregion-->
+
+
+
+
+
+        <!--#region navigation buttons-->
+        <StackPanel Grid.Column="0" Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Margin="30,0,0,0"
+                    VerticalAlignment="Center">
+            <DockPanel Margin="0,0,0,10">
+                <Button Command="{Binding TogglePlaythroughDialogue}"
+                        CommandParameter="BL"
+                        Style="{StaticResource MainButtom}"
+                        Padding="0,10,0,0">
+                    <Button.Content>
+                        <TextBlock TextAlignment="Center">
+                            Select <LineBreak/> Playthrough
+                        </TextBlock>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <DockPanel>
+                <Button Content="{Binding IsConnectedToGame, Converter={StaticResource BooleanToConnectConverter}, FallbackValue=Connect}"
+                        Command="{Binding ConnectGameScreenCommand}"
+                        CommandParameter="BL"
+                        Style="{StaticResource MainButtom}"
+                        IsEnabled="{Binding IsPlaythroughSelected}"/>
+                <Button Content="Reset Count"
+                        Style="{StaticResource MainButtom}"
+                        Command="{Binding ResetDeathCount}"
+                        IsEnabled="{Binding IsPlaythroughSelected}"/>
+                <Button Padding="0,12,0,0"
+                        Width="160"
+                        Command="{Binding OpenStreamerWindowCommand}"
+                        Style="{StaticResource MainButtom}"
+                        IsEnabled="{Binding IsPlaythroughSelected}">
+                    <Button.Content>
+                        <TextBlock TextAlignment="Center">
+                            Open Streamer <LineBreak/> Window
+                        </TextBlock>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+        </StackPanel>
+        <!--#endregion-->
+        
+        
+        
+        
+        
+        <!--#region SelectPlaythrough Popup-->
+        <Grid Grid.RowSpan="3" Grid.ColumnSpan="3"
+              Grid.Row="0" Grid.Column="0"
+              Visibility="{Binding IsChangePlaythroughDialogueOpen, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+            <Rectangle Fill="Black" Opacity="0.5"/>
+            <Grid HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Background="{DynamicResource Background_Level_2}"
+                  Width="600"
+                  Height="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock FontFamily="{StaticResource Inter}"
+                           FontWeight="Medium"
+                           FontSize="30"
+                           Foreground="{DynamicResource TextColour}"
+                           Margin="5,5,0,0"
+                           Text="Playthroughs">
+                </TextBlock>
+                <Button Style="{StaticResource PrimaryButtonStyle}"
+                        Background="{DynamicResource Background_Level_3}"
+                        Command="{Binding TogglePlaythroughDialogue}"
+                        Content="X"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,5,0"
+                        Width="25"
+                        Height="25"
+                        Padding="0,3,0,0"
+                        ElementThemes:PrimaryButtonStyleHelper.CornerRadius="12.5"/>
+                <Border Background="{DynamicResource TextColour}"
+                        Width="550" Height="2"
+                        VerticalAlignment="Bottom"
+                        CornerRadius="2"/>
+                <Grid Grid.Row="1" Margin="15,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontFamily="{StaticResource Inter}"
+                                FontWeight="Regular"
+                                FontSize="20"
+                                Foreground="{DynamicResource TextColour}"
+                                Grid.Column="0"
+                                Text="Name">
+                    </TextBlock>
+                    <TextBlock FontFamily="{StaticResource Inter}"
+                               FontWeight="Regular"
+                               FontSize="20"
+                               Foreground="{DynamicResource TextColour}"
+                               Grid.Column="1"
+                               Text="Deaths"
+                               HorizontalAlignment="Left">
+                    </TextBlock>
+                    <ScrollViewer Grid.ColumnSpan="2"
+                                  CanContentScroll="False"
+                                  Margin="0,30,10,0">
+                        <StackPanel x:Name="PlaythroughList">
+                            <!--<Border Background="{DynamicResource Background_Level_3}"
+                                    Height="30"
+                                    CornerRadius="10">
+                                <DockPanel Margin="10,0,0,0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="285"/>
+                                            <ColumnDefinition Width="235"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Playthrough_name"
+                                                   FontFamily="{StaticResource Inter}"
+                                                   FontWeight="Regular"
+                                                   FontSize="15"
+                                                   Foreground="{DynamicResource TextColour}"
+                                                   Opacity="0.8"
+                                                   HorizontalAlignment="Left"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBlock Text="Playthrough_death"
+                                                   Grid.Column="1"
+                                                   FontFamily="{StaticResource Inter}"
+                                                   FontWeight="Regular"
+                                                   FontSize="15"
+                                                   Foreground="{DynamicResource TextColour}"
+                                                   Opacity="0.8"
+                                                   HorizontalAlignment="Left"
+                                                   VerticalAlignment="Center"/>
+                                        <Button Grid.ColumnSpan="2"
+                                                Width="520"
+                                                Height="25"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                Visibility="Hidden"
+                                                Command="{Binding PlaythroughSelected}"/>
+                                    </Grid>
+                                    <Button Style="{StaticResource PrimaryButtonStyle}"
+                                            Background="{DynamicResource Background}"
+                                            Command="{Binding DeletePlaythroughCommand}"
+                                            CommandParameter="Playthrough_name"
+                                            Content="X"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Width="25"
+                                            Height="25"
+                                            Padding="0,3,0,0"
+                                            ElementThemes:PrimaryButtonStyleHelper.CornerRadius="12.5"/>
+                                </DockPanel>
+                            </Border>-->
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

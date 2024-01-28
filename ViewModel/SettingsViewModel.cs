@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Input;
 
@@ -17,6 +18,7 @@ namespace sldc.ViewModel
     {
         internal DRPClientStore _drpClientStore;
         internal HookStore _hookStore;
+
         private List<string> _themeList = new List<string>(Enum.GetNames(typeof(ThemeType)));
         public List<string> ThemeList
         {
@@ -41,6 +43,7 @@ namespace sldc.ViewModel
         }
         public bool EnableDRPCredit { get; set; }
         public bool DRPStatus { get; set; }
+        public bool EnableCovenantDisplay { get; set; }
 
         private bool _applyButtonEnabled;
         public bool ApplyButtonEnabled
@@ -59,6 +62,7 @@ namespace sldc.ViewModel
         public ICommand CommittSettingsChangesCommand { get; }
         public RelayCommand ToggleDRPCommand { get; private set; }
         public RelayCommand ToggleDRPCreditCommand { get; private set; }
+        public RelayCommand ToggleCovenantDisplayCommand { get; private set; }
         public SettingsViewModel(DRPClientStore _discordRpcClientStore, HookStore hookStore)
         {
             // store set up
@@ -66,6 +70,7 @@ namespace sldc.ViewModel
             _hookStore = hookStore;
             // grab settings
             Settings settings = Helper.ReturnSettings();
+            EnableCovenantDisplay = settings.EnableCovenantDisplay;
 
             // set enum from settings
             ThemeType currentTheme = ThemeType.DarkTheme;
@@ -91,6 +96,7 @@ namespace sldc.ViewModel
             CommittSettingsChangesCommand = new CommittSettingsChangesCommand(this);
             ToggleDRPCommand = new RelayCommand(ToggleDRP);
             ToggleDRPCreditCommand = new RelayCommand(ToggleDRPCredit);
+            ToggleCovenantDisplayCommand = new RelayCommand(ToggleCovenantDisplay);
 
             ApplyButtonEnabled = false;
         }
@@ -104,7 +110,23 @@ namespace sldc.ViewModel
         private void ToggleDRPCredit(object paramters)
         { 
             EnableDRPCredit = !EnableDRPCredit;
+            if(EnableCovenantDisplay)
+            {
+                EnableCovenantDisplay = false;
+                OnPropertyChanged(nameof(EnableCovenantDisplay));
+            }
             OnPropertyChanged(nameof(EnableDRPCredit));
+            ApplyButtonEnabled = true;
+        }
+        private void ToggleCovenantDisplay(object paramters)
+        {
+            EnableCovenantDisplay = !EnableCovenantDisplay;
+            if(EnableDRPCredit) 
+            {
+                EnableDRPCredit = false;
+                OnPropertyChanged(nameof(EnableDRPCredit));
+            }
+            OnPropertyChanged(nameof(EnableCovenantDisplay));
             ApplyButtonEnabled = true;
         }
     }

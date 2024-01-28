@@ -10,6 +10,9 @@ namespace sldc.Stores
     public class HookStore
     {
         public BaseHook hook;
-        public string HookedGame;
+        public string? HookedGame;
+
+        // for console exclusives using image similarity
+        public string? HookedPlaythroughName;
     }
 }

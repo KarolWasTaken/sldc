@@ -19,16 +19,19 @@ namespace sldc.ViewModel
 			get { return $"Deaths: {_deathCount}"; }
 		}
 
-		public StreamerWindowViewModel(HookStore hookStore, StreamerWindowStore streamerWindowStore)
+        public StreamerWindowViewModel(StreamerWindowStore streamerWindowStore, HookStore hookStore = null)
         {
-            _hook = hookStore.hook;
-            _deathCount = _hook.Death;
-            _hook.DeathCountChanged += OnDeathCountChanged;
+            if(hookStore != null)
+            { 
+                _hook = hookStore.hook;
+                _deathCount = _hook.Death;
+                _hook.DeathCountChanged += OnDeathCountChanged;
+            }
             StreamerWindowStore = streamerWindowStore;
         }
-        private void OnDeathCountChanged()
+        private void OnDeathCountChanged(int death)
         {
-            _deathCount = _hook.Death;
+            _deathCount = death;
             OnPropertyChanged(nameof(DeathCountText));
         }
     }

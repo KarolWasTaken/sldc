@@ -1,4 +1,5 @@
 ﻿using sldc.Converter;
+using sldc.Model;
 using sldc.Stores;
 using sldc.Themes;
 using sldc.ViewModel;
@@ -10,6 +11,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using static sldc.Stores.DRPClientStore;
+using static sldc.Model.GameDeathDataSerialiser;
 
 namespace sldc.Commands
 {
@@ -28,23 +30,31 @@ namespace sldc.Commands
             _settingsViewModel.ApplyButtonEnabled = false;
 
             //check if drp needs to reload
-            bool reloadDRP = Helper.settings.EnableDRPCredit != _settingsViewModel.EnableDRPCredit && _settingsViewModel._drpClientStore.Client != null;
-            
+            // check if drpcredit changed and if there is a discord client
+            bool reloadDRP =
+                (Helper.settings.EnableDRPCredit != _settingsViewModel.EnableDRPCredit || Helper.settings.EnableCovenantDisplay != _settingsViewModel.EnableCovenantDisplay)
+                && _settingsViewModel._drpClientStore.Client != null;
+            // check if drpcovenant changed and we are connected to a game 
+            //bool reloadDRPForCovs = Helper.settings.EnableCovenantDisplay != _settingsViewModel.EnableCovenantDisplay
+            //    && _settingsViewModel._hookStore.hook != null
+            //    && _settingsViewModel._drpClientStore.Client != null;
+
             // update settings config
             Helper.settings.Theme = _settingsViewModel.SelectedTheme;
             Helper.settings.IsDRPEnabled = _settingsViewModel.DRPStatus;
             Helper.settings.EnableDRPCredit = _settingsViewModel.EnableDRPCredit;
+            Helper.settings.EnableCovenantDisplay = _settingsViewModel.EnableCovenantDisplay;
             Helper.UpdateSettings();
 
             // drp reload if game is already on
             if (_settingsViewModel.DRPStatus == true)
             {
                 // drp turn on from off
-                if (_settingsViewModel._drpClientStore.Client == null && _settingsViewModel._hookStore.hook != null)
+                if (_settingsViewModel._drpClientStore.Client == null && _settingsViewModel._hookStore.HookedGame != null)
                 {
-                    ENVTokens envToken = HookToENVTokenConverter.Convert(_settingsViewModel._hookStore.hook);
+                    ENVTokens envToken = HookToENVTokenConverter.Convert(_settingsViewModel._hookStore.HookedGame);
                     _settingsViewModel._drpClientStore.CreateClient(envToken);
-                    _settingsViewModel._drpClientStore.UpdatePresence(envToken, _settingsViewModel._hookStore.hook.Death);
+                    UpdatePresenceDeaths(envToken);
                 }
             }
             else
@@ -72,12 +82,29 @@ namespace sldc.Commands
             // reload drp if needed
             if (reloadDRP)
             {
-                ENVTokens envToken = HookToENVTokenConverter.Convert(_settingsViewModel._hookStore.hook);
+                ENVTokens envToken = HookToENVTokenConverter.Convert(_settingsViewModel._hookStore.HookedGame);
                 _settingsViewModel._drpClientStore.DisposeClient();
                 _settingsViewModel._drpClientStore.CreateClient(envToken);
-                _settingsViewModel._drpClientStore.UpdatePresence(envToken, _settingsViewModel._hookStore.hook.Death);
+
+                UpdatePresenceDeaths(envToken);
+                if (Helper.settings.EnableCovenantDisplay && envToken != ENVTokens.BL_TOKEN)
+                    _settingsViewModel._drpClientStore.UpdatePresence(_settingsViewModel._hookStore.hook.Covenant);
             }
 
+        }
+        public void UpdatePresenceDeaths(ENVTokens envToken)
+        {
+            if (envToken == ENVTokens.BL_TOKEN)
+            {
+                _settingsViewModel._drpClientStore.UpdatePresence(
+                    GameDeathDataSerialiser.LoadData(
+                        NON_HOOKABLE_GAME.BLOODBORNE)[_settingsViewModel._hookStore.HookedPlaythroughName]
+                        );
+            }
+            else
+            {
+                _settingsViewModel._drpClientStore.UpdatePresence(_settingsViewModel._hookStore.hook.Death);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using sldc.Commands.NavigateViewModelCommands;
 using sldc.Model;
 using sldc.Stores;
+using sldc.Themes;
 using sldc.View;
 using sldc.ViewModel;
 using System.Configuration;
@@ -23,18 +24,22 @@ namespace sldc
         private readonly StreamerWindowStore _streamerWindowStore;
         private readonly DRPClientStore _discordRpcClientStore;
         private readonly HookStore _hookStore;
+        private readonly NonHookGamesDataStore _nonHookGamesDataStore;
 
         // viewmodels
         private DSREViewModel _dSREViewModel;
         private DS2SoTFSViewModel _dS2SoTFSViewModel;
         private DS3ViewModel _dS3ViewModel;
         private ERViewModel _eRViewModel;
+        private BLViewModel _bLViewModel;
         public App()
         {
             _navigationStore = new NavigationStore();
             _streamerWindowStore = new StreamerWindowStore();
             _discordRpcClientStore = new DRPClientStore();
             _hookStore = new HookStore();
+            _nonHookGamesDataStore = GameDeathDataSerialiser.LoadData();
+
 
             // create viewmodels once. This means, when we re-enter them, they
             // will remain the same and wont be re-instantiated.
@@ -42,6 +47,7 @@ namespace sldc
             _dS2SoTFSViewModel = new DS2SoTFSViewModel(_streamerWindowStore, _discordRpcClientStore, _hookStore, DRPClientStore.ENVTokens.DS2_TOKEN);
             _dS3ViewModel = new DS3ViewModel(_streamerWindowStore, _discordRpcClientStore, _hookStore, DRPClientStore.ENVTokens.DS3_TOKEN);
             _eRViewModel = new ERViewModel();
+            _bLViewModel = new BLViewModel(_streamerWindowStore, _discordRpcClientStore, _hookStore, _nonHookGamesDataStore, DRPClientStore.ENVTokens.BL_TOKEN);
         }
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -49,6 +55,21 @@ namespace sldc
             var root = Directory.GetCurrentDirectory();
             var dotenv = Path.Combine(root, ".env");
             DotEnv.Load(dotenv);
+
+            // set your theme to the saved theme
+            // refactor this with commit changes command
+            switch (Helper.ReturnSettings().Theme)
+            {
+                case ThemeType.LightTheme:
+                    AppThemeChanger.ChangeTheme(new Uri("Themes/LightTheme.xaml", UriKind.Relative));
+                    break;
+                case ThemeType.DarkTheme:
+                    AppThemeChanger.ChangeTheme(new Uri("Themes/DarkTheme.xaml", UriKind.Relative));
+                    break;
+            }
+
+            // set startup window
+            _navigationStore.CurrentViewModel = _dS3ViewModel;
 
             MainWindow mainWindow = new MainWindow()
             {
@@ -59,6 +80,7 @@ namespace sldc
                     CreateDS2SoTFSViewModel,
                     CreateDS3ViewModel,
                     CreateERViewModel,
+                    CreateBLViewModel,
                     CreateSettingsViewModel
                 )
             };
@@ -82,6 +104,10 @@ namespace sldc
         private ERViewModel CreateERViewModel()
         {
             return _eRViewModel;
+        }
+        private BLViewModel CreateBLViewModel()
+        {
+            return _bLViewModel;
         }
         private SettingsViewModel CreateSettingsViewModel()
         {
