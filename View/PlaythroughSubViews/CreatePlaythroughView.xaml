@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="sldc.View.PlaythroughSubViews.CreatePlaythroughView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:sldc.View.PlaythroughSubViews"
+             xmlns:converter="clr-namespace:sldc.Converter"
+             xmlns:ElementThemes="clr-namespace:sldc.Themes.ElementThemes"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="850">
+    <UserControl.Resources>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converter:BooleanToConnectConverter x:Key="BooleanToConnectConverter"/>
+    </UserControl.Resources>
+    <Grid Grid.RowSpan="3" Grid.ColumnSpan="3"
+      Grid.Row="0" Grid.Column="0"
+      UseLayoutRounding="True">
+        <Rectangle Fill="Black" Opacity="0.8"/>
+        <Border Background="{DynamicResource Background_Level_2}"
+            Width="400"
+            Height="200">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <DockPanel>
+                        <TextBlock Text="Create Playthrough"
+                               FontFamily="{StaticResource Inter}"
+                               FontSize="15"
+                               Foreground="{StaticResource TextColour}"
+                               FontWeight="Thin"
+                               Margin="7,5,0,5"/>
+                        <Button Style="{StaticResource PrimaryButtonStyle}"
+                            Background="{DynamicResource Background_Level_3}"
+                            Command="{Binding CloseDialogue}"
+                            Content="X"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,5,0"
+                            Width="25"
+                            Height="25"
+                            Padding="0,3,0,0"
+                            ElementThemes:PrimaryButtonStyleHelper.CornerRadius="12.5"/>
+
+                    </DockPanel>
+                    <Border Background="{StaticResource TextColour}"
+                        Width="390"
+                        Height="1"
+                        CornerRadius="2"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="10,0,10,0">
+                    <TextBlock Text="Playthrough Name"
+                           Style="{StaticResource SubHeaderTextStyle}"
+                           FontSize="12"/>
+                    <TextBox Text="{Binding CreatePlaythroughName, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource TextBoxStyle}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Margin="10,0,10,0">
+                    <TextBlock Text="Initial Deaths"
+                           Style="{StaticResource SubHeaderTextStyle}"
+                           FontSize="12"/>
+                    <TextBox Text="{Binding CreatePlaythroughInitialDeaths, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource TextBoxStyle}"/>
+                </StackPanel>
+                <Button Style="{StaticResource PrimaryButtonStyle}"
+                    Background="{DynamicResource Background_Level_3}"
+                    Command="{Binding CreatePlaythrough}"
+                    IsEnabled="{Binding CanCreatePlaythrough}"
+                    Grid.Row="3"
+                    Content="Create Playthrough"
+                    Margin="0,0,5,0"
+                    Width="300"
+                    Height="25"
+                    Padding="0,3,0,0"
+                    ElementThemes:PrimaryButtonStyleHelper.CornerRadius="12.5"
+                    SnapsToDevicePixels="True"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

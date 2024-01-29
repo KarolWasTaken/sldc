@@ -6,13 +6,20 @@
              xmlns:local="clr-namespace:sldc.View"
              xmlns:converter="clr-namespace:sldc.Converter"
              xmlns:ElementThemes="clr-namespace:sldc.Themes.ElementThemes"
+             xmlns:Views="clr-namespace:sldc.View.PlaythroughSubViews"
+             xmlns:ViewModels="clr-namespace:sldc.ViewModel.PlaythroughSubViewModels" 
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="850">
     <UserControl.Resources>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converter:BooleanToConnectConverter x:Key="BooleanToConnectConverter"/>
     </UserControl.Resources>
-    <Grid >
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type ViewModels:SelectPlaythroughViewModel}">
+                <Views:SelectPlaythroughView/>
+            </DataTemplate>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="*"/>
@@ -93,8 +100,8 @@
                     Margin="30,0,0,0"
                     VerticalAlignment="Center">
             <DockPanel Margin="0,0,0,10">
-                <Button Command="{Binding TogglePlaythroughDialogue}"
-                        CommandParameter="BL"
+                <Button Command="{Binding SelectPlaythroughCommand}"
+                        CommandParameter="SELECT"
                         Style="{StaticResource MainButtom}"
                         Padding="0,10,0,0">
                     <Button.Content>
@@ -133,7 +140,7 @@
         
         
         
-        <!--#region SelectPlaythrough Popup-->
+        <!--#region SelectPlaythrough Popup--><!--
         <Grid Grid.RowSpan="3" Grid.ColumnSpan="3"
               Grid.Row="0" Grid.Column="0"
               UseLayoutRounding="True"
@@ -206,7 +213,7 @@
                                   CanContentScroll="False"
                                   Margin="0,30,0,0">
                         <StackPanel x:Name="PlaythroughList">
-                            <!--<Border Background="{DynamicResource Background_Level_3}"
+                            --><!--<Border Background="{DynamicResource Background_Level_3}"
                                     Height="30"
                                     CornerRadius="10">
                                 <DockPanel Margin="10,0,0,0">
@@ -252,16 +259,16 @@
                                             Padding="0,3,0,0"
                                             ElementThemes:PrimaryButtonStyleHelper.CornerRadius="12.5"/>
                                 </DockPanel>
-                            </Border>-->
+                            </Border>--><!--
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
 
             </Grid>
         </Grid>
-        <!--#endregion-->
+        --><!--#endregion-->
         
-        <!--#region Create Playthrough-->
+        <!--#region Create Playthrough--><!--
         <Grid Grid.RowSpan="3" Grid.ColumnSpan="3"
               Grid.Row="0" Grid.Column="0"
               UseLayoutRounding="True"
@@ -332,6 +339,8 @@
                             SnapsToDevicePixels="True"/>
                 </Grid>
             </Border>
-        </Grid>
+        </Grid>-->
+        <ContentControl Grid.RowSpan="3" Grid.ColumnSpan="3"
+                        Content="{Binding CurrentSubView}"/>
     </Grid>
 </UserControl>

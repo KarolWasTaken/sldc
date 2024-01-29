@@ -1,6 +1,7 @@
 ﻿using sldc.Model;
 using sldc.Stores;
 using sldc.ViewModel;
+using sldc.ViewModel.PlaythroughSubViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace sldc.Commands
 {
     public class ConnectGameScreenCommand : CommandBase
     {
-        private BLViewModel _gameViewModel;
+        private NonHookGameViewModelBase _gameViewModel;
         private DRPClientStore _discordRpcClientStore;
-        private BLHook _imageSimilarityHook;
-        public ConnectGameScreenCommand(BLViewModel gameViewModel, DRPClientStore discordRpcClientStore, BLHook imageSimilarityHook)
+        private ImageSimilarityBase _imageSimilarityHook;
+        public ConnectGameScreenCommand(NonHookGameViewModelBase gameViewModel, DRPClientStore discordRpcClientStore, ref ImageSimilarityBase imageSimilarityHook)
         {
             _gameViewModel = gameViewModel;
             _discordRpcClientStore = discordRpcClientStore;
@@ -23,7 +24,7 @@ namespace sldc.Commands
         }
         public override void Execute(object? parameter)
         {
-            if (_gameViewModel._hookStore.HookedGame != parameter.ToString() && _gameViewModel._hookStore.HookedGame != null)
+            if (_gameViewModel.hookStore.HookedGame != parameter.ToString() && _gameViewModel.hookStore.HookedGame != null)
             {
                 MessageBox.Show("You are currently connected to a game.\nDisconnect from it first.");
                 return;
@@ -33,8 +34,13 @@ namespace sldc.Commands
             switch (parameter.ToString())
             {
                 case "BL":
+                    _imageSimilarityHook = new BLHook();
                     _imageSimilarityHook = (BLHook)_imageSimilarityHook;
                     break;
+                case "DS-PS3":
+                    throw new NotImplementedException();
+                case "DS-PS5":
+                    throw new NotImplementedException();
                 default:
                     throw new NotImplementedException();
             }
@@ -54,8 +60,8 @@ namespace sldc.Commands
             }
             
             _gameViewModel.IsConnectedToGame = true;
-            _gameViewModel._hookStore.HookedGame = parameter.ToString();
-            _gameViewModel._hookStore.HookedPlaythroughName = _gameViewModel.SelectedPlaythroughName;
+            _gameViewModel.hookStore.HookedGame = parameter.ToString();
+            _gameViewModel.hookStore.HookedPlaythroughName = _gameViewModel.SelectedPlaythroughName;
         }
     }
 }
