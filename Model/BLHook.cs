@@ -24,9 +24,9 @@ namespace sldc.Model
 
         private const string REFERENC_IMAGE_PATH = "Resources/ImageSimilarity/Bloodborne/bloodborne_death.png";
         private const string MASK_IMAGE_PATH = "Resources/ImageSimilarity/Bloodborne/bloodborne_death_mask.png";
-        public override bool Scan()
+        public override bool ScanRemotePlay()
         {
-            Bitmap screenCapture = CaptureGame(
+            Bitmap screenCapture = CaptureRemotePlay(
                     BLOODBORNE_BEGIN_SEARCH_1080P_X,
                     BLOODBORNE_BEGIN_SEARCH_1080P_Y,
                     BLOODBORNE_CAPTURE_SEARCH_SIZE_X,

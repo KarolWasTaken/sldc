@@ -14,6 +14,7 @@
     <None Remove="Resources\DS2-card-image.png" />
     <None Remove="Resources\DS3-card-image.jpg" />
     <None Remove="Resources\DSR-card-image.png" />
+    <None Remove="Resources\dummy-capture-screen.jpg" />
     <None Remove="Themes\Fonts\Inter-Black.ttf" />
     <None Remove="Themes\Fonts\Inter-BlackItalic.ttf" />
     <None Remove="Themes\Fonts\Inter-Bold.ttf" />
@@ -40,6 +41,8 @@
 
   <ItemGroup>
     <PackageReference Include="AForge.Imaging" Version="2.2.5" />
+    <PackageReference Include="AForge.Video" Version="2.2.5" />
+    <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
     <PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.1" />
@@ -67,6 +70,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\DSR-card-image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\dummy-capture-screen.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Themes\Fonts\Inter-Black.ttf">
@@ -136,6 +142,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\ImageSimilarity\Bloodborne\bloodborne_death_mask.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\PS-Remote-Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

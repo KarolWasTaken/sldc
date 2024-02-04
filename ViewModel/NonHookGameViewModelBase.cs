@@ -14,6 +14,7 @@ using static sldc.Model.GameDeathDataSerialiser;
 using sldc.Commands.PlaythroughSubViewCommands;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Media;
+using System.Reflection.Metadata;
 
 namespace sldc.ViewModel
 {
@@ -70,8 +71,8 @@ namespace sldc.ViewModel
                 if (isConnectedToGame == true)
                 {
                     // start scan
-                    Task deathUpdaterTask = Task.Run(() => ImageSimilarityNotifier.AsyncScanIndefinite(250, 3000));
-
+                    Task deathUpdaterTask = Task.Run(() => ImageSimilarityNotifier.AsyncScanIndefinite(150, 3000));
+                    ImageSimilarityNotifier.OnDeath += OnDeath;
                     // start timer to show elasped time
                     StartRecording();
                     // if drp enabled, create a client
@@ -93,6 +94,9 @@ namespace sldc.ViewModel
                     // reset death counter and covenant
                     DeathCount = 0;
                     OnPropertyChanged(nameof(DeathCountText));
+                    // reset playthrough name text
+                    SelectedPlaythroughName = "";
+                    OnPropertyChanged(nameof(SelectedPlaythroughName));
                     // dispose DRP client
                     if (DiscordRpcClientStore.Client != null)
                         DiscordRpcClientStore.DisposeClient();
@@ -123,6 +127,7 @@ namespace sldc.ViewModel
         public ICommand OpenStreamerWindowCommand { get; }
         public ICommand SelectPlaythroughCommand { get; }
         public RelayCommand ResetDeathCount { get; private set; }
+        public RelayCommand SelectCaptureDevice { get; private set; }
 
         public NonHookGameViewModelBase(StreamerWindowStore streamerWindowStore,
             DRPClientStore discordRpcClientStore,
@@ -157,7 +162,17 @@ namespace sldc.ViewModel
             ConnectGameScreenCommand = new ConnectGameScreenCommand(this, DiscordRpcClientStore, ref ImageSimilarityNotifier);
             SelectPlaythroughCommand = new NonHookGameSubViewNavigateCommand(this);
             ResetDeathCount = new RelayCommand(ResetDeathCountCommand);
+            SelectCaptureDevice = new RelayCommand(SelectCaptureDeviceCommand);
 
+        }
+        private void SelectCaptureDeviceCommand(object paramters)
+        {   if(!isConnectedToGame)
+                CurrentSubView = new SelectCaptureDeviceViewModel(this);
+            else
+            {
+                IsConnectedToGame = false;
+                ImageSimilarityNotifier.IsSearchingForDeaths = false;
+            }
         }
         private void ResetDeathCountCommand(object parameter)
         {
@@ -238,6 +253,13 @@ namespace sldc.ViewModel
         public void UpdateDeathCountInDRP()
         {
             DiscordRpcClientStore.UpdatePresence(DeathCount);
+        }
+        private void OnDeath()
+        {
+            UpdateDeathCount(DeathCount + 1);
+            UpdateDeathCountInDRP();
+            Playthroughs[SelectedPlaythroughName] = DeathCount;
+            SavePlaythroughs(Game);
         }
     }
 }

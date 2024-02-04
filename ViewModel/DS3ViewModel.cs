@@ -15,7 +15,7 @@ namespace sldc.ViewModel
 {
     class DS3ViewModel : GameHookBaseViewModel
     {
-		public DS3ViewModel(StreamerWindowStore streamerWindowStore, DRPClientStore discordRpcClientStore, HookStore hookStore, ENVTokens envToken)
+        public DS3ViewModel(StreamerWindowStore streamerWindowStore, DRPClientStore discordRpcClientStore, HookStore hookStore, ENVTokens envToken)
             : base(streamerWindowStore, discordRpcClientStore, hookStore, envToken)
         { }
     }

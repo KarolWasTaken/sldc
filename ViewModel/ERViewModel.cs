@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace sldc.ViewModel
-{
+{ 
     class ERViewModel : ViewModelBase
     {
     }

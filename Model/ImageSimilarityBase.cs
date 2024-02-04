@@ -37,7 +37,7 @@ namespace sldc.Model
             while (IsSearchingForDeaths)
             {
 
-                bool deathfound = Scan();
+                bool deathfound = ScanRemotePlay();
                 if (deathfound)
                 {
                     Application.Current.Dispatcher.Invoke(() =>
@@ -55,7 +55,7 @@ namespace sldc.Model
         /// Scan similarity. Make use of <see cref="CaptureGame(int, int, int, int)"/>
         /// </summary>
         /// <returns></returns>
-        public abstract bool Scan();
+        public abstract bool ScanRemotePlay();
 
         internal bool CompareImagesWithMask(Bitmap capturedImage, Bitmap referenceImage, Bitmap mask, float similarityThreshold = 0.92f)
         {
@@ -107,14 +107,14 @@ namespace sldc.Model
             // Convert the image to 24bpp RGB format
             return AForge.Imaging.Image.Clone(originalImage, PixelFormat.Format24bppRgb);
         }
-        internal virtual Bitmap CaptureGame(
+        internal virtual Bitmap CaptureRemotePlay(
             int beginSearchXCoord,
             int beginSearchYCoord,
             int captureSizeX,
             int captureSizeY)
         {
             // Find the process by name
-            Process[] processes = Process.GetProcessesByName(_processName);
+            Process[] processes = Process.GetProcessesByName("RemotePlay");
 
             if (processes.Length == 0)
             {

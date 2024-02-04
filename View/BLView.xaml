@@ -7,7 +7,9 @@
              xmlns:converter="clr-namespace:sldc.Converter"
              xmlns:ElementThemes="clr-namespace:sldc.Themes.ElementThemes"
              xmlns:Views="clr-namespace:sldc.View.PlaythroughSubViews"
+             xmlns:ViewsRoot="clr-namespace:sldc.View"
              xmlns:ViewModels="clr-namespace:sldc.ViewModel.PlaythroughSubViewModels" 
+             xmlns:ViewModelRoot="clr-namespace:sldc.ViewModel" 
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="850">
     <UserControl.Resources>
@@ -18,6 +20,9 @@
         <Grid.Resources>
             <DataTemplate DataType="{x:Type ViewModels:SelectPlaythroughViewModel}">
                 <Views:SelectPlaythroughView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModelRoot:SelectCaptureDeviceViewModel}">
+                <ViewsRoot:SelectCaptureDeviceView/>
             </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
@@ -113,7 +118,7 @@
             </DockPanel>
             <DockPanel>
                 <Button Content="{Binding IsConnectedToGame, Converter={StaticResource BooleanToConnectConverter}, FallbackValue=Connect}"
-                        Command="{Binding ConnectGameScreenCommand}"
+                        Command="{Binding SelectCaptureDevice}"
                         CommandParameter="BL"
                         Style="{StaticResource MainButtom}"
                         IsEnabled="{Binding IsPlaythroughSelected}"/>
@@ -340,6 +345,7 @@
                 </Grid>
             </Border>
         </Grid>-->
+        
         <ContentControl Grid.RowSpan="3" Grid.ColumnSpan="3"
                         Content="{Binding CurrentSubView}"/>
     </Grid>
