@@ -10,7 +10,7 @@
             <ControlTemplate TargetType="{x:Type RadioButton}">
                 <StackPanel Orientation="Horizontal">
                     <!-- Icon -->
-                    <Border Width="230" Height="35" Margin="0,0,8,0" Background="{DynamicResource Background}"
+                    <Border Width="210" Height="35" Margin="0,0,8,0" Background="{DynamicResource Background}"
                             CornerRadius="17"
                             x:Name="ButtonBackground">
                         <!-- Default unselected icon -->
@@ -18,13 +18,13 @@
                         --><!-- Selected icon --><!--
                         <Ellipse x:Name="SelectedIcon" Fill="Blue" Width="16" Height="16" Visibility="Collapsed" />-->
                             <DockPanel Margin="10,0,10,0">
-                                <Image x:Name="UnselectedIcon" Stretch="Uniform" Width="22" Height="22" Source="pack://application:,,,/Resources/game-unselected.png"
+                                <Image x:Name="UnselectedIcon" Stretch="Uniform" Width="22" Height="22" Source="{DynamicResource UnselectedImage}"
                                     RenderOptions.BitmapScalingMode="HighQuality"/>
-                                <Image x:Name="SelectedIcon" Stretch="Uniform" Width="22" Height="22" Source="pack://application:,,,/Resources/game-selected.png"
+                                <Image x:Name="SelectedIcon" Stretch="Uniform" Width="22" Height="22" Source="{DynamicResource SelectedImage}"
                                     RenderOptions.BitmapScalingMode="HighQuality"/>
                                 <Label Content="{TemplateBinding Content}"
                                         FontFamily="{StaticResource Inter}"
-                                        Foreground="White"
+                                        Foreground="{DynamicResource TextColour}"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         FontSize="15"

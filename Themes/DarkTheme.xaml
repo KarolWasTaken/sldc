@@ -8,5 +8,6 @@
     <SolidColorBrush Color="#303030" x:Key="Background_Level_3"/>
     <SolidColorBrush Color="#D11B1A" x:Key="Primary"/>
     <SolidColorBrush Color="#F0EFE7" x:Key="Secondary"/>
-
+    <BitmapImage x:Key="UnselectedImage" UriSource="pack://application:,,,/Resources/game-unselected-DT.png" />
+    <BitmapImage x:Key="SelectedImage" UriSource="pack://application:,,,/Resources/game-selected-DT.png" />
 </ResourceDictionary>

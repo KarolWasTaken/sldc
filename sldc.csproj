@@ -15,7 +15,11 @@
     <None Remove="Resources\DS3-card-image.jpg" />
     <None Remove="Resources\DSR-card-image.png" />
     <None Remove="Resources\dummy-capture-screen.jpg" />
+    <None Remove="Resources\game-selected-DT.png" />
+    <None Remove="Resources\game-selected-LT.png" />
     <None Remove="Resources\game-selected.png" />
+    <None Remove="Resources\game-unselected-DT.png" />
+    <None Remove="Resources\game-unselected-LT.png" />
     <None Remove="Resources\game-unselected.png" />
     <None Remove="Themes\Fonts\Inter-Black.ttf" />
     <None Remove="Themes\Fonts\Inter-BlackItalic.ttf" />
@@ -53,7 +57,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\game-unselected.png">
+    <Resource Include="Resources\game-selected-LT.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\game-selected-DT.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\game-unselected-DT.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\game-unselected-LT.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -96,9 +112,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\dummy-capture-screen.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\game-selected.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Themes\Fonts\Inter-Black.ttf">

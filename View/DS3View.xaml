@@ -13,31 +13,80 @@
         <converter:BooleanToConnectConverter x:Key="BooleanToConnectConverter"/>
     </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Margin="30,10,0,0"
+        <StackPanel Margin="20,20,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Grid.ColumnSpan="2">
             <TextBlock Style="{StaticResource HeaderTextStyle}" FontWeight="Bold"
                        FontFamily="{StaticResource Inter}">
-                DARK SOULS III:
+                DARK SOULS III
             </TextBlock>
-            <!--<TextBlock Style="{StaticResource SubHeaderTextStyle}"
+            <TextBlock Style="{StaticResource SubHeaderTextStyle}"
                        Width="800"
-                       TextOptions.TextRenderingMode="Aliased">
-                sub-heading here
-            </TextBlock>-->
+                       TextOptions.TextRenderingMode="Aliased"
+                       FontSize="12">
+                Track your deaths and progress
+            </TextBlock>
         </StackPanel>
 
-        <Border Style="{StaticResource DeathCounterIsland}">
+        <Border Grid.Column="0"
+                Style="{StaticResource CardBorderStyle}"
+                Width="697"
+                Height="247"
+                Grid.ColumnSpan="2"
+                Margin="0,50,30,0"
+                CornerRadius="10">
+            <Border.Background>
+                <ImageBrush Stretch="UniformToFill"
+                            Viewbox="0,-0.17,1,0.8" ViewboxUnits="RelativeToBoundingBox">
+                    
+                    <ImageBrush.ImageSource>
+                        <BitmapImage UriSource="/Resources/DS3-card-image.jpg"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Border.Background>
+        </Border>
+        
+        <Border Grid.Column="0"
+                Style="{StaticResource CardBorderStyleNoShadow}"
+                Background="Black"
+                OpacityMask="{StaticResource HeaderBackgroundOpacityMask}"
+                Width="700"
+                Height="250"
+                Grid.ColumnSpan="2"
+                CornerRadius="10"
+                Margin="0,50,30,0"
+                Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="10,0,0,15">
+                <TextBlock Foreground="White"
+                           Text="{Binding ElapsedTime}"
+                           FontSize="15"
+                           FontFamily="{StaticResource Inter}"
+                           FontWeight="Thin"
+                           Opacity="0.8"
+                           Margin="7,0,0,0"
+                           Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </StackPanel>
+        </Border>
+        <TextBlock Text="{Binding DeathCountText}"
+                   FontFamily="{StaticResource Inter}"
+                   FontWeight="Medium"
+                   Opacity="1"
+                   FontSize="30"
+                   Foreground="White"
+                   Margin="17,198,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+        <Border Style="{StaticResource DeathCounterIsland}" Visibility="Collapsed">
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Style="{StaticResource DeathCounterText}"/>
                 <TextBlock Text="{Binding Covenant}"
@@ -52,7 +101,8 @@
         <!--#region Game card cover -->
         <Border Grid.Column="1"
                 Margin="0,0,30,0"
-                Style="{StaticResource CardBorderStyle}">
+                Style="{StaticResource CardBorderStyle}"
+                Visibility="Collapsed">
             <Border.Background>
                 <ImageBrush Stretch="Fill" >
                     <ImageBrush.ImageSource>
@@ -63,11 +113,12 @@
         </Border>
         <!--#endregion-->
         <!--#region Card Overlay-->
+        <!--Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}"-->
         <Border Grid.Column="1"
                 Style="{StaticResource CardBorderStyleNoShadow}"
                 Background="Black"
                 OpacityMask="{StaticResource HeaderBackgroundOpacityMask}"
-                Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="Collapsed">
             <StackPanel HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         Margin="10,0,0,10">
@@ -93,24 +144,31 @@
 
 
         <!--#region navigation buttons-->
-        <DockPanel Grid.Column="0" Grid.Row="1"
-                   Grid.ColumnSpan="2"
-                   Margin="30,0,0,0">
+        <StackPanel Grid.Row="1"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                    Margin="0,-20,0,0">
             <Button Content="{Binding IsConnectedToGame, Converter={StaticResource BooleanToConnectConverter}, FallbackValue=Connect}"
                     Command="{Binding ConnectGameCommand}"
                     CommandParameter="DS3"
-                    Style="{StaticResource MainButtom}"/>
+                    Style="{StaticResource MainButtom}"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,10"
+                    Width="300"
+                    Height="60"/>
             <Button Padding="0,12,0,0"
-                    Width="160"
+                    Width="300"
                     Command="{Binding OpenStreamerWindowCommand}"
-                    Style="{StaticResource MainButtom}">
+                    Style="{StaticResource MainButtom}"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,0">
                 <Button.Content>
                     <TextBlock TextAlignment="Center">
                         Open Streamer <LineBreak/> Window
                     </TextBlock>
                 </Button.Content>
             </Button>
-        </DockPanel>
+        </StackPanel>
         <!--#endregion-->
     </Grid>
 </UserControl>
