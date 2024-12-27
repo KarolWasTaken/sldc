@@ -71,6 +71,32 @@ namespace sldc
             // set startup window
             _navigationStore.CurrentViewModel = _dS3ViewModel;
 
+            string test = "";
+
+            try
+            {
+                var dict = new ResourceDictionary
+                {
+                    Source = new Uri("Themes/ElementThemes/GameSelectButtons.xaml", UriKind.Relative)
+                };
+                Application.Current.Resources.MergedDictionaries.Add(dict);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to load GameSelectButtons: {ex.Message}");
+            }
+
+            //foreach (ResourceDictionary dictionary in Application.Current.Resources.MergedDictionaries)
+            //{
+            //    foreach (var key in dictionary.Keys)
+            //    {
+
+            //        test += $"key: {key}\n";
+            //    }
+            //}
+            //MessageBox.Show(test);
+
+
             MainWindow mainWindow = new MainWindow()
             {
                 DataContext = new MainWindowViewModel

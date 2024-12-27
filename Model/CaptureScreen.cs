@@ -65,5 +65,11 @@ namespace sldc.Model
             _gameViewModel.hookStore.HookedGame = gameToken;
             _gameViewModel.hookStore.HookedPlaythroughName = _gameViewModel.SelectedPlaythroughName;
         }
+
+        public void CaptureCaptureCard(string deviceMoniker)
+        {
+            BLHook bl = new BLHook();
+            bl.BeginCapturingCard(deviceMoniker);
+        }
     }
 }

@@ -7,7 +7,7 @@
              xmlns:Converters="clr-namespace:sldc.Converter"
              xmlns:ElementThemes="clr-namespace:sldc.Themes.ElementThemes"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="850">
+             d:DesignHeight="650" d:DesignWidth="750">
     <UserControl.Resources>
         <Converters:BooleanToColourIndicatorConverter x:Key="BooleanToColourIndicatorConverter"/>
         <Converters:BooleanToEnabledConverter x:Key="BooleanToEnabledConverter"/>

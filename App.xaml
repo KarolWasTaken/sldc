@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="Themes/ElementThemes/DeathCounterIslandStyles.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/ImageCardStyles.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/TextBoxStyle.xaml"/>
+                <ResourceDictionary Source="Themes/ElementThemes/GameSelectButtons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

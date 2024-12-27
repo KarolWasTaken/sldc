@@ -23,12 +23,16 @@ namespace sldc.ViewModel
             // set up commands
             CloseDialogue = new RelayCommand(CloseDialogueCommand);
         }
-        public void SelectCaptureDevice(string deviceName)
+        public void SelectCaptureDevice(string deviceMoniker)
         {
             CaptureScreen cs = new CaptureScreen(NonHookGameViewModelBase, NonHookGameViewModelBase.DiscordRpcClientStore, ref NonHookGameViewModelBase.ImageSimilarityNotifier);
-            if (deviceName == "PS Remote")
+            if (deviceMoniker == "PS Remote")
             {
                 cs.CaptureRemotePlay(NonHookToGameToken(NonHookGameViewModelBase.Game));
+            }
+            else
+            {
+                cs.CaptureCaptureCard(deviceMoniker);
             }
             CloseDialogueCommand();
         }

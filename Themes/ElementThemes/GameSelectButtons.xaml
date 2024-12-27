@@ -1,0 +1,57 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Converters="clr-namespace:sldc.Converter">
+    <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    
+    <Style x:Key="GameSelectButtons" TargetType="{x:Type RadioButton}">
+        <Setter Property="Foreground" Value="Transparent" />
+        <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type RadioButton}">
+                <StackPanel Orientation="Horizontal">
+                    <!-- Icon -->
+                    <Border Width="230" Height="35" Margin="0,0,8,0" Background="{DynamicResource Background}"
+                            CornerRadius="17"
+                            x:Name="ButtonBackground">
+                        <!-- Default unselected icon -->
+                        <!--<Ellipse x:Name="UnselectedIcon" Fill="Gray" Width="16" Height="16" />
+                        --><!-- Selected icon --><!--
+                        <Ellipse x:Name="SelectedIcon" Fill="Blue" Width="16" Height="16" Visibility="Collapsed" />-->
+                            <DockPanel Margin="10,0,10,0">
+                                <Image x:Name="UnselectedIcon" Stretch="Uniform" Width="22" Height="22" Source="pack://application:,,,/Resources/game-unselected.png"
+                                    RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <Image x:Name="SelectedIcon" Stretch="Uniform" Width="22" Height="22" Source="pack://application:,,,/Resources/game-selected.png"
+                                    RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <Label Content="{TemplateBinding Content}"
+                                        FontFamily="{StaticResource Inter}"
+                                        Foreground="White"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="15"
+                                        FontWeight="Regular"
+                                        Margin="6,2,0,0"/>
+                            </DockPanel>
+                        </Border>
+                    <!-- Text Content -->
+                    <ContentPresenter VerticalAlignment="Center" />
+                </StackPanel>
+                <ControlTemplate.Triggers>
+                    <!-- Trigger to show selected icon -->
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter TargetName="SelectedIcon" Property="Visibility" Value="Visible" />
+                        <Setter TargetName="UnselectedIcon" Property="Visibility" Value="Collapsed" />
+                        <Setter TargetName="ButtonBackground" Property="Background" Value="{DynamicResource Background_Level_2}"/>
+                    </Trigger>
+                    <!-- Trigger to show unselected icon -->
+                    <Trigger Property="IsChecked" Value="False">
+                        <Setter TargetName="SelectedIcon" Property="Visibility" Value="Collapsed" />
+                        <Setter TargetName="UnselectedIcon" Property="Visibility" Value="Visible" />
+                        <Setter TargetName="ButtonBackground" Property="Background" Value="{DynamicResource Background}"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+    </Style>
+
+</ResourceDictionary>

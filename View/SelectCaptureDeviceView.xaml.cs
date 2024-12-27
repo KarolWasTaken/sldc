@@ -66,7 +66,7 @@ namespace sldc.View
                     videoCaptureDevice.NewFrame += async (sender, eventArgs) =>
                     {
                         // Save the first frame as an image asynchronously
-                        bool framecaptured = await SaveSnapshotAsync((Bitmap)eventArgs.Frame.Clone(), videoDevice.Name);
+                        bool framecaptured = await SaveSnapshotAsync();
                         if(framecaptured) 
                         {
                             Application.Current.Dispatcher.Invoke(() =>
@@ -84,7 +84,7 @@ namespace sldc.View
                 }
             }
         }
-        static async Task<bool> SaveSnapshotAsync(Bitmap snapshot, string deviceName)
+        static async Task<bool> SaveSnapshotAsync()
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -150,7 +150,7 @@ namespace sldc.View
             {
                 Opacity = 0,
                 Command = new RelayCommand(SelectPlaythrough),
-                CommandParameter = captureName
+                CommandParameter = commandParameter
             };
             grid.Children.Add(stackPanel);
             grid.Children.Add(selectButton);

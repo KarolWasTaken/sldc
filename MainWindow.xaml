@@ -15,7 +15,7 @@
         <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
 
-    <Grid Background="{DynamicResource Background_Level_2}">
+    <Grid Background="{DynamicResource Background}">
         <!--#region Responsible for changing view model for navigation -->
         <Grid.Resources>
             <DataTemplate DataType="{x:Type ViewModels:DSREViewModel}">
@@ -40,15 +40,15 @@
         <!--#endregion-->
         
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
 
         <!--#region navigation buttons-->
         <StackPanel Grid.Column="0">
-            <StackPanel.Resources>
-                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SecondaryButtonStyle}">
+            <!--<StackPanel.Resources>
+                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource RadioButtonGameSelectStyle}">
                     <Setter Property="Margin" Value="10,10,10,0"/>
                     <Setter Property="Height" Value="30"/>
                     <Setter Property="FontSize" Value="10"/>
@@ -56,12 +56,29 @@
                     <Setter Property="Background" Value="{DynamicResource Background_Level_3}"/>
                     <Setter Property="Padding" Value="6"/>
                 </Style>
+            </StackPanel.Resources>-->
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource GameSelectButtons}">
+                    <Setter Property="Margin" Value="10,0,5,0"/>
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="FontSize" Value="10"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Background" Value="{DynamicResource Background_Level_3}"/>
+                    <Setter Property="Padding" Value="6"/>
+                </Style>
             </StackPanel.Resources>
-            <Button Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
-            <Button Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"/>
-            <Button Content="DS3" Command="{Binding DS3NavigateCommand}"/>
+
+            <!--<Button Content="DS: RE" Command="{Binding DSRENavigateCommand}" Style="{DynamicResource MainGameSelect}"/>
+            <Button Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}" Style="{DynamicResource MainGameSelect}"/>
+            <Button Content="DS3" Command="{Binding DS3NavigateCommand}" Style="{DynamicResource MainGameSelect}"/>
             <Button Content="ER" Command="{Binding ERNavigateCommand}"/>
-            <Button Content="BL" Command="{Binding BLNavigateCommand}"/>
+            <Button Content="BL" Command="{Binding BLNavigateCommand}"/>-->
+
+            <RadioButton Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
+            <RadioButton Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"/>
+            <RadioButton Content="DS3" Command="{Binding DS3NavigateCommand}" IsChecked="True"/>
+            <RadioButton Content="BL" Command="{Binding BLNavigateCommand}"/>
+            <RadioButton Content="ER" Command="{Binding ERNavigateCommand}"/>
             <!-- temp -->
             <!--CheckBox Content="LightTheme" Checked="DarkThemePressed"
                       Unchecked="LightThemePressed"

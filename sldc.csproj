@@ -15,6 +15,8 @@
     <None Remove="Resources\DS3-card-image.jpg" />
     <None Remove="Resources\DSR-card-image.png" />
     <None Remove="Resources\dummy-capture-screen.jpg" />
+    <None Remove="Resources\game-selected.png" />
+    <None Remove="Resources\game-unselected.png" />
     <None Remove="Themes\Fonts\Inter-Black.ttf" />
     <None Remove="Themes\Fonts\Inter-BlackItalic.ttf" />
     <None Remove="Themes\Fonts\Inter-Bold.ttf" />
@@ -33,6 +35,27 @@
     <None Remove="Themes\Fonts\Inter-SemiBoldItalic.ttf" />
     <None Remove="Themes\Fonts\Inter-Thin.ttf" />
     <None Remove="Themes\Fonts\Inter-ThinItalic.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-Bold.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-BoldItalic.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-ExtraBold.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-ExtraBoldItalic.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-ExtraLight.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-ExtraLightItalic.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-Italic.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-Light.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-LightItalic.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-Medium.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-MediumItalic.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-Regular.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-SemiBold.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans-SemiBoldItalic.ttf" />
+    <None Remove="Themes\Fonts\PlusJakartaSans.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\game-unselected.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -73,6 +96,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\dummy-capture-screen.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\game-selected.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Themes\Fonts\Inter-Black.ttf">
@@ -127,6 +153,48 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Themes\Fonts\Inter-ThinItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-BoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-ExtraBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-ExtraBoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-ExtraLight.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-ExtraLightItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-Italic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-Light.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-LightItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-Medium.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-MediumItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-SemiBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\PlusJakartaSans-SemiBoldItalic.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

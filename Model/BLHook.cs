@@ -24,14 +24,17 @@ namespace sldc.Model
 
         private const string REFERENC_IMAGE_PATH = "Resources/ImageSimilarity/Bloodborne/bloodborne_death.png";
         private const string MASK_IMAGE_PATH = "Resources/ImageSimilarity/Bloodborne/bloodborne_death_mask.png";
+
+        public BLHook() : base(
+            BLOODBORNE_BEGIN_SEARCH_1080P_X,
+            BLOODBORNE_BEGIN_SEARCH_1080P_Y,
+            BLOODBORNE_CAPTURE_SEARCH_SIZE_X,
+            BLOODBORNE_CAPTURE_SEARCH_SIZE_Y)
+        { }
+
         public override bool ScanRemotePlay()
         {
-            Bitmap screenCapture = CaptureRemotePlay(
-                    BLOODBORNE_BEGIN_SEARCH_1080P_X,
-                    BLOODBORNE_BEGIN_SEARCH_1080P_Y,
-                    BLOODBORNE_CAPTURE_SEARCH_SIZE_X,
-                    BLOODBORNE_CAPTURE_SEARCH_SIZE_Y
-                );
+            Bitmap screenCapture = CaptureRemotePlay();
 
             Bitmap referenceImage = new Bitmap(REFERENC_IMAGE_PATH);
 
@@ -40,6 +43,18 @@ namespace sldc.Model
             bool areImagesSimilar = CompareImagesWithMask(screenCapture, referenceImage, imageMask, 0.982f); //CompareImages(screenCapture, referenceImage);
             return areImagesSimilar;
         }
+        public override bool ScanCaptureCard()
+        {
+            Bitmap screenCapture = CapturedFrame;
+            if (screenCapture == null)
+                return false;
 
+            Bitmap referenceImage = new Bitmap(REFERENC_IMAGE_PATH);
+
+            Bitmap imageMask = new Bitmap(MASK_IMAGE_PATH);
+
+            bool areImagesSimilar = CompareImagesWithMask(screenCapture, referenceImage, imageMask, 0.982f); //CompareImages(screenCapture, referenceImage);
+            return areImagesSimilar;
+        }
     }
 }

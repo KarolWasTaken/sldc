@@ -1,4 +1,6 @@
 ﻿using AForge.Imaging;
+using AForge.Video.DirectShow;
+using AForge.Video;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Size = System.Drawing.Size;
+using System.Security.Policy;
+using System.DirectoryServices.ActiveDirectory;
 
 namespace sldc.Model
 {
@@ -17,7 +21,22 @@ namespace sldc.Model
     {
         internal string _processName = "";
         public bool IsSearchingForDeaths = false;
+        public Bitmap? CapturedFrame;
         public event Action OnDeath;
+        
+        private int _beginSearchXCoord;
+        private int _beginSearchYCoord;
+        private int _captureSizeX;
+        private int _captureSizeY;
+
+        public ImageSimilarityBase(int beginSearchXCoord, int beginSearchYCoord, int captureSizeX, int captureSizeY)
+        {
+            _beginSearchXCoord = beginSearchXCoord;
+            _beginSearchYCoord = beginSearchYCoord;
+            _captureSizeX = captureSizeX;
+            _captureSizeY = captureSizeY;
+        }
+
         public bool DoesProcessExist(string processName)
         {
             // Find the process by name
@@ -56,7 +75,7 @@ namespace sldc.Model
         /// </summary>
         /// <returns></returns>
         public abstract bool ScanRemotePlay();
-
+        public abstract bool ScanCaptureCard();
         internal bool CompareImagesWithMask(Bitmap capturedImage, Bitmap referenceImage, Bitmap mask, float similarityThreshold = 0.92f)
         {
             // Check if the images have the same size
@@ -107,11 +126,7 @@ namespace sldc.Model
             // Convert the image to 24bpp RGB format
             return AForge.Imaging.Image.Clone(originalImage, PixelFormat.Format24bppRgb);
         }
-        internal virtual Bitmap CaptureRemotePlay(
-            int beginSearchXCoord,
-            int beginSearchYCoord,
-            int captureSizeX,
-            int captureSizeY)
+        internal virtual Bitmap CaptureRemotePlay()
         {
             // Find the process by name
             Process[] processes = Process.GetProcessesByName("RemotePlay");
@@ -137,10 +152,10 @@ namespace sldc.Model
             float yRatio = (float)height / (float)1080;
 
             // get search offsets and search size box (grabbing region of interest)
-            int windowStartSearchOffsetX = (int)Math.Ceiling((float)beginSearchXCoord * xRatio);
-            int windowStartSearchOffsetY = (int)Math.Ceiling((float)beginSearchYCoord * yRatio);
-            int windowSearchSizeX = (int)Math.Ceiling(captureSizeX * xRatio);
-            int windowSearchSizeY = (int)Math.Ceiling(captureSizeY * yRatio);
+            int windowStartSearchOffsetX = (int)Math.Ceiling((float)_beginSearchXCoord * xRatio);
+            int windowStartSearchOffsetY = (int)Math.Ceiling((float)_beginSearchYCoord * yRatio);
+            int windowSearchSizeX = (int)Math.Ceiling(_captureSizeX * xRatio);
+            int windowSearchSizeY = (int)Math.Ceiling(_captureSizeY * yRatio);
 
             // Define the capture region
             Rectangle captureRegion = new Rectangle(
@@ -164,7 +179,7 @@ namespace sldc.Model
                                  CopyPixelOperation.SourceCopy);
             }
             //screenCapture.Save("AAAbloodborneCaptureText.png");
-            Bitmap screenCaptureResized = new Bitmap(screenCapture, new Size(captureSizeX, captureSizeY));
+            Bitmap screenCaptureResized = new Bitmap(screenCapture, new Size(_captureSizeX, _captureSizeY));
             //screenCaptureResized.Save("AAAbloodborneCaptureText_Resized.jpg");
             screenCapture = screenCaptureResized;
             return screenCapture;
@@ -182,6 +197,77 @@ namespace sldc.Model
             public int Top;
             public int Right;
             public int Bottom;
+        }
+
+        private VideoCaptureDevice videoSource;
+        public void BeginCapturingCard(string deviceMoniker)
+        {
+            videoSource = new VideoCaptureDevice(deviceMoniker);
+            videoSource.DesiredFrameRate = 1;
+            videoSource.NewFrame += VideoSource_NewFrame;
+            videoSource.Start();
+            //Task frameLimiter = Task.Run(() => IndefiniteFrameLimiter(150));
+        }
+        private bool canUpdateFrames = false;
+        private int framesRecieved = 0;
+        private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            // frame limiter
+            //if (!canUpdateFrames)
+            //    return;
+            //canUpdateFrames = false;
+            //if (videoSource.FramesReceived % 5 != 0)
+            //    return;
+            //framesRecieved++;
+            //if(framesRecieved % 60 != 0)
+            //{
+            //    return;
+            //}
+
+            Bitmap screenCapture2 = (Bitmap)eventArgs.Frame.Clone();
+            screenCapture2.Save("CAPTURECARD.png");
+            if (videoSource.VideoResolution == null)
+                return;
+            int width = videoSource.VideoResolution.FrameSize.Width;
+            int height = videoSource.VideoResolution.FrameSize.Height;
+
+            // create multipliers to find where to start capturing
+            float xRatio = (float)width / (float)1920;
+            float yRatio = (float)height / (float)1080;
+
+            // get search offsets and search size box (grabbing region of interest)
+            int windowSearchSizeX = (int)Math.Ceiling(_captureSizeX * xRatio);
+            int windowSearchSizeY = (int)Math.Ceiling(_captureSizeY * yRatio);
+
+            // Define the capture region
+            Rectangle captureRegion = new Rectangle(
+                0,
+                0,
+                windowSearchSizeX,
+                windowSearchSizeY);
+
+
+
+            //Create a bitmap to store the screen capture
+            Bitmap screenCapture = (Bitmap)eventArgs.Frame.Clone();
+            Bitmap screenCaptureResized = new Bitmap(screenCapture, new Size(_captureSizeX, _captureSizeY));
+            screenCaptureResized.Save("capturecard_Resized.jpg");
+
+            CapturedFrame = screenCaptureResized;
+        }
+
+        private async Task IndefiniteFrameLimiter(int limitMiliSeconds)
+        {
+            while (true)
+            {
+                bool localBool;
+                Application.Current.Dispatcher.Invoke(() => { localBool = canUpdateFrames; });
+                if (!canUpdateFrames)
+                {
+                    await Task.Delay(limitMiliSeconds);
+                    Application.Current.Dispatcher.Invoke(() => { canUpdateFrames = true; });
+                }
+            }
         }
     }
 }

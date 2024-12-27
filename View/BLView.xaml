@@ -11,7 +11,7 @@
              xmlns:ViewModels="clr-namespace:sldc.ViewModel.PlaythroughSubViewModels" 
              xmlns:ViewModelRoot="clr-namespace:sldc.ViewModel" 
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="850">
+             d:DesignHeight="650" d:DesignWidth="750">
     <UserControl.Resources>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converter:BooleanToConnectConverter x:Key="BooleanToConnectConverter"/>

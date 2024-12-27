@@ -172,6 +172,7 @@ namespace sldc.ViewModel
             {
                 IsConnectedToGame = false;
                 ImageSimilarityNotifier.IsSearchingForDeaths = false;
+                IsPlaythroughSelected = false;
             }
         }
         private void ResetDeathCountCommand(object parameter)
