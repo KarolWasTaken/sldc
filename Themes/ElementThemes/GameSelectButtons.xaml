@@ -1,57 +1,102 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Converters="clr-namespace:sldc.Converter">
+                    xmlns:Converters="clr-namespace:sldc.Converter"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    
+
     <Style x:Key="GameSelectButtons" TargetType="{x:Type RadioButton}">
         <Setter Property="Foreground" Value="Transparent" />
         <Setter Property="Template">
         <Setter.Value>
             <ControlTemplate TargetType="{x:Type RadioButton}">
-                <StackPanel Orientation="Horizontal">
-                    <!-- Icon -->
-                    <Border Width="210" Height="35" Margin="0,0,8,0" Background="{DynamicResource Background}"
+                <Grid>
+                    <!--workaround cuz cant bind to 'To' in storyboards-->
+                    <Border Width="210"
+                            Height="35"
+                            Margin="0,0,25,0"
+                            Background="{DynamicResource Background_Level_2}"
                             CornerRadius="17"
-                            x:Name="ButtonBackground">
-                        <!-- Default unselected icon -->
-                        <!--<Ellipse x:Name="UnselectedIcon" Fill="Gray" Width="16" Height="16" />
-                        --><!-- Selected icon --><!--
-                        <Ellipse x:Name="SelectedIcon" Fill="Blue" Width="16" Height="16" Visibility="Collapsed" />-->
+                            Opacity="0"
+                            x:Name="MouseOverWorkaroundBorder"/>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                Width="210">
+                        <!-- Icon -->
+                        <Border Width="210"
+                                Height="35"
+                                Margin="0,0,8,0"
+                                CornerRadius="17"
+                                Background="Transparent"
+                                x:Name="ButtonBackground">
+
                             <DockPanel Margin="10,0,10,0">
                                 <Image x:Name="UnselectedIcon" Stretch="Uniform" Width="22" Height="22" Source="{DynamicResource UnselectedImage}"
-                                    RenderOptions.BitmapScalingMode="HighQuality"/>
+                                RenderOptions.BitmapScalingMode="HighQuality"/>
                                 <Image x:Name="SelectedIcon" Stretch="Uniform" Width="22" Height="22" Source="{DynamicResource SelectedImage}"
-                                    RenderOptions.BitmapScalingMode="HighQuality"/>
+                                RenderOptions.BitmapScalingMode="HighQuality"/>
                                 <Label Content="{TemplateBinding Content}"
-                                        FontFamily="{StaticResource Inter}"
-                                        Foreground="{DynamicResource TextColour}"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        FontSize="15"
-                                        FontWeight="Regular"
-                                        Margin="6,2,0,0"/>
+                                    FontFamily="{StaticResource Plus Jakarta Sans}"
+                                    Foreground="{DynamicResource TextColour}"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    FontWeight="Regular"
+                                    Margin="6,2,0,0"/>
                             </DockPanel>
                         </Border>
-                    <!-- Text Content -->
-                    <ContentPresenter VerticalAlignment="Center" />
-                </StackPanel>
-                <ControlTemplate.Triggers>
-                    <!-- Trigger to show selected icon -->
-                    <Trigger Property="IsChecked" Value="True">
-                        <Setter TargetName="SelectedIcon" Property="Visibility" Value="Visible" />
-                        <Setter TargetName="UnselectedIcon" Property="Visibility" Value="Collapsed" />
-                        <Setter TargetName="ButtonBackground" Property="Background" Value="{DynamicResource Background_Level_2}"/>
-                    </Trigger>
-                    <!-- Trigger to show unselected icon -->
-                    <Trigger Property="IsChecked" Value="False">
-                        <Setter TargetName="SelectedIcon" Property="Visibility" Value="Collapsed" />
-                        <Setter TargetName="UnselectedIcon" Property="Visibility" Value="Visible" />
-                        <Setter TargetName="ButtonBackground" Property="Background" Value="{DynamicResource Background}"/>
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
+                        <!-- Text Content -->
+                        <ContentPresenter VerticalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+                    <ControlTemplate.Triggers>
+                        <!-- Trigger to show selected icon -->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="SelectedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="UnselectedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="ButtonBackground" Property="Background" Value="{DynamicResource Background_Level_2}"/>
+                        </Trigger>
+                        <!-- Trigger to show unselected icon -->
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="SelectedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="UnselectedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ButtonBackground" Property="Background" Value="Transparent"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <!--<Setter TargetName="ButtonBackground" Property="Background" Value="{DynamicResource Background_Level_2}"/>-->
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MouseOverWorkaroundBorder" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseInOut"/>
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MouseOverWorkaroundBorder" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="0">
+                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                    <QuarticEase EasingMode="EaseInOut"/>
+                                                </EasingDoubleKeyFrame.EasingFunction>
+                                            </EasingDoubleKeyFrame>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

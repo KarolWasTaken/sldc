@@ -13,6 +13,57 @@
         TextOptions.TextFormattingMode="Ideal">
     <Window.Resources>
         <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <Storyboard x:Key="OpenErrorAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ErrorMessageBackgroundRectangle" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="0.75"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ErrorMessageBody" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ErrorMessageBody" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="85">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainErrorMessageContainer" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseErrorAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ErrorMessageBackgroundRectangle" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0.75"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ErrorMessageBody" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="85">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ErrorMessageBody" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainErrorMessageContainer" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.2000000" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
 
     <Grid Background="{DynamicResource Background}">
@@ -38,7 +89,7 @@
             </DataTemplate>
         </Grid.Resources>
         <!--#endregion-->
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
@@ -47,16 +98,6 @@
 
         <!--#region navigation buttons-->
         <StackPanel Grid.Column="0">
-            <!--<StackPanel.Resources>
-                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource RadioButtonGameSelectStyle}">
-                    <Setter Property="Margin" Value="10,10,10,0"/>
-                    <Setter Property="Height" Value="30"/>
-                    <Setter Property="FontSize" Value="10"/>
-                    <Setter Property="FontSize" Value="12"/>
-                    <Setter Property="Background" Value="{DynamicResource Background_Level_3}"/>
-                    <Setter Property="Padding" Value="6"/>
-                </Style>
-            </StackPanel.Resources>-->
             <StackPanel.Resources>
                 <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource GameSelectButtons}">
                     <Setter Property="Margin" Value="10,0,5,0"/>
@@ -67,12 +108,6 @@
                     <Setter Property="Padding" Value="6"/>
                 </Style>
             </StackPanel.Resources>
-
-            <!--<Button Content="DS: RE" Command="{Binding DSRENavigateCommand}" Style="{DynamicResource MainGameSelect}"/>
-            <Button Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}" Style="{DynamicResource MainGameSelect}"/>
-            <Button Content="DS3" Command="{Binding DS3NavigateCommand}" Style="{DynamicResource MainGameSelect}"/>
-            <Button Content="ER" Command="{Binding ERNavigateCommand}"/>
-            <Button Content="BL" Command="{Binding BLNavigateCommand}"/>-->
 
             <RadioButton Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
             <RadioButton Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"/>
@@ -100,11 +135,56 @@
             </StackPanel.Resources>
             <Button Content="Settings" Command="{Binding SettingsNavigateCommand}"/>
         </StackPanel>
-        
+
 
         <Rectangle Grid.Column="1"
                    Fill="{DynamicResource Background}"/>
         <ContentControl Content="{Binding CurrentViewModel}"
                         Grid.Column="1"/>
+
+        <!--#region-->
+        <Grid x:Name="MainErrorMessageContainer" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="Collapsed">
+            <Rectangle x:Name="ErrorMessageBackgroundRectangle" Fill="Black" Opacity="0.75" MouseLeftButtonDown="close_errormsg_popup"/>
+            <Grid x:Name="ErrorMessageBody" Background="{DynamicResource Background}" Margin="200,200,200,200" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding ErrorHeaderMessage, FallbackValue=HEADER_PLACEHOLDER}"
+                           FontFamily="{DynamicResource Plus Jakarta Sans}"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource TextColour}"
+                           Margin="20,5,0,0"/>
+                <Rectangle Fill="{DynamicResource TextColour}"
+                           VerticalAlignment="Bottom"
+                           Height="1"
+                           Margin="20,0,20,0"/>
+                <TextBlock Grid.Row="1"
+                           Text="{Binding ErrorBodyMessage, FallbackValue=BODY_PLACEHOLDER}"
+                           Foreground="{DynamicResource TextColour}"
+                           TextWrapping="Wrap"
+                           Width="600"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           FontSize="35"
+                           FontFamily="{DynamicResource Plus Jakarta Sans}"
+                           FontWeight="Light"
+                           Margin="0,0,0,25"/>
+            </Grid>
+        </Grid>
+        <!--#endregion-->
     </Grid>
 </Window>

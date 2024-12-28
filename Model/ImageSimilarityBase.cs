@@ -203,26 +203,21 @@ namespace sldc.Model
         public void BeginCapturingCard(string deviceMoniker)
         {
             videoSource = new VideoCaptureDevice(deviceMoniker);
+            videoSource.VideoResolution = videoSource.VideoCapabilities[5];
             videoSource.DesiredFrameRate = 1;
             videoSource.NewFrame += VideoSource_NewFrame;
             videoSource.Start();
             //Task frameLimiter = Task.Run(() => IndefiniteFrameLimiter(150));
         }
-        private bool canUpdateFrames = false;
-        private int framesRecieved = 0;
+
+
+        private DateTime lastFrameTime = DateTime.MinValue; // Last processed frame time
         private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            // frame limiter
-            //if (!canUpdateFrames)
-            //    return;
-            //canUpdateFrames = false;
-            //if (videoSource.FramesReceived % 5 != 0)
-            //    return;
-            //framesRecieved++;
-            //if(framesRecieved % 60 != 0)
-            //{
-            //    return;
-            //}
+            // Check if at least 1 second has passed since the last frame
+            if ((DateTime.Now - lastFrameTime).TotalSeconds < 1)
+                return;
+            lastFrameTime = DateTime.Now; // Update the timestamp
 
             Bitmap screenCapture2 = (Bitmap)eventArgs.Frame.Clone();
             screenCapture2.Save("CAPTURECARD.png");
@@ -254,20 +249,6 @@ namespace sldc.Model
             screenCaptureResized.Save("capturecard_Resized.jpg");
 
             CapturedFrame = screenCaptureResized;
-        }
-
-        private async Task IndefiniteFrameLimiter(int limitMiliSeconds)
-        {
-            while (true)
-            {
-                bool localBool;
-                Application.Current.Dispatcher.Invoke(() => { localBool = canUpdateFrames; });
-                if (!canUpdateFrames)
-                {
-                    await Task.Delay(limitMiliSeconds);
-                    Application.Current.Dispatcher.Invoke(() => { canUpdateFrames = true; });
-                }
-            }
         }
     }
 }

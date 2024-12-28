@@ -82,7 +82,7 @@ namespace sldc.Commands
             else
             {
                 // couldnt connect to game
-                MessageBox.Show("couldnt connect to game");
+                _gameViewModel.SendErrorMessage("ERROR", "Error connecting to game!\nPlease connect while in-game.");
             }
             hook.Stop();
         }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using static sldc.App;
 using static sldc.Stores.DRPClientStore;
 
 namespace sldc.ViewModel
@@ -126,6 +127,14 @@ namespace sldc.ViewModel
             OnPropertyChanged(nameof(DeathCountText));
             // update drp
             _discordRpcClientStore.UpdatePresence(DeathCount);
+        }
+
+        // pushing error messages
+        public event ErrorMessageHandler OnErrorMessage;
+        public void SendErrorMessage(string header, string body)
+        {
+            // raise event
+            OnErrorMessage.Invoke(header, body);
         }
 
         public ICommand ConnectGameCommand { get; }

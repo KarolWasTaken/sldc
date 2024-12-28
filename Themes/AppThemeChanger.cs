@@ -23,6 +23,7 @@ namespace sldc.Themes
             new Uri("Themes/ElementThemes/DeathCounterIslandStyles.xaml", UriKind.Relative),
             new Uri("Themes/ElementThemes/ImageCardStyles.xaml", UriKind.Relative),
             new Uri("Themes/ElementThemes/TextBoxStyle.xaml", UriKind.Relative),
+            new Uri("Themes/ElementThemes/GameSelectButtons.xaml", UriKind.Relative)
         };
 
 
@@ -52,9 +53,12 @@ namespace sldc.Themes
             Application.Current.Resources.MergedDictionaries.Clear();
             // Load the FontFamily resource
             FontFamily interFontFamily = new FontFamily(new Uri("pack://application:,,,Themes/Fonts/"), "./#Inter");
+            FontFamily plusJakartaSansFontFamily = new FontFamily(new Uri("pack://application:,,,Themes/Fonts/"), "./#Plus Jakarta Sans");
             Application.Current.Resources["Inter"] = interFontFamily;
+            Application.Current.Resources["Plus Jakarta Sans"] = plusJakartaSansFontFamily;
             // adds fonts to resources
             Application.Current.Resources.Add(new FontFamily(new Uri("pack://application:,,,/"), "./Themes/Fonts/#Inter"), UriKind.Relative);
+            Application.Current.Resources.Add(new FontFamily(new Uri("pack://application:,,,/"), "./Themes/Fonts/#Plus Jakarta Sans"), UriKind.Relative);
             // adds the new one (light or dark theme)
             Application.Current.Resources.MergedDictionaries.Add(theme);
         }

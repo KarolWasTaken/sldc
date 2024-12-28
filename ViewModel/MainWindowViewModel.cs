@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 namespace sldc.ViewModel
 {
@@ -16,6 +17,38 @@ namespace sldc.ViewModel
     {
         private readonly NavigationStore _navigationStore;
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+
+
+        // for error messages
+        private string _errorBodyMessage;
+        public string ErrorBodyMessage
+        {
+            get { return _errorBodyMessage; }
+            set
+            {
+                _errorBodyMessage = value;
+                OnPropertyChanged(nameof(ErrorBodyMessage));
+            }
+        }
+        private string _errorHeaderMessage;
+        public string ErrorHeaderMessage
+        {
+            get { return _errorHeaderMessage; }
+            set
+            {
+                _errorHeaderMessage = value;
+                OnPropertyChanged(nameof(ErrorHeaderMessage));
+            }
+        }
+        public event Action PlayErrorAnimation;
+        public void SendErrorMessageToViewModel(string Header, string Body)
+        {
+            ErrorHeaderMessage = Header;
+            ErrorBodyMessage = Body;
+            PlayErrorAnimation?.Invoke();
+        }
+
+
 
         // naviagtion command here
         public ICommand DSRENavigateCommand { get; }
@@ -32,6 +65,7 @@ namespace sldc.ViewModel
             Func<BLViewModel> createBLViewModel,
             Func<SettingsViewModel> createSettingsViewModel)
         {
+            // navigation commands
             DSRENavigateCommand = new DSRENavigateCommand(this, navigationStore, createDSREViewModel);
             DS2SoTFSNavigateCommand = new DS2SoTFSNavigateCommand(this, navigationStore, createDS2SoTFSViewModel);
             DS3NavigateCommand = new DS3NavigateCommand(this, navigationStore, createDS3ViewModel);

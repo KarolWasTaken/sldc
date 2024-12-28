@@ -32,6 +32,9 @@ namespace sldc
         private DS3ViewModel _dS3ViewModel;
         private ERViewModel _eRViewModel;
         private BLViewModel _bLViewModel;
+
+        // subscribers (talk between viewmodel and mainwindow viewmodel)
+        public delegate void ErrorMessageHandler(string header, string body);
         public App()
         {
             _navigationStore = new NavigationStore();
@@ -71,20 +74,19 @@ namespace sldc
             // set startup window
             _navigationStore.CurrentViewModel = _dS3ViewModel;
 
-            string test = "";
-
-            try
-            {
-                var dict = new ResourceDictionary
-                {
-                    Source = new Uri("Themes/ElementThemes/GameSelectButtons.xaml", UriKind.Relative)
-                };
-                Application.Current.Resources.MergedDictionaries.Add(dict);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Failed to load GameSelectButtons: {ex.Message}");
-            }
+            //string test = "";
+            //try
+            //{
+            //    var dict = new ResourceDictionary
+            //    {
+            //        Source = new Uri("Themes/ElementThemes/GameSelectButtons.xaml", UriKind.Relative)
+            //    };
+            //    Application.Current.Resources.MergedDictionaries.Add(dict);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Debug.WriteLine($"Failed to load GameSelectButtons: {ex.Message}");
+            //}
 
             //foreach (ResourceDictionary dictionary in Application.Current.Resources.MergedDictionaries)
             //{
@@ -96,19 +98,21 @@ namespace sldc
             //}
             //MessageBox.Show(test);
 
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel ( _navigationStore,
+                                                                                CreateDSREViewModel,
+                                                                                CreateDS2SoTFSViewModel,
+                                                                                CreateDS3ViewModel,
+                                                                                CreateERViewModel,
+                                                                                CreateBLViewModel,
+                                                                                CreateSettingsViewModel );
+            // do this to all future viewmodel games
+            _dS2SoTFSViewModel.OnErrorMessage += mainWindowViewModel.SendErrorMessageToViewModel;
+            _dS3ViewModel.OnErrorMessage += mainWindowViewModel.SendErrorMessageToViewModel;
 
+            // actually opening the mainwindow
             MainWindow mainWindow = new MainWindow()
             {
-                DataContext = new MainWindowViewModel
-                (
-                    _navigationStore,
-                    CreateDSREViewModel,
-                    CreateDS2SoTFSViewModel,
-                    CreateDS3ViewModel,
-                    CreateERViewModel,
-                    CreateBLViewModel,
-                    CreateSettingsViewModel
-                )
+                DataContext = mainWindowViewModel
             };
             mainWindow.Show();
 

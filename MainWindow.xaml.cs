@@ -1,4 +1,5 @@
 ﻿using sldc.Themes;
+using sldc.ViewModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,6 +7,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -17,32 +19,34 @@ namespace sldc
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool IsDarkTheme = true;
         public MainWindow()
         {
             InitializeComponent();
+
+            // Call the method asynchronously to allow for the delay after InitializeComponent
+            // if it works, it works
+            InitializeViewModelAsync();
         }
 
-        private void ChangeTheme()
+        private async Task InitializeViewModelAsync()
         {
-            if (IsDarkTheme)
-            {
-                AppThemeChanger.ChangeTheme(new Uri("Themes/LightTheme.xaml", UriKind.Relative));
-            }
-            else
-            {
-                AppThemeChanger.ChangeTheme(new Uri("Themes/DarkTheme.xaml", UriKind.Relative));
-            }
-            IsDarkTheme = !IsDarkTheme;
+            // Wait for 0.25 seconds to ensure DataContext is set
+            await Task.Delay(250);  
+
+            var viewModel = (MainWindowViewModel)DataContext;
+            viewModel.PlayErrorAnimation += OnPlayErrorAnimation;
         }
 
-        private void DarkThemePressed(object sender, RoutedEventArgs e)
+        // using code-behind with mvvm is bad but this is also the easiest way to do this.
+        private void close_errormsg_popup(object sender, MouseButtonEventArgs e)
         {
-            ChangeTheme();
+            var storyboard = (Storyboard)FindResource("CloseErrorAnimation");
+            storyboard.Begin(this);
         }
-        private void LightThemePressed(object sender, RoutedEventArgs e)
+        private void OnPlayErrorAnimation()
         {
-            ChangeTheme();
+            var storyboard = (Storyboard)FindResource("OpenErrorAnimation");
+            storyboard.Begin(this);
         }
     }
 }

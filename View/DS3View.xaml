@@ -23,7 +23,7 @@
                     VerticalAlignment="Top"
                     Grid.ColumnSpan="2">
             <TextBlock Style="{StaticResource HeaderTextStyle}" FontWeight="Bold"
-                       FontFamily="{StaticResource Inter}">
+                       FontFamily="{StaticResource Plus Jakarta Sans}">
                 DARK SOULS III
             </TextBlock>
             <TextBlock Style="{StaticResource SubHeaderTextStyle}"

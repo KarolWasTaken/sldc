@@ -53,7 +53,7 @@
         <Setter Property="Padding" Value="0,20,0,0"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="FontFamily" Value="{StaticResource Inter}"/>
+        <Setter Property="FontFamily" Value="{StaticResource Plus Jakarta Sans}"/>
         <Setter Property="FontWeight" Value="Regular"/>
         <Setter Property="ElementThemes:PrimaryButtonStyleHelper.CornerRadius" Value="30"/>
     </Style>

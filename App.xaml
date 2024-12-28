@@ -5,6 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <FontFamily x:Key="Inter">pack://application:,,,Themes/Fonts/#Inter</FontFamily>
+            <FontFamily x:Key="Plus Jakarta Sans">pack://application:,,,Themes/Fonts/#Plus Jakarta Sans</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/DarkTheme.xaml"/>
                 <ResourceDictionary Source="Themes/ElementThemes/SecondaryButtonStyle.xaml"/>

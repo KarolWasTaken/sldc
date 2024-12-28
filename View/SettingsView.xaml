@@ -55,6 +55,30 @@
                         Height="70"
                         CornerRadius="10">
                     <StackPanel>
+                        <TextBlock Text="Streamer Window Background Colour"
+                                   FontFamily="{StaticResource Inter}"
+                                   FontWeight="Regular"
+                                   FontSize="20"
+                                   Foreground="{DynamicResource TextColour}"
+                                   Opacity="0.8"
+                                   Margin="10,5,0,0"/>
+                        <TextBox HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Width="150"
+                                 Height="25"
+                                 Margin="10,0,0,0"
+                                 Padding="0,3,0,0"
+                                 FontSize="13"
+                                 MaxLength="8"
+                                 Background="{DynamicResource Background_Level_3}"
+                                 Foreground="{DynamicResource TextColour}"
+                                 BorderThickness="0"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="{DynamicResource Background_Level_2}"
+                        Height="70"
+                        CornerRadius="10">
+                    <StackPanel>
                         <DockPanel Margin="10,5,0,0">
                             <TextBlock Text="Discord Rich Presence"
                                        FontFamily="{StaticResource Inter}"
