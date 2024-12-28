@@ -43,10 +43,10 @@
                 CornerRadius="10">
             <Border.Background>
                 <ImageBrush Stretch="UniformToFill"
-                            Viewbox="0,-0.17,1,0.8" ViewboxUnits="RelativeToBoundingBox">
+                            Viewbox="0,0,1,0.8" ViewboxUnits="RelativeToBoundingBox">
                     
                     <ImageBrush.ImageSource>
-                        <BitmapImage UriSource="/Resources/DS3-card-image.jpg"/>
+                        <BitmapImage UriSource="/Resources/DS3-banner-image.png"/>
                     </ImageBrush.ImageSource>
                 </ImageBrush>
             </Border.Background>
@@ -85,62 +85,6 @@
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
                    Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-        <Border Style="{StaticResource DeathCounterIsland}" Visibility="Collapsed">
-            <StackPanel VerticalAlignment="Center">
-                <TextBlock Style="{StaticResource DeathCounterText}"/>
-                <TextBlock Text="{Binding Covenant}"
-                           Style="{StaticResource SubHeaderDeathIslandTextStyle}"
-                           Margin="10,0,0,0"
-                           Width="390"/>
-            </StackPanel>
-        </Border>
-
-
-
-        <!--#region Game card cover -->
-        <Border Grid.Column="1"
-                Margin="0,0,30,0"
-                Style="{StaticResource CardBorderStyle}"
-                Visibility="Collapsed">
-            <Border.Background>
-                <ImageBrush Stretch="Fill" >
-                    <ImageBrush.ImageSource>
-                        <BitmapImage UriSource="/Resources/DS3-card-image.jpg"/>
-                    </ImageBrush.ImageSource>
-                </ImageBrush>
-            </Border.Background>
-        </Border>
-        <!--#endregion-->
-        <!--#region Card Overlay-->
-        <!--Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}"-->
-        <Border Grid.Column="1"
-                Style="{StaticResource CardBorderStyleNoShadow}"
-                Background="Black"
-                OpacityMask="{StaticResource HeaderBackgroundOpacityMask}"
-                Visibility="Collapsed">
-            <StackPanel HorizontalAlignment="Left"
-                        VerticalAlignment="Bottom"
-                        Margin="10,0,0,10">
-                <TextBlock Text="DARK SOULS III"
-                           FontFamily="{StaticResource Inter}"
-                           FontWeight="Regular"
-                           Opacity="1"
-                           FontSize="20"
-                           Foreground="White"/>
-                <TextBlock Foreground="White"
-                           Text="{Binding ElapsedTime}"
-                           FontSize="15"
-                           FontFamily="{StaticResource Inter}"
-                           FontWeight="Thin"
-                           Opacity="0.8"/>
-
-            </StackPanel>
-        </Border>
-        <!--#endregion-->
-
-
-
 
 
         <!--#region navigation buttons-->

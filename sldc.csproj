@@ -11,7 +11,9 @@
   <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="Resources\BL-card-image.png" />
+    <None Remove="Resources\DS2-banner-image.jpg" />
     <None Remove="Resources\DS2-card-image.png" />
+    <None Remove="Resources\DS3-banner-image.png" />
     <None Remove="Resources\DS3-card-image.jpg" />
     <None Remove="Resources\DSR-card-image.png" />
     <None Remove="Resources\dummy-capture-screen.jpg" />
@@ -57,6 +59,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\DS2-banner-image.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\DS3-banner-image.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\game-selected-LT.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

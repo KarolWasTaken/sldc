@@ -26,7 +26,8 @@ namespace sldc.Commands
         {
             if(_gameViewModel._hookStore.HookedGame != parameter.ToString() && _gameViewModel._hookStore.HookedGame != null)
             {
-                MessageBox.Show("You are currently connected to a game.\nDisconnect from it first.");
+                //MessageBox.Show("You are currently connected to a game.\nDisconnect from it first.");
+                _gameViewModel.SendErrorMessage("ERROR", "You are currently connected to a \ngame. Disconnect from it and\ntry again.");
                 return;
             }
 
