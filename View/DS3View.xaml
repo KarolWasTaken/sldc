@@ -114,30 +114,7 @@
             </Border.Background>
         </Border>
 
-        <!--<Border Grid.Column="0"
-                Style="{StaticResource CardBorderStyleNoShadow}"
-                Background="Transparent"
-                Width="700"
-                Height="250"
-                Grid.ColumnSpan="2"
-                CornerRadius="10"
-                Margin="0,50,30,0"
-                ClipToBounds="True">
-            <StackPanel HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
-                    Margin="10,0,0,15">
-                <TextBlock Foreground="White"
-                           Text="{Binding ElapsedTime}"
-                           FontSize="15"
-                           FontFamily="{StaticResource Inter}"
-                           FontWeight="Thin"
-                           Opacity="0.8"
-                           Margin="7,0,0,0"
-                           Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            </StackPanel>
-        </Border>-->
         <!--opacity mask on image card-->
-
         <Border Background="Transparent"
                 Style="{StaticResource CardBorderStyleNoShadow}"
                 Width="700"
@@ -172,16 +149,6 @@
                 </Border.OpacityMask>
             </Border>
         </Border>
-        <!--<TextBlock Text="{Binding DeathCountText}"
-                   FontFamily="{StaticResource Inter}"
-                   FontWeight="Medium"
-                   Opacity="1"
-                   FontSize="30"
-                   Foreground="White"
-                   Margin="17,198,0,0"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center"
-                   Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}"/>-->
         <!--Death and time text-->
         <StackPanel x:Name="DeathAndTimeText"
                     HorizontalAlignment="Left"
