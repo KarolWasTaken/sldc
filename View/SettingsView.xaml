@@ -15,14 +15,22 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="_Border"
-                                SnapsToDevicePixels="true"
-                                BorderThickness="1">
+                        <Grid>
+                            <Border Name="_Border"
+                                    SnapsToDevicePixels="true"
+                                    BorderThickness="1"
+                                    Background="Transparent">
+                            </Border>
+                            <Border Name="_Inner"
+                                    SnapsToDevicePixels="true"
+                                    BorderThickness="0">
+                            </Border>
                             <ContentPresenter />
-                        </Border>
+                        </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="_Border" Property="Background" Value="#AD0A0A"/>
+                                <Setter TargetName="_Inner" Property="Background" Value="#FF0000"/>
+                                <Setter TargetName="_Inner" Property="Opacity" Value="0.5"/>
                                 <Setter TargetName="_Border" Property="BorderBrush" Value="#FF0000"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </Trigger>
@@ -31,8 +39,9 @@
                                     <Condition Property="IsMouseOver" Value="True"/>
                                     <Condition Property="IsSelected" Value="False"/>
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="_Border" Property="Background" Value="#941212"/>
-                                <Setter TargetName="_Border" Property="BorderBrush" Value="#d60a0a"/>
+                                <Setter TargetName="_Inner" Property="Background" Value="#FF0000"/>
+                                <Setter TargetName="_Inner" Property="Opacity" Value="0.25"/>
+                                <Setter TargetName="_Border" Property="BorderBrush" Value="#FF0000"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </MultiTrigger>
                             <MultiTrigger>
@@ -40,9 +49,10 @@
                                     <Condition Property="IsFocused" Value="False"/>
                                     <Condition Property="IsSelected" Value="True"/>
                                 </MultiTrigger.Conditions>
-                                <Setter TargetName="_Border" Property="Background" Value="#595959"/>
+                                <Setter TargetName="_Inner" Property="Background" Value="White"/>
+                                <Setter TargetName="_Inner" Property="Opacity" Value="0.25"/>
                                 <Setter TargetName="_Border" Property="BorderBrush" Value="White"/>
-                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextColour}"/>
                             </MultiTrigger>
                             
                         </ControlTemplate.Triggers>
