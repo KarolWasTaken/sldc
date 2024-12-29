@@ -69,183 +69,201 @@
         </Grid.RowDefinitions>
 
         <TextBlock Style="{StaticResource HeaderTextStyle}"
-                   Margin="30,10,0,0">
+                   Margin="20,20,0,0">
             SETTINGS
         </TextBlock>
 
-        <ScrollViewer Grid.Row="1" Margin="30,0,10,0" CanContentScroll="False">
-            <StackPanel>
-                <StackPanel.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="Margin" Value="0,0,0,10"/>
-                    </Style>
-                </StackPanel.Resources>
-                <Border Background="{DynamicResource Background_Level_2}"
-                        Height="70"
-                        CornerRadius="10">
-                    <StackPanel>
-                        <TextBlock Text="Theme"
-                                   FontFamily="{StaticResource Inter}"
-                                   FontWeight="Regular"
-                                   FontSize="20"
-                                   Foreground="{DynamicResource TextColour}"
-                                   Opacity="0.8"
-                                   Margin="10,5,0,0"/>
-                        <ComboBox Width="100"
-                                  HorizontalAlignment="Left"
-                                  Margin="10,5,0,0"
-                                  ItemsSource="{Binding ThemeList}"
-                                  SelectedIndex="{Binding SelectedThemeIndex}"
-                                  SelectedItem="{Binding SelectedTheme, UpdateSourceTrigger=PropertyChanged}">
-                        </ComboBox>
-                    </StackPanel>
-                </Border>
-                <Border Background="{DynamicResource Background_Level_2}"
-                        CornerRadius="10">
-                    <StackPanel>
-                        <TextBlock Text="Streamer Window Font"
-                                   FontFamily="{StaticResource Inter}"
-                                   FontWeight="Regular"
-                                   FontSize="20"
-                                   Foreground="{DynamicResource TextColour}"
-                                   Opacity="0.8"
-                                   Margin="10,5,0,0"/>
+        <Grid Grid.Row="1"
+              Margin="30,0,10,0">
+            <ScrollViewer CanContentScroll="False">
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Margin" Value="0,0,0,10"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Border Background="{DynamicResource Background_Level_2}"
+                            Height="70"
+                            CornerRadius="10">
                         <StackPanel>
-                            <DockPanel Margin="10,10,10,10">
-                                <ListBox x:Name="fontSelector" 
-                                         Height="150"
-                                         Width="250"
-                                         ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
-                                         Background="{DynamicResource Background_Level_3}"
-                                         BorderThickness="3"
-                                         BorderBrush="{DynamicResource Background}"
-                                         Foreground="{DynamicResource TextColour}"
-                                         ItemsSource="{x:Static Fonts.SystemFontFamilies}"
-                                         SelectedItem="{Binding SelectedFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <ListBox x:Name="typefaceSelector" 
-                                         Height="150"
-                                         ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
-                                         Background="{DynamicResource Background_Level_3}"
-                                         BorderThickness="3"
-                                         BorderBrush="{DynamicResource Background}"
-                                         Foreground="{DynamicResource TextColour}"
-                                         ItemsSource="{Binding SelectedItem.FamilyTypefaces, ElementName=fontSelector}"
-                                         SelectedItem="{Binding SelectedTypeface, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         DisplayMemberPath="AdjustedFaceNames[en-US]" 
-                                         Grid.Column="1" />
-                            </DockPanel>
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Bottom"
-                                       Text="Hello World!"
-                                       FontSize="25"
-                                       Margin="0,0,0,10"
+                            <TextBlock Text="Theme"
+                                       FontFamily="{StaticResource Inter}"
+                                       FontWeight="Regular"
+                                       FontSize="20"
                                        Foreground="{DynamicResource TextColour}"
-                                       FontFamily="{Binding SelectedFontFamily, TargetNullValue='Arial'}"
-                                       FontStretch="{Binding SelectedFontStretch}"
-                                       FontStyle="{Binding SelectedFontStyle}"
-                                       FontWeight="{Binding SelectedFontWeight}"/>
+                                       Opacity="0.8"
+                                       Margin="10,5,0,0"/>
+                            <ComboBox Width="100"
+                                      HorizontalAlignment="Left"
+                                      Margin="10,5,0,0"
+                                      ItemsSource="{Binding ThemeList}"
+                                      SelectedIndex="{Binding SelectedThemeIndex}"
+                                      SelectedItem="{Binding SelectedTheme, UpdateSourceTrigger=PropertyChanged}">
+                            </ComboBox>
                         </StackPanel>
-                    </StackPanel>
-                </Border>
-                <Border Background="{DynamicResource Background_Level_2}"
-                        Height="70"
-                        CornerRadius="10">
-                    <StackPanel>
-                        <DockPanel Margin="10,5,0,0">
-                            <TextBlock Text="Discord Rich Presence"
+                    </Border>
+                    <Border Background="{DynamicResource Background_Level_2}"
+                            CornerRadius="10">
+                        <StackPanel>
+                            <TextBlock Text="Streamer Window Font"
                                        FontFamily="{StaticResource Inter}"
                                        FontWeight="Regular"
                                        FontSize="20"
                                        Foreground="{DynamicResource TextColour}"
-                                       Opacity="0.8"/>
-                            <Border Background="{Binding DRPStatus, Converter={StaticResource BooleanToColourIndicatorConverter}, FallbackValue=Yellow}"
+                                       Opacity="0.8"
+                                       Margin="10,5,0,0"/>
+                            <StackPanel>
+                                <DockPanel Margin="10,10,10,10">
+                                    <ListBox x:Name="fontSelector" 
+                                             Height="150"
+                                             Width="250"
+                                             ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
+                                             Background="{DynamicResource Background_Level_3}"
+                                             BorderThickness="3"
+                                             BorderBrush="{DynamicResource Background}"
+                                             Foreground="{DynamicResource TextColour}"
+                                             ItemsSource="{x:Static Fonts.SystemFontFamilies}"
+                                             SelectedItem="{Binding SelectedFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <ListBox x:Name="typefaceSelector" 
+                                             Height="150"
+                                             ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
+                                             Background="{DynamicResource Background_Level_3}"
+                                             BorderThickness="3"
+                                             BorderBrush="{DynamicResource Background}"
+                                             Foreground="{DynamicResource TextColour}"
+                                             ItemsSource="{Binding SelectedItem.FamilyTypefaces, ElementName=fontSelector}"
+                                             SelectedItem="{Binding SelectedTypeface, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             DisplayMemberPath="AdjustedFaceNames[en-US]" 
+                                             Grid.Column="1" />
+                                </DockPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Bottom"
+                                           Text="Hello World!"
+                                           FontSize="25"
+                                           Margin="0,0,0,10"
+                                           Foreground="{DynamicResource TextColour}"
+                                           FontFamily="{Binding SelectedFontFamily, TargetNullValue='Arial'}"
+                                           FontStretch="{Binding SelectedFontStretch}"
+                                           FontStyle="{Binding SelectedFontStyle}"
+                                           FontWeight="{Binding SelectedFontWeight}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="{DynamicResource Background_Level_2}"
+                            Height="70"
+                            CornerRadius="10">
+                        <StackPanel>
+                            <DockPanel Margin="10,5,0,0">
+                                <TextBlock Text="Discord Rich Presence"
+                                           FontFamily="{StaticResource Inter}"
+                                           FontWeight="Regular"
+                                           FontSize="20"
+                                           Foreground="{DynamicResource TextColour}"
+                                           Opacity="0.8"/>
+                                <Border Background="{Binding DRPStatus, Converter={StaticResource BooleanToColourIndicatorConverter}, FallbackValue=Yellow}"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Width="10"
+                                        Height="10"
+                                        CornerRadius="5"
+                                        Margin="5,2,0,0"/>
+                            </DockPanel>
+
+                            <Button Style="{StaticResource PrimaryButtonStyle}"
+                                    Background="{DynamicResource Background_Level_3}"
+                                    Content="{Binding DRPStatus, Converter={StaticResource BooleanToEnabledConverter}, FallbackValue=Enable}"
                                     HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Width="10"
-                                    Height="10"
-                                    CornerRadius="5"
-                                    Margin="5,2,0,0"/>
-                        </DockPanel>
+                                    Margin="10,5,0,0"
+                                    Width="100"
+                                    Height="25"
+                                    Padding="0,3,0,0"
+                                    ElementThemes:PrimaryButtonStyleHelper.CornerRadius="8"
+                                    Command="{Binding ToggleDRPCommand}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="{DynamicResource Background_Level_2}"
+                            Height="70"
+                            CornerRadius="10">
+                        <StackPanel>
+                            <DockPanel Margin="10,5,0,0">
+                                <TextBlock Text="DRP Credit"
+                                           FontFamily="{StaticResource Inter}"
+                                           FontWeight="Regular"
+                                           FontSize="20"
+                                           Foreground="{DynamicResource TextColour}"
+                                           Opacity="0.8"/>
+                                <Border Background="{Binding EnableDRPCredit, Converter={StaticResource BooleanToColourIndicatorConverter}, FallbackValue=Yellow}"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Width="10"
+                                        Height="10"
+                                        CornerRadius="5"
+                                        Margin="5,2,0,0"/>
+                            </DockPanel>
 
-                        <Button Style="{StaticResource PrimaryButtonStyle}"
-                                Background="{DynamicResource Background_Level_3}"
-                                Content="{Binding DRPStatus, Converter={StaticResource BooleanToEnabledConverter}, FallbackValue=Enable}"
-                                HorizontalAlignment="Left"
-                                Margin="10,5,0,0"
-                                Width="100"
-                                Height="25"
-                                Padding="0,3,0,0"
-                                ElementThemes:PrimaryButtonStyleHelper.CornerRadius="8"
-                                Command="{Binding ToggleDRPCommand}"/>
-                    </StackPanel>
-                </Border>
-                <Border Background="{DynamicResource Background_Level_2}"
-                        Height="70"
-                        CornerRadius="10">
-                    <StackPanel>
-                        <DockPanel Margin="10,5,0,0">
-                            <TextBlock Text="DRP Credit"
-                                       FontFamily="{StaticResource Inter}"
-                                       FontWeight="Regular"
-                                       FontSize="20"
-                                       Foreground="{DynamicResource TextColour}"
-                                       Opacity="0.8"/>
-                            <Border Background="{Binding EnableDRPCredit, Converter={StaticResource BooleanToColourIndicatorConverter}, FallbackValue=Yellow}"
+                            <Button Style="{StaticResource PrimaryButtonStyle}"
+                                    Background="{DynamicResource Background_Level_3}"
+                                    Content="{Binding EnableDRPCredit, Converter={StaticResource BooleanToEnabledConverter}, FallbackValue=Enable}"
                                     HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Width="10"
-                                    Height="10"
-                                    CornerRadius="5"
-                                    Margin="5,2,0,0"/>
-                        </DockPanel>
+                                    Margin="10,5,0,0"
+                                    Width="100"
+                                    Height="25"
+                                    Padding="0,3,0,0"
+                                    ElementThemes:PrimaryButtonStyleHelper.CornerRadius="8"
+                                    Command="{Binding ToggleDRPCreditCommand}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="{DynamicResource Background_Level_2}"
+                            Height="70"
+                            CornerRadius="10">
+                        <StackPanel>
+                            <DockPanel Margin="10,5,0,0">
+                                <TextBlock Text="Covenant Display"
+                                           FontFamily="{StaticResource Inter}"
+                                           FontWeight="Regular"
+                                           FontSize="20"
+                                           Foreground="{DynamicResource TextColour}"
+                                           Opacity="0.8"/>
+                                <Border Background="{Binding EnableCovenantDisplay, Converter={StaticResource BooleanToColourIndicatorConverter}, FallbackValue=Yellow}"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Width="10"
+                                        Height="10"
+                                        CornerRadius="5"
+                                        Margin="5,2,0,0"/>
+                            </DockPanel>
 
-                        <Button Style="{StaticResource PrimaryButtonStyle}"
-                                Background="{DynamicResource Background_Level_3}"
-                                Content="{Binding EnableDRPCredit, Converter={StaticResource BooleanToEnabledConverter}, FallbackValue=Enable}"
-                                HorizontalAlignment="Left"
-                                Margin="10,5,0,0"
-                                Width="100"
-                                Height="25"
-                                Padding="0,3,0,0"
-                                ElementThemes:PrimaryButtonStyleHelper.CornerRadius="8"
-                                Command="{Binding ToggleDRPCreditCommand}"/>
-                    </StackPanel>
-                </Border>
-                <Border Background="{DynamicResource Background_Level_2}"
-                        Height="70"
-                        CornerRadius="10">
-                    <StackPanel>
-                        <DockPanel Margin="10,5,0,0">
-                            <TextBlock Text="Covenant Display"
-                                       FontFamily="{StaticResource Inter}"
-                                       FontWeight="Regular"
-                                       FontSize="20"
-                                       Foreground="{DynamicResource TextColour}"
-                                       Opacity="0.8"/>
-                            <Border Background="{Binding EnableCovenantDisplay, Converter={StaticResource BooleanToColourIndicatorConverter}, FallbackValue=Yellow}"
+                            <Button Style="{StaticResource PrimaryButtonStyle}"
+                                    Background="{DynamicResource Background_Level_3}"
+                                    Content="{Binding EnableCovenantDisplay, Converter={StaticResource BooleanToEnabledConverter}, FallbackValue=Enable}"
                                     HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Width="10"
-                                    Height="10"
-                                    CornerRadius="5"
-                                    Margin="5,2,0,0"/>
-                        </DockPanel>
-
-                        <Button Style="{StaticResource PrimaryButtonStyle}"
-                                Background="{DynamicResource Background_Level_3}"
-                                Content="{Binding EnableCovenantDisplay, Converter={StaticResource BooleanToEnabledConverter}, FallbackValue=Enable}"
-                                HorizontalAlignment="Left"
-                                Margin="10,5,0,0"
-                                Width="100"
-                                Height="25"
-                                Padding="0,3,0,0"
-                                ElementThemes:PrimaryButtonStyleHelper.CornerRadius="8"
-                                Command="{Binding ToggleCovenantDisplayCommand}"/>
-                    </StackPanel>
-                </Border>
-
-            </StackPanel>
-        </ScrollViewer>
+                                    Margin="10,5,0,0"
+                                    Width="100"
+                                    Height="25"
+                                    Padding="0,3,0,0"
+                                    ElementThemes:PrimaryButtonStyleHelper.CornerRadius="8"
+                                    Command="{Binding ToggleCovenantDisplayCommand}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Height="70" Background="Transparent" x:Name="Spacer"/>
+                </StackPanel>
+            </ScrollViewer>
+            <!--Cannot find a way to have this above scrollviewer children but behind scrollbar-->
+            <!--<Border x:Name="GradientTransparency"
+                    Grid.Row="1"
+                    Height="100"
+                    Width="750"
+                    Background="Yellow"
+                    VerticalAlignment="Bottom">
+                <Border.OpacityMask>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                        <GradientStop Color="#FFFFFFFF" Offset="0.8"/>
+                        <GradientStop Color="#00FFFFFF" Offset="0.5"/>
+                    </LinearGradientBrush>
+                </Border.OpacityMask>
+            </Border>-->
+        </Grid>
 
         <DockPanel Grid.Row="2"
                    HorizontalAlignment="Right"
