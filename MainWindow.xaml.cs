@@ -61,5 +61,15 @@ namespace sldc
             var storyboard = (Storyboard)FindResource("ExitViewModel");
             storyboard.Begin(this);
         }
+
+        private void SettingsButtonClicked(object sender, RoutedEventArgs e)
+        {
+            // Uncheck all RadioButtons
+            DSRENavigateButton.IsChecked = false;
+            DS2SoTFSNavigateButton.IsChecked = false;
+            DS3NavigateButton.IsChecked = false;
+            BLNavigateButton.IsChecked = false;
+            ERNavigateButton.IsChecked = false;
+        }
     }
 }

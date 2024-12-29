@@ -145,11 +145,11 @@
                 </Style>
             </StackPanel.Resources>
 
-            <RadioButton Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
-            <RadioButton Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"/>
-            <RadioButton Content="DS3" Command="{Binding DS3NavigateCommand}" IsChecked="True"/>
-            <RadioButton Content="BL" Command="{Binding BLNavigateCommand}"/>
-            <RadioButton Content="ER" Command="{Binding ERNavigateCommand}"/>
+            <RadioButton x:Name="DSRENavigateButton" Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
+            <RadioButton x:Name="DS2SoTFSNavigateButton" Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"/>
+            <RadioButton x:Name="DS3NavigateButton" Content="DS3" Command="{Binding DS3NavigateCommand}" IsChecked="True"/>
+            <RadioButton x:Name="BLNavigateButton" Content="BL" Command="{Binding BLNavigateCommand}"/>
+            <RadioButton x:Name="ERNavigateButton" Content="ER" Command="{Binding ERNavigateCommand}"/>
             <!-- temp -->
             <!--CheckBox Content="LightTheme" Checked="DarkThemePressed"
                       Unchecked="LightThemePressed"
@@ -169,7 +169,9 @@
                     <Setter Property="Padding" Value="6"/>
                 </Style>
             </StackPanel.Resources>
-            <Button Content="Settings" Command="{Binding SettingsNavigateCommand}"/>
+            <Button Content="Settings"
+                    Command="{Binding SettingsNavigateCommand}"
+                    Click="SettingsButtonClicked"/>
         </StackPanel>
 
 
