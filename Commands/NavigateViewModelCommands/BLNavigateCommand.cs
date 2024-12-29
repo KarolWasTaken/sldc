@@ -15,7 +15,7 @@ namespace sldc.Commands.NavigateViewModelCommands
         public BLNavigateCommand(MainWindowViewModel mainWindowViewModel, NavigationStore navigationStore, Func<BLViewModel> createBLViewModel)
         {
             _mainWindowViewModel = mainWindowViewModel;
-            _navigationCommand = new NavigateCommand(navigationStore, createBLViewModel);
+            _navigationCommand = new NavigateCommand(navigationStore, createBLViewModel, mainWindowViewModel.TriggerEnterViewModelAnimation, mainWindowViewModel.TriggerExitViewModelAnimation);
         }
         public override void Execute(object? parameter)
         {

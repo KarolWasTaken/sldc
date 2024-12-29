@@ -35,6 +35,8 @@ namespace sldc
 
             var viewModel = (MainWindowViewModel)DataContext;
             viewModel.PlayErrorAnimation += OnPlayErrorAnimation;
+            viewModel.EnterViewModelAnimation += EnterViewModel;
+            viewModel.ExitViewModelAnimation += ExitViewModel;
         }
 
         // using code-behind with mvvm is bad but this is also the easiest way to do this.
@@ -46,6 +48,17 @@ namespace sldc
         private void OnPlayErrorAnimation()
         {
             var storyboard = (Storyboard)FindResource("OpenErrorAnimation");
+            storyboard.Begin(this);
+        }
+
+        private void EnterViewModel()
+        {
+            var storyboard = (Storyboard)FindResource("EnterViewModel");
+            storyboard.Begin(this);
+        }
+        private void ExitViewModel()
+        {
+            var storyboard = (Storyboard)FindResource("ExitViewModel");
             storyboard.Begin(this);
         }
     }

@@ -16,7 +16,7 @@ namespace sldc.Commands.NavigateViewModelCommands
         public DSRENavigateCommand(MainWindowViewModel mainWindowViewModel, NavigationStore navigationStore, Func<DSREViewModel> createDSREViewModel)
         {
             _mainWindowViewModel = mainWindowViewModel;
-            _navigationCommand = new NavigateCommand(navigationStore, createDSREViewModel);
+            _navigationCommand = new NavigateCommand(navigationStore, createDSREViewModel, mainWindowViewModel.TriggerEnterViewModelAnimation, mainWindowViewModel.TriggerExitViewModelAnimation);
         }
         public override void Execute(object? parameter)
         {

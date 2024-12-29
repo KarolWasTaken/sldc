@@ -16,7 +16,7 @@ namespace sldc.Commands.NavigateViewModelCommands
         public ERNaviagteCommand(MainWindowViewModel mainWindowViewModel, NavigationStore navigationStore, Func<ERViewModel> createERViewModel)
         {
             _mainWindowViewModel = mainWindowViewModel;
-            _navigationCommand = new NavigateCommand(navigationStore, createERViewModel);
+            _navigationCommand = new NavigateCommand(navigationStore, createERViewModel, mainWindowViewModel.TriggerEnterViewModelAnimation, mainWindowViewModel.TriggerExitViewModelAnimation);
         }
         public override void Execute(object? parameter)
         {

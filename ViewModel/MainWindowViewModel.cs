@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using static sldc.App;
 
 namespace sldc.ViewModel
 {
@@ -47,6 +48,16 @@ namespace sldc.ViewModel
             ErrorBodyMessage = Body;
             PlayErrorAnimation?.Invoke();
         }
+        public event Action EnterViewModelAnimation;
+        public event Action ExitViewModelAnimation;
+        public void TriggerEnterViewModelAnimation()
+        {
+            EnterViewModelAnimation.Invoke();
+        }
+        public void TriggerExitViewModelAnimation()
+        {
+            ExitViewModelAnimation.Invoke();
+        }
 
 
 
@@ -77,6 +88,8 @@ namespace sldc.ViewModel
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
         }
+
+
 
         /// <summary>
         /// reminds model to update, on the ui thread, the CurrentViewModel property - which updates the view and datacontext

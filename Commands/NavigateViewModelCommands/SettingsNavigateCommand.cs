@@ -15,7 +15,7 @@ namespace sldc.Commands.NavigateViewModelCommands
         public SettingsNavigateCommand(MainWindowViewModel mainWindowViewModel, NavigationStore navigationStore, Func<SettingsViewModel> createSettingsViewModel)
         {
             _mainWindowViewModel = mainWindowViewModel;
-            _navigationCommand = new NavigateCommand(navigationStore, createSettingsViewModel);
+            _navigationCommand = new NavigateCommand(navigationStore, createSettingsViewModel, mainWindowViewModel.TriggerEnterViewModelAnimation, mainWindowViewModel.TriggerExitViewModelAnimation);
         }
         public override void Execute(object? parameter)
         {

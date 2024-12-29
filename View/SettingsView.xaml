@@ -74,7 +74,7 @@
         </TextBlock>
 
         <Grid Grid.Row="1"
-              Margin="30,0,10,0">
+              Margin="5,0,10,0">
             <ScrollViewer CanContentScroll="False">
                 <StackPanel>
                     <StackPanel.Resources>

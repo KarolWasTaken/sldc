@@ -18,7 +18,7 @@ namespace sldc.Commands.NavigateViewModelCommands
         public DS2SoTFSNavigateCommand(MainWindowViewModel mainWindowViewModel, NavigationStore navigationStore, Func<DS2SoTFSViewModel> createDS2SoTFSViewModel)
         {
             _mainWindowViewModel = mainWindowViewModel;
-            _navigationCommand = new NavigateCommand(navigationStore, createDS2SoTFSViewModel);
+            _navigationCommand = new NavigateCommand(navigationStore, createDS2SoTFSViewModel, mainWindowViewModel.TriggerEnterViewModelAnimation, mainWindowViewModel.TriggerExitViewModelAnimation);
         }
         public override void Execute(object? parameter)
         {

@@ -16,7 +16,7 @@ namespace sldc.Commands.NavigateViewModelCommands
         public DS3NavigateCommand(MainWindowViewModel mainWindowViewModel, NavigationStore navigationStore, Func<DS3ViewModel> createDS3ViewModel)
         {
             _mainWindowViewModel = mainWindowViewModel;
-            _navigationCommand = new NavigateCommand(navigationStore, createDS3ViewModel);
+            _navigationCommand = new NavigateCommand(navigationStore, createDS3ViewModel, mainWindowViewModel.TriggerEnterViewModelAnimation, mainWindowViewModel.TriggerExitViewModelAnimation);
         }
         public override void Execute(object? parameter)
         {
