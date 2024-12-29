@@ -143,7 +143,7 @@
                         Grid.Column="1"/>
 
         <!--#region-->
-        <Grid x:Name="MainErrorMessageContainer" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="Collapsed">
+        <Grid x:Name="MainErrorMessageContainer" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="Collapsed" Panel.ZIndex="10">
             <Rectangle x:Name="ErrorMessageBackgroundRectangle" Fill="Black" Opacity="0.75" MouseLeftButtonDown="close_errormsg_popup"/>
             <Grid x:Name="ErrorMessageBody" Background="{DynamicResource Background}" Margin="200,200,200,200" RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>

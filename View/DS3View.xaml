@@ -11,6 +11,66 @@
     <UserControl.Resources>
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converter:BooleanToConnectConverter x:Key="BooleanToConnectConverter"/>
+        <Storyboard x:Key="ConnectedToGameAnimation">
+            <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference CardShadow}}" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference CardShadow}}" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="135"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference DeathAndTimeText}}" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference DeathAndTimeText}}" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.6000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="DisconnectedToGameAnimation">
+            <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference CardShadow}}" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.5000000" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.6000000" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference CardShadow}}" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="135">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference DeathAndTimeText}}" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.5000000" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.6000000" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference DeathAndTimeText}}" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuarticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="InstantConnectedAnimation">
+            <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference CardShadow}}" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference DeathAndTimeText}}" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -34,37 +94,38 @@
             </TextBlock>
         </StackPanel>
 
+        <!--Image card-->
         <Border Grid.Column="0"
                 Style="{StaticResource CardBorderStyle}"
                 Width="697"
                 Height="247"
                 Grid.ColumnSpan="2"
                 Margin="0,50,30,0"
-                CornerRadius="10">
+                CornerRadius="0"
+                x:Name="ImageCard">
             <Border.Background>
                 <ImageBrush Stretch="UniformToFill"
                             Viewbox="0,0,1,0.8" ViewboxUnits="RelativeToBoundingBox">
-                    
+
                     <ImageBrush.ImageSource>
                         <BitmapImage UriSource="/Resources/DS3-banner-image.png"/>
                     </ImageBrush.ImageSource>
                 </ImageBrush>
             </Border.Background>
         </Border>
-        
-        <Border Grid.Column="0"
+
+        <!--<Border Grid.Column="0"
                 Style="{StaticResource CardBorderStyleNoShadow}"
-                Background="Black"
-                OpacityMask="{StaticResource HeaderBackgroundOpacityMask}"
+                Background="Transparent"
                 Width="700"
                 Height="250"
                 Grid.ColumnSpan="2"
                 CornerRadius="10"
                 Margin="0,50,30,0"
-                Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}">
+                ClipToBounds="True">
             <StackPanel HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Margin="10,0,0,15">
+                    VerticalAlignment="Bottom"
+                    Margin="10,0,0,15">
                 <TextBlock Foreground="White"
                            Text="{Binding ElapsedTime}"
                            FontSize="15"
@@ -74,8 +135,44 @@
                            Margin="7,0,0,0"
                            Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             </StackPanel>
+        </Border>-->
+        <!--opacity mask on image card-->
+
+        <Border Background="Transparent"
+                Style="{StaticResource CardBorderStyleNoShadow}"
+                Width="700"
+                Height="250"
+                CornerRadius="0"
+                Margin="0,50,30,0"
+                x:Name="ShadowOnImageCardOuter"
+                Visibility="Visible"
+                ClipToBounds="True">
+            <Border Background="Black"
+                    Style="{StaticResource CardBorderStyleNoShadow}"
+                    Width="700"
+                    Height="250"
+                    Margin="0,0,0,0"
+                    CornerRadius="0"
+                    x:Name="CardShadow"
+                    Visibility="Hidden" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <Border.OpacityMask>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                        <GradientStop Color="#FFFFFFFF" Offset="0.8"/>
+                        <GradientStop Color="#00FFFFFF" Offset="0.5"/>
+                    </LinearGradientBrush>
+                </Border.OpacityMask>
+            </Border>
         </Border>
-        <TextBlock Text="{Binding DeathCountText}"
+        <!--<TextBlock Text="{Binding DeathCountText}"
                    FontFamily="{StaticResource Inter}"
                    FontWeight="Medium"
                    Opacity="1"
@@ -84,13 +181,33 @@
                    Margin="17,198,0,0"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
-                   Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
+                   Visibility="{Binding IsConnectedToGame, Converter={StaticResource BooleanToVisibilityConverter}}"/>-->
+        <!--Death and time text-->
+        <StackPanel x:Name="DeathAndTimeText"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="17,216,0,0"
+                    Visibility="Hidden">
+            <TextBlock Text="{Binding DeathCountText}"
+                       FontFamily="{StaticResource Inter}"
+                       FontWeight="Medium"
+                       Opacity="1"
+                       FontSize="30"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"/>
+            <TextBlock Foreground="White"
+                       Text="{Binding ElapsedTime}"
+                       FontSize="15"
+                       FontFamily="{StaticResource Inter}"
+                       FontWeight="Thin"
+                       Opacity="0.8"/>
+        </StackPanel>
 
         <!--#region navigation buttons-->
         <StackPanel Grid.Row="1"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center"
                     Margin="0,-20,0,0">
             <Button Content="{Binding IsConnectedToGame, Converter={StaticResource BooleanToConnectConverter}, FallbackValue=Connect}"
                     Command="{Binding ConnectGameCommand}"

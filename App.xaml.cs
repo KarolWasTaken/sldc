@@ -35,6 +35,7 @@ namespace sldc
 
         // subscribers (talk between viewmodel and mainwindow viewmodel)
         public delegate void ErrorMessageHandler(string header, string body);
+        public delegate void ConnectedToGameHandler(bool status);
         public App()
         {
             _navigationStore = new NavigationStore();

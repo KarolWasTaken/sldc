@@ -4,6 +4,7 @@ using sldc.Stores;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,6 +89,7 @@ namespace sldc.ViewModel
                     Hook.CovenantChanged += OnCovenantChanged;
                     // start timer to show elasped time
                     StartRecording();
+                    OnGameConnected?.Invoke(true);
                 }
                 else
                 {
@@ -107,6 +109,7 @@ namespace sldc.ViewModel
                         _discordRpcClientStore.DisposeClient();
                     // stop timer to show elasped time
                     StopRecording();
+                    OnGameConnected?.Invoke(false);
                 }
                 OnPropertyChanged(nameof(IsConnectedToGame));
             }
@@ -129,6 +132,7 @@ namespace sldc.ViewModel
             _discordRpcClientStore.UpdatePresence(DeathCount);
         }
 
+        public event ConnectedToGameHandler OnGameConnected;
         // pushing error messages
         public event ErrorMessageHandler OnErrorMessage;
         public void SendErrorMessage(string header, string body)
