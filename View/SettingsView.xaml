@@ -11,6 +11,45 @@
     <UserControl.Resources>
         <Converters:BooleanToColourIndicatorConverter x:Key="BooleanToColourIndicatorConverter"/>
         <Converters:BooleanToEnabledConverter x:Key="BooleanToEnabledConverter"/>
+        <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="_Border"
+                                SnapsToDevicePixels="true"
+                                BorderThickness="1">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="_Border" Property="Background" Value="#AD0A0A"/>
+                                <Setter TargetName="_Border" Property="BorderBrush" Value="#FF0000"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="_Border" Property="Background" Value="#941212"/>
+                                <Setter TargetName="_Border" Property="BorderBrush" Value="#d60a0a"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsFocused" Value="False"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="_Border" Property="Background" Value="#595959"/>
+                                <Setter TargetName="_Border" Property="BorderBrush" Value="White"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </MultiTrigger>
+                            
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -52,27 +91,50 @@
                     </StackPanel>
                 </Border>
                 <Border Background="{DynamicResource Background_Level_2}"
-                        Height="70"
                         CornerRadius="10">
                     <StackPanel>
-                        <TextBlock Text="Streamer Window Background Colour"
+                        <TextBlock Text="Streamer Window Font"
                                    FontFamily="{StaticResource Inter}"
                                    FontWeight="Regular"
                                    FontSize="20"
                                    Foreground="{DynamicResource TextColour}"
                                    Opacity="0.8"
                                    Margin="10,5,0,0"/>
-                        <TextBox HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Width="150"
-                                 Height="25"
-                                 Margin="10,0,0,0"
-                                 Padding="0,3,0,0"
-                                 FontSize="13"
-                                 MaxLength="8"
-                                 Background="{DynamicResource Background_Level_3}"
-                                 Foreground="{DynamicResource TextColour}"
-                                 BorderThickness="0"/>
+                        <StackPanel>
+                            <DockPanel Margin="10,10,10,10">
+                                <ListBox x:Name="fontSelector" 
+                                         Height="150"
+                                         Width="250"
+                                         ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
+                                         Background="{DynamicResource Background_Level_3}"
+                                         BorderThickness="3"
+                                         BorderBrush="{DynamicResource Background}"
+                                         Foreground="{DynamicResource TextColour}"
+                                         ItemsSource="{x:Static Fonts.SystemFontFamilies}"
+                                         SelectedItem="{Binding SelectedFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <ListBox x:Name="typefaceSelector" 
+                                         Height="150"
+                                         ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
+                                         Background="{DynamicResource Background_Level_3}"
+                                         BorderThickness="3"
+                                         BorderBrush="{DynamicResource Background}"
+                                         Foreground="{DynamicResource TextColour}"
+                                         ItemsSource="{Binding SelectedItem.FamilyTypefaces, ElementName=fontSelector}"
+                                         SelectedItem="{Binding SelectedTypeface, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         DisplayMemberPath="AdjustedFaceNames[en-US]" 
+                                         Grid.Column="1" />
+                            </DockPanel>
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Bottom"
+                                       Text="Hello World!"
+                                       FontSize="25"
+                                       Margin="0,0,0,10"
+                                       Foreground="{DynamicResource TextColour}"
+                                       FontFamily="{Binding SelectedFontFamily, TargetNullValue='Arial'}"
+                                       FontStretch="{Binding SelectedFontStretch}"
+                                       FontStyle="{Binding SelectedFontStyle}"
+                                       FontWeight="{Binding SelectedFontWeight}"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
                 <Border Background="{DynamicResource Background_Level_2}"

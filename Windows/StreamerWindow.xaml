@@ -12,6 +12,11 @@
                    Foreground="White"
                    FontSize="60"
                    HorizontalAlignment="Left"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center"
+                   FontFamily="{Binding FontFamily, TargetNullValue='Arial'}"
+                   FontStretch="{Binding FontStretch}"
+                   FontStyle="{Binding FontStyle}"
+                   FontWeight="{Binding FontWeight}"
+                   Margin="10,0,0,0"/>
     </Grid>
 </Window>

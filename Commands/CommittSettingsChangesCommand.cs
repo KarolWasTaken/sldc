@@ -44,6 +44,23 @@ namespace sldc.Commands
             Helper.settings.IsDRPEnabled = _settingsViewModel.DRPStatus;
             Helper.settings.EnableDRPCredit = _settingsViewModel.EnableDRPCredit;
             Helper.settings.EnableCovenantDisplay = _settingsViewModel.EnableCovenantDisplay;
+            // used null coalescing here later
+            if (_settingsViewModel.SelectedFontFamily != null)
+            {
+                Helper.settings.StreamerWindowFontFamily = _settingsViewModel.SelectedFontFamily.Source;
+                if(_settingsViewModel.SelectedTypeface != null)
+                {
+                    Helper.settings.StreamerWindowFontWeight = _settingsViewModel.SelectedFontWeight.ToString();
+                    Helper.settings.StreamerWindowFontStyle = _settingsViewModel.SelectedFontStyle.ToString();
+                    Helper.settings.StreamerWindowFontStretch = _settingsViewModel.SelectedFontStretch.ToString();
+                }
+                else
+                {
+                    Helper.settings.StreamerWindowFontWeight = "Normal";
+                    Helper.settings.StreamerWindowFontStyle = "Normal";
+                    Helper.settings.StreamerWindowFontStretch = "Normal";
+                }
+            }
             Helper.UpdateSettings();
 
             // drp reload if game is already on

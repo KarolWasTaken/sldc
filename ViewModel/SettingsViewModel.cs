@@ -3,14 +3,15 @@ using sldc.Model;
 using sldc.Stores;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Input;
+using System.Windows.Media;
+using FontFamily = System.Windows.Media.FontFamily;
+using FontStyle = System.Windows.FontStyle;
 
 namespace sldc.ViewModel
 {
@@ -45,6 +46,66 @@ namespace sldc.ViewModel
         public bool DRPStatus { get; set; }
         public bool EnableCovenantDisplay { get; set; }
 
+        // font properties
+        private FontFamily _selectedFontFamily;
+        private FontWeight _selectedFontWeight;
+        private FontStyle _selectedFontStyle;
+        private FontStretch _selectedFontStretch;
+        public FontFamily SelectedFontFamily
+        {
+            get => _selectedFontFamily;
+            set
+            {
+                _selectedFontFamily = value;
+                OnPropertyChanged(nameof(SelectedFontFamily));
+                ApplyButtonEnabled = true;
+            }
+        }
+        public FontWeight SelectedFontWeight
+        {
+            get => _selectedFontWeight;
+            set
+            {
+                _selectedFontWeight = value;
+                OnPropertyChanged(nameof(SelectedFontWeight));
+            }
+        }
+        public FontStyle SelectedFontStyle
+        {
+            get => _selectedFontStyle;
+            set
+            {
+                _selectedFontStyle = value;
+                OnPropertyChanged(nameof(SelectedFontStyle));
+            }
+        }
+        public FontStretch SelectedFontStretch
+        {
+            get => _selectedFontStretch;
+            set
+            {
+                _selectedFontStretch = value;
+                OnPropertyChanged(nameof(SelectedFontStretch));
+            }
+        }
+        private FamilyTypeface _selectedTypeface;
+        public FamilyTypeface SelectedTypeface
+        {
+            get => _selectedTypeface;
+            set
+            {
+                _selectedTypeface = value;
+
+                if (_selectedTypeface != null)
+                {
+                    SelectedFontWeight = _selectedTypeface.Weight;
+                    SelectedFontStyle = _selectedTypeface.Style;
+                    SelectedFontStretch = _selectedTypeface.Stretch;
+                }
+                OnPropertyChanged(nameof(SelectedTypeface));
+                ApplyButtonEnabled = true;
+            }
+        }
         private bool _applyButtonEnabled;
         public bool ApplyButtonEnabled
         {

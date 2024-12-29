@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace sldc.ViewModel
 {
@@ -18,15 +20,32 @@ namespace sldc.ViewModel
 		{
 			get { return $"Deaths: {_deathCount}"; }
 		}
+        // font properties
+        public FontFamily FontFamily { get; }
+        public FontWeight FontWeight { get; }
+        public FontStyle FontStyle { get; }
+        public FontStretch FontStretch { get; }
 
         public StreamerWindowViewModel(StreamerWindowStore streamerWindowStore, HookStore hookStore = null)
         {
-            if(hookStore != null)
+            if(hookStore.HookedGame != null)
             { 
                 _hook = hookStore.hook;
                 _deathCount = _hook.Death;
                 _hook.DeathCountChanged += OnDeathCountChanged;
             }
+            Settings userSettings = Helper.ReturnSettings();
+            FontFamily = new FontFamily(userSettings.StreamerWindowFontFamily ?? "Plus Jakarta Sans");
+            FontWeight = userSettings.StreamerWindowFontWeight != null
+            ? (FontWeight)new FontWeightConverter().ConvertFromInvariantString(userSettings.StreamerWindowFontWeight)
+            : FontWeights.Normal;
+            FontStyle = userSettings.StreamerWindowFontStyle != null
+            ? (FontStyle)new FontStyleConverter().ConvertFromInvariantString(userSettings.StreamerWindowFontStyle)
+            : FontStyles.Normal;
+            FontStretch = userSettings.StreamerWindowFontStretch != null
+            ? (FontStretch)new FontStretchConverter().ConvertFromInvariantString(userSettings.StreamerWindowFontStretch)
+            : FontStretches.Normal;
+
             StreamerWindowStore = streamerWindowStore;
         }
         private void OnDeathCountChanged(int death)
