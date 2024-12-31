@@ -35,6 +35,10 @@ namespace sldc.Commands
             BaseHook hook;
             switch(parameter.ToString())
             {
+                case "DSR":
+                    hook = new DSRHook();
+                    hook = (DSRHook)hook;
+                    break;
                 case "DS2":
                     hook = new DS2Hook();
                     hook = (DS2Hook)hook;
@@ -64,6 +68,10 @@ namespace sldc.Commands
                 DRPClientStore.ENVTokens envToken;
                 switch (parameter.ToString())
                 {
+                    case "DSR":
+                        _gameViewModel.Hook = new DSRHook();
+                        envToken = DRPClientStore.ENVTokens.DS1_TOKEN;
+                        break;
                     case "DS2":
                         _gameViewModel.Hook = new DS2Hook();
                         envToken = DRPClientStore.ENVTokens.DS2_TOKEN;

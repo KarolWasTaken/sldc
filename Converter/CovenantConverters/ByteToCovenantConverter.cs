@@ -27,6 +27,21 @@ namespace sldc.Converter.CovenantConverters
             Dictionary<byte[], string> covenantDictionary;
             switch (envToken)
             {
+                case ENVTokens.DS1_TOKEN:
+                    covenantDictionary = new Dictionary<byte[], string>()
+                    {
+                        { new byte[1] {0}, "None" },
+                        { new byte[1] {1}, "Way of White" },
+                        { new byte[1] {2}, "Princess's Guard" },
+                        { new byte[1] {3}, "Warrior of Sunlight" },
+                        { new byte[1] {4}, "Darkwraith" },
+                        { new byte[1] {5}, "Path of the Dragon" },
+                        { new byte[1] {6}, "Gravelord Servant" },
+                        { new byte[1] {7}, "Forest Hunter" },
+                        { new byte[1] {8}, "Blade of the Dark Moon" },
+                        { new byte[1] {9}, "Chaos Servant" },
+                    };
+                    break;
                 case ENVTokens.DS2_TOKEN:
                     covenantDictionary = new Dictionary<byte[], string>()
                     {
@@ -39,7 +54,7 @@ namespace sldc.Converter.CovenantConverters
                         { new byte[1] {6}, "Bell Keeper" },
                         { new byte[1] {7}, "Dragon Remnants" },
                         { new byte[1] {8}, "Company of Champions" },
-                        { new byte[1] {8}, "Pilgrims of Dark" },
+                        { new byte[1] {9}, "Pilgrims of Dark" },
                     };
                     break;
                 case ENVTokens.DS3_TOKEN:

@@ -12,7 +12,10 @@ namespace sldc.Converter.CovenantConverters
     {
         public static string Convert(string covenantName)
         {
-            return covenantName.Replace(" ", "_").ToLower();
+            if (covenantName == "Princess's Guard")
+                return "princess_guard";
+            else
+                return covenantName.Replace(" ", "_").ToLower();
         }
     }
 }

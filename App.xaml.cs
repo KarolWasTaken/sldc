@@ -47,7 +47,7 @@ namespace sldc
 
             // create viewmodels once. This means, when we re-enter them, they
             // will remain the same and wont be re-instantiated.
-            _dSREViewModel = new DSREViewModel();
+            _dSREViewModel = new DSREViewModel(_streamerWindowStore, _discordRpcClientStore, _hookStore, DRPClientStore.ENVTokens.DS1_TOKEN);
             _dS2SoTFSViewModel = new DS2SoTFSViewModel(_streamerWindowStore, _discordRpcClientStore, _hookStore, DRPClientStore.ENVTokens.DS2_TOKEN);
             _dS3ViewModel = new DS3ViewModel(_streamerWindowStore, _discordRpcClientStore, _hookStore, DRPClientStore.ENVTokens.DS3_TOKEN);
             _eRViewModel = new ERViewModel();
@@ -109,7 +109,7 @@ namespace sldc
             // do this to all future viewmodel games
             _dS2SoTFSViewModel.OnErrorMessage += mainWindowViewModel.SendErrorMessageToViewModel;
             _dS3ViewModel.OnErrorMessage += mainWindowViewModel.SendErrorMessageToViewModel;
-
+            _dSREViewModel.OnErrorMessage += mainWindowViewModel.SendErrorMessageToViewModel;
             // actually opening the mainwindow
             MainWindow mainWindow = new MainWindow()
             {
