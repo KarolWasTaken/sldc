@@ -68,8 +68,8 @@ namespace sldc
             DSRENavigateButton.IsChecked = false;
             DS2SoTFSNavigateButton.IsChecked = false;
             DS3NavigateButton.IsChecked = false;
-            BLNavigateButton.IsChecked = false;
-            ERNavigateButton.IsChecked = false;
+            //BLNavigateButton.IsChecked = false;
+            //ERNavigateButton.IsChecked = false;
         }
     }
 }

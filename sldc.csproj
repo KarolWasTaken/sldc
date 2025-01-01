@@ -13,7 +13,6 @@
     <None Remove="Resources\BL-card-image.png" />
     <None Remove="Resources\DS2-banner-image.jpg" />
     <None Remove="Resources\DS2-card-image.png" />
-    <None Remove="Resources\DS3-banner-image.jpg" />
     <None Remove="Resources\DS3-banner-image.png" />
     <None Remove="Resources\DS3-card-image.jpg" />
     <None Remove="Resources\DSR-banner-image.jpg" />

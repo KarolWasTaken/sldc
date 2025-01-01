@@ -148,8 +148,8 @@
             <RadioButton x:Name="DSRENavigateButton" Content="DS: RE" Command="{Binding DSRENavigateCommand}"/>
             <RadioButton x:Name="DS2SoTFSNavigateButton" Content="DS2: SoTFS" Command="{Binding DS2SoTFSNavigateCommand}"/>
             <RadioButton x:Name="DS3NavigateButton" Content="DS3" Command="{Binding DS3NavigateCommand}" IsChecked="True"/>
-            <RadioButton x:Name="BLNavigateButton" Content="BL" Command="{Binding BLNavigateCommand}"/>
-            <RadioButton x:Name="ERNavigateButton" Content="ER" Command="{Binding ERNavigateCommand}"/>
+            <!--<RadioButton x:Name="BLNavigateButton" Content="BL" Command="{Binding BLNavigateCommand}"/>
+            <RadioButton x:Name="ERNavigateButton" Content="ER" Command="{Binding ERNavigateCommand}"/>-->
             <!-- temp -->
             <!--CheckBox Content="LightTheme" Checked="DarkThemePressed"
                       Unchecked="LightThemePressed"

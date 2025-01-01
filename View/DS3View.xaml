@@ -105,7 +105,7 @@
                 x:Name="ImageCard">
             <Border.Background>
                 <ImageBrush Stretch="UniformToFill"
-                            Viewbox="0,0,1,0.8" ViewboxUnits="RelativeToBoundingBox">
+                            Viewbox="0,0,1,1" ViewboxUnits="RelativeToBoundingBox">
 
                     <ImageBrush.ImageSource>
                         <BitmapImage UriSource="/Resources/DS3-banner-image.png"/>
