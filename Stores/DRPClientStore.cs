@@ -28,7 +28,7 @@ namespace sldc.Stores
         public TimeSpan ElaspedTime;
         public void CreateClient(ENVTokens ENVToken)
         {
-            string gameName = "null game name";
+            string? gameName = null;
             // create client
             Client = new DiscordRpcClient(Environment.GetEnvironmentVariable(ENVToken.ToString()));
             Client.Initialize();
@@ -84,7 +84,7 @@ namespace sldc.Stores
                     LargeImageKey = "large-image",
                     LargeImageText = gameName,
                     SmallImageKey = "small-image",
-                    SmallImageText = "By Karoll :)"
+                    SmallImageText = "SLDC on GitHub"
                 };
             }
             // if cov display is on, 

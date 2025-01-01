@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="appsettings.json" />
+    <None Remove=".env" />
     <None Remove="Resources\BL-card-image.png" />
     <None Remove="Resources\DS2-banner-image.jpg" />
     <None Remove="Resources\DS2-card-image.png" />
@@ -61,6 +61,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include=".env">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\DS2-banner-image.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -109,9 +112,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\BL-card-image.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -226,8 +226,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update=".env">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="NonHookGameData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

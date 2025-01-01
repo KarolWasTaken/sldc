@@ -79,6 +79,8 @@ namespace sldc.ViewModel
 
                 if (isConnectedToGame == true)
                 {
+                    // reset deathcount
+                    DeathCount = 0;
                     // if we conncted to game
                     // subscribe to the deathcountchanged event
                     // which runs when the death count changes
@@ -99,8 +101,7 @@ namespace sldc.ViewModel
                     // stop checking deaths
                     Hook.Stop();
                     Hook.CheckForDeaths = false;
-                    // reset death counter and covenant
-                    DeathCount = 0;
+                    // reset covenant
                     Covenant = null;
                     OnPropertyChanged(nameof(DeathCountText));
                     OnPropertyChanged(nameof(Covenant));

@@ -14,6 +14,8 @@ namespace sldc.Converter
         {
             switch (HookedGame)
             {
+                case "DSR":
+                    return DRPClientStore.ENVTokens.DS1_TOKEN;
                 case "DS2":
                     return DRPClientStore.ENVTokens.DS2_TOKEN;
                 case "DS3":

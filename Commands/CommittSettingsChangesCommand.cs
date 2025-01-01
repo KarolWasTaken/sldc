@@ -29,15 +29,13 @@ namespace sldc.Commands
             // disable apply button
             _settingsViewModel.ApplyButtonEnabled = false;
 
-            //check if drp needs to reload
+            Helper.ReturnSettings();
+
+            // check if drp needs to reload
             // check if drpcredit changed and if there is a discord client
             bool reloadDRP =
                 (Helper.settings.EnableDRPCredit != _settingsViewModel.EnableDRPCredit || Helper.settings.EnableCovenantDisplay != _settingsViewModel.EnableCovenantDisplay)
                 && _settingsViewModel._drpClientStore.Client != null;
-            // check if drpcovenant changed and we are connected to a game 
-            //bool reloadDRPForCovs = Helper.settings.EnableCovenantDisplay != _settingsViewModel.EnableCovenantDisplay
-            //    && _settingsViewModel._hookStore.hook != null
-            //    && _settingsViewModel._drpClientStore.Client != null;
 
             // update settings config
             Helper.settings.Theme = _settingsViewModel.SelectedTheme;
