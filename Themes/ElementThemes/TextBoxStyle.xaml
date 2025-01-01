@@ -4,13 +4,67 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Background}"/>
         <Setter Property="Background" Value="{DynamicResource Background_Level_3}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextColour}"/>
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Margin="-125,24,0,0"
+                          x:Name="RootErrorTemplate"
+                          Opacity="0.75">
+                        <Border Background="{DynamicResource Background}"
+                                Opacity="0.8"
+                                Height="16"
+                                Width="240"
+                                CornerRadius="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                IsHitTestVisible="False"/>
+                        <TextBlock Foreground="Red"
+                                   FontSize="11"
+                                   Text="{Binding ErrorContent}"
+                                   FontFamily="{StaticResource Plus Jakarta Sans}"
+                                   FontStretch="Normal"
+                                   FontStyle="Normal"
+                                   FontWeight="Normal"
+                                   DockPanel.Dock="Bottom"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   IsHitTestVisible="False"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RootErrorTemplate" Property="Opacity" Value="0.25"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="RootErrorTemplate" Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <!--<Setter Property="CaretBrush" Value="{DynamicResource Primary-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                    </Border>
+                    <StackPanel>
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <!--<ItemsControl ItemsSource="{TemplateBinding Validation.Errors}"
+                                      FontSize="8"
+                                      FontFamily="{StaticResource Plus Jakarta Sans}"
+                                      FontWeight="Normal"
+                                      FontStretch="Normal"
+                                      FontStyle="Normal"
+                                      Margin="0,5,0,0"
+                                      Background="{DynamicResource Background}"
+                                      Foreground="{DynamicResource TextColour}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="Red" Text="{Binding ErrorContent}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>-->
+                    </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Opacity" TargetName="border" Value="0.56"/>

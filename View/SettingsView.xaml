@@ -11,6 +11,7 @@
     <UserControl.Resources>
         <Converters:BooleanToColourIndicatorConverter x:Key="BooleanToColourIndicatorConverter"/>
         <Converters:BooleanToEnabledConverter x:Key="BooleanToEnabledConverter"/>
+        <Converters:HexCodeToBrushConverter x:Key="HexCodeToBrushConverter"/>
         <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
@@ -229,6 +230,7 @@
             </Setter>
         </Style>
         <!-- End of Flat ComboBox -->
+
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -244,7 +246,8 @@
 
         <Grid Grid.Row="1"
               Margin="5,0,10,0">
-            <ScrollViewer CanContentScroll="False">
+            <ScrollViewer CanContentScroll="False"
+                          ElementThemes:ModernScrollBarBackgroundHelper.ScrollBarThumbBackground="{DynamicResource Background_Level_3}">
                 <StackPanel>
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type Border}">
@@ -286,7 +289,7 @@
                                 <DockPanel Margin="10,10,10,10">
                                     <ListBox x:Name="fontSelector" 
                                              Height="150"
-                                             Width="250"
+                                             Width="230"
                                              ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
                                              Background="{DynamicResource Background_Level_3}"
                                              BorderThickness="3"
@@ -296,6 +299,8 @@
                                              SelectedItem="{Binding SelectedFontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <ListBox x:Name="typefaceSelector" 
                                              Height="150"
+                                             Width="213"
+                                             HorizontalAlignment="Left"
                                              ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
                                              Background="{DynamicResource Background_Level_3}"
                                              BorderThickness="3"
@@ -304,14 +309,59 @@
                                              ItemsSource="{Binding SelectedItem.FamilyTypefaces, ElementName=fontSelector}"
                                              SelectedItem="{Binding SelectedTypeface, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              DisplayMemberPath="AdjustedFaceNames[en-US]" 
-                                             Grid.Column="1" />
+                                             Grid.Column="1">
+                                        <ListBox.Template>
+                                            <ControlTemplate TargetType="{x:Type ListBox}">
+                                                <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                                                    <ScrollViewer x:Name="ScrollViewer" Focusable="false" Padding="{TemplateBinding Padding}"
+                                                                  ElementThemes:ModernScrollBarBackgroundHelper.ScrollBarThumbBackground="{DynamicResource Background}"
+                                                                  Margin="0,0,3,0">
+                                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                                    </ScrollViewer>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </ListBox.Template>
+                                    </ListBox>
+                                    <DockPanel HorizontalAlignment="Center">
+                                        <StackPanel HorizontalAlignment="Right"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0,0,5,0">
+                                            <StackPanel.Resources>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource SubHeaderTextStyle}">
+                                                    <Setter Property="TextAlignment" Value="Right"/>
+                                                    <Setter Property="Margin" Value="0,0,0,10"/>
+                                                </Style>
+                                            </StackPanel.Resources>
+                                            <TextBlock Text="Font Colour: "/>
+                                            <!--<TextBlock Text="Stroke Thickness: "/>
+                                            <TextBlock Text="Stroke Colour: "/>-->
+                                        </StackPanel>
+                                        <StackPanel HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center">
+                                            <StackPanel.Resources>
+                                                <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxStyle}">
+                                                    <Setter Property="FontSize" Value="15"/>
+                                                    <Setter Property="Width" Value="80"/>
+                                                    
+                                                    <Setter Property="Margin" Value="0,0,0,10"/>
+                                                    <Setter Property="CharacterCasing" Value="Upper"/>
+                                                    <Setter Property="MaxLength" Value="7"/>
+                                                </Style>
+                                            </StackPanel.Resources>
+                                            <TextBox Text="{Binding FontColourHex, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <!--<TextBox Text="{Binding StrokeThickness, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <TextBox Text="{Binding StrokeColour, UpdateSourceTrigger=PropertyChanged}"/>-->
+                                        </StackPanel>
+                                    </DockPanel>
                                 </DockPanel>
                                 <TextBlock HorizontalAlignment="Center"
                                            VerticalAlignment="Bottom"
                                            Text="Hello World!"
                                            FontSize="25"
                                            Margin="0,0,0,10"
-                                           Foreground="{DynamicResource TextColour}"
+                                           Padding="5,0,5,0"
+                                           Foreground="{Binding FinalFontColour, Converter={StaticResource HexCodeToBrushConverter}, FallbackValue=White}"
+                                           Background="Green"
                                            FontFamily="{Binding SelectedFontFamily, TargetNullValue='Arial'}"
                                            FontStretch="{Binding SelectedFontStretch}"
                                            FontStyle="{Binding SelectedFontStyle}"
@@ -448,7 +498,7 @@
                 </Style>
             </DockPanel.Resources>
             <Button Content="Revert"/>
-            <Button Content="Apply" IsEnabled="{Binding ApplyButtonEnabled}"
+            <Button Content="Apply" IsEnabled="{Binding CanCommitChanges}"
                     Command="{Binding CommittSettingsChangesCommand}"/>
         </DockPanel>
 

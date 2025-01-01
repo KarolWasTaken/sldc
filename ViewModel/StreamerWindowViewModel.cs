@@ -25,7 +25,7 @@ namespace sldc.ViewModel
         public FontWeight FontWeight { get; }
         public FontStyle FontStyle { get; }
         public FontStretch FontStretch { get; }
-
+        public string FontColour { get; }
         public StreamerWindowViewModel(StreamerWindowStore streamerWindowStore, HookStore hookStore = null)
         {
             if(hookStore.HookedGame != null)
@@ -45,6 +45,7 @@ namespace sldc.ViewModel
             FontStretch = userSettings.StreamerWindowFontStretch != null
             ? (FontStretch)new FontStretchConverter().ConvertFromInvariantString(userSettings.StreamerWindowFontStretch)
             : FontStretches.Normal;
+            FontColour = userSettings.FontColour;
 
             StreamerWindowStore = streamerWindowStore;
         }

@@ -1,5 +1,6 @@
 ﻿using DiscordRPC;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using sldc.Commands.NavigateViewModelCommands;
 using sldc.Model;
 using sldc.Stores;
@@ -62,10 +63,11 @@ namespace sldc
         {
             // load environmental variables (discord tokens)
             DotEnv.Load();
+            Helper.ReturnSettings();
 
             // set your theme to the saved theme
             // refactor this with commit changes command
-            switch (Helper.ReturnSettings().Theme)
+            switch (Helper.settings.Theme)
             {
                 case ThemeType.LightTheme:
                     AppThemeChanger.ChangeTheme(new Uri("Themes/LightTheme.xaml", UriKind.Relative));
@@ -74,7 +76,12 @@ namespace sldc
                     AppThemeChanger.ChangeTheme(new Uri("Themes/DarkTheme.xaml", UriKind.Relative));
                     break;
             }
-
+            // check for tampering with fontcolour
+            if(!HexValidator.ValidateHexCode(Helper.settings.FontColour))
+            {
+                Helper.settings.FontColour = "#FFFFFF";
+                Helper.UpdateSettings();
+            }
             // set startup window
             _navigationStore.CurrentViewModel = _dS3ViewModel;
 

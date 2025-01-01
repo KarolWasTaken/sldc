@@ -27,7 +27,7 @@ namespace sldc.Commands
         public override void Execute(object? parameter)
         {
             // disable apply button
-            _settingsViewModel.ApplyButtonEnabled = false;
+            _settingsViewModel.AreChangesMade = false;
 
             Helper.ReturnSettings();
 
@@ -42,6 +42,7 @@ namespace sldc.Commands
             Helper.settings.IsDRPEnabled = _settingsViewModel.DRPStatus;
             Helper.settings.EnableDRPCredit = _settingsViewModel.EnableDRPCredit;
             Helper.settings.EnableCovenantDisplay = _settingsViewModel.EnableCovenantDisplay;
+            Helper.settings.FontColour = _settingsViewModel.FinalFontColour;
             // used null coalescing here later
             if (_settingsViewModel.SelectedFontFamily != null)
             {

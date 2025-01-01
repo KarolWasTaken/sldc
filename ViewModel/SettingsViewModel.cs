@@ -1,13 +1,17 @@
-﻿using sldc.Commands;
+﻿using Newtonsoft.Json.Linq;
+using sldc.Commands;
 using sldc.Model;
 using sldc.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using FontFamily = System.Windows.Media.FontFamily;
@@ -38,8 +42,8 @@ namespace sldc.ViewModel
             {
                 _selectedTheme = value;
                 OnPropertyChanged(nameof(SelectedTheme));
-                ApplyButtonEnabled = true;
-                OnPropertyChanged(nameof(ApplyButtonEnabled));
+                AreChangesMade = true;
+                OnPropertyChanged(nameof(AreChangesMade));
             }
         }
         public bool EnableDRPCredit { get; set; }
@@ -58,7 +62,7 @@ namespace sldc.ViewModel
             {
                 _selectedFontFamily = value;
                 OnPropertyChanged(nameof(SelectedFontFamily));
-                ApplyButtonEnabled = true;
+                AreChangesMade = true;
             }
         }
         public FontWeight SelectedFontWeight
@@ -103,22 +107,67 @@ namespace sldc.ViewModel
                     SelectedFontStretch = _selectedTypeface.Stretch;
                 }
                 OnPropertyChanged(nameof(SelectedTypeface));
-                ApplyButtonEnabled = true;
+                AreChangesMade = true;
             }
         }
-        private bool _applyButtonEnabled;
-        public bool ApplyButtonEnabled
+
+        private string _fontColourHex;
+        public string FontColourHex
         {
             get
             {
-                return _applyButtonEnabled;
+                return _fontColourHex;
             }
             set
             {
-                _applyButtonEnabled = value;
-                OnPropertyChanged(nameof(ApplyButtonEnabled));
+                AreChangesMade = true;
+                _fontColourHex = value;
+
+                RemoveError(nameof(FontColourHex));
+
+                if (value.Length > 0)
+                {
+                    if (!HexValidator.ValidateHexCode(value))
+                        AddError(nameof(FontColourHex), "Please enter a valid HEX code");
+                    else
+                    {
+                        if(value.Length != 1)
+                            FinalFontColour = value;
+                    }
+                }
+                
+                OnPropertyChanged(nameof(FontColourHex));
+                OnPropertyChanged(nameof(CanCommitChanges));
             }
         }
+        private bool _areChangesMade;
+        public bool AreChangesMade
+        {
+            get
+            {
+                return _areChangesMade;
+            }
+            set
+            {
+                _areChangesMade = value;
+                OnPropertyChanged(nameof(AreChangesMade));
+                OnPropertyChanged(nameof(CanCommitChanges));
+            }
+        }
+        private string _finalFontColour;
+        public string FinalFontColour
+        {
+            get
+            {
+                return _finalFontColour;
+            }
+            set
+            {
+                _finalFontColour = value;
+                OnPropertyChanged(nameof(FinalFontColour));
+            }
+        }
+        public bool CanCommitChanges => AreChangesMade && !HasErrors;
         public ICommand RevertSettingsToDefaultCommand { get; }
         public ICommand CommittSettingsChangesCommand { get; }
         public RelayCommand ToggleDRPCommand { get; private set; }
@@ -143,6 +192,15 @@ namespace sldc.ViewModel
             SelectedTheme = currentTheme;
             OnPropertyChanged(nameof(SelectedThemeIndex));
 
+            // setup font
+            // also guard against someone editing json to enter invalid font
+            if (!HexValidator.ValidateHexCode(settings.FontColour))
+            {
+                FinalFontColour = "#FFFFFF";
+            }
+            else
+                FinalFontColour = settings.FontColour;
+
             // setup drp button
             DRPStatus = settings.IsDRPEnabled == true;
             OnPropertyChanged(nameof(DRPStatus));
@@ -159,14 +217,14 @@ namespace sldc.ViewModel
             ToggleDRPCreditCommand = new RelayCommand(ToggleDRPCredit);
             ToggleCovenantDisplayCommand = new RelayCommand(ToggleCovenantDisplay);
 
-            ApplyButtonEnabled = false;
+            AreChangesMade = false;
         }
 
         private void ToggleDRP(object paramters)
         {
             DRPStatus = !DRPStatus;
             OnPropertyChanged(nameof(DRPStatus));
-            ApplyButtonEnabled = true;
+            AreChangesMade = true;
         }
         private void ToggleDRPCredit(object paramters)
         { 
@@ -177,7 +235,7 @@ namespace sldc.ViewModel
                 OnPropertyChanged(nameof(EnableCovenantDisplay));
             }
             OnPropertyChanged(nameof(EnableDRPCredit));
-            ApplyButtonEnabled = true;
+            AreChangesMade = true;
         }
         private void ToggleCovenantDisplay(object paramters)
         {
@@ -188,7 +246,7 @@ namespace sldc.ViewModel
                 OnPropertyChanged(nameof(EnableDRPCredit));
             }
             OnPropertyChanged(nameof(EnableCovenantDisplay));
-            ApplyButtonEnabled = true;
+            AreChangesMade = true;
         }
     }
 }

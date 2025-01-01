@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sldc.Windows"
         xmlns:ViewModels="clr-namespace:sldc.ViewModel"
+        xmlns:Converters="clr-namespace:sldc.Converter"
         mc:Ignorable="d"
         Title="StreamerWindow" Height="150" Width="500" Closing="Window_Closing">
+    <Window.Resources>
+        <Converters:HexCodeToBrushConverter x:Key="HexCodeToBrushConverter"/>
+    </Window.Resources>
     <Grid Background="Green">
         <TextBlock Text="{Binding DeathCountText}"
-                   Foreground="White"
+                   Foreground="{Binding FontColour, Converter={StaticResource HexCodeToBrushConverter}}"
                    FontSize="60"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"

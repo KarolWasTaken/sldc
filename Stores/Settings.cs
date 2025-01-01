@@ -26,5 +26,6 @@ namespace sldc.Stores
         public string? StreamerWindowFontStretch;
         public string? TagName;
         public bool DontShowAgain;
+        public string? FontColour;
     }
 }
