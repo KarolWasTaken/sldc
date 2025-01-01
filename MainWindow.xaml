@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:Views="clr-namespace:sldc.View"
         xmlns:ViewModels="clr-namespace:sldc.ViewModel"
-        Title="MainWindow" Height="650" Width="1000"
+        Title="SLDC" Height="650" Width="1000"
         ResizeMode="CanMinimize"
         TextOptions.TextFormattingMode="Ideal">
     <Window.Resources>

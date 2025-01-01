@@ -497,7 +497,8 @@
                     <Setter Property="ElementThemes:PrimaryButtonStyleHelper.CornerRadius" Value="20"/>
                 </Style>
             </DockPanel.Resources>
-            <Button Content="Revert"/>
+            <Button Content="Revert"
+                    Command="{Binding RevertSettingsToDefaultCommand}"/>
             <Button Content="Apply" IsEnabled="{Binding CanCommitChanges}"
                     Command="{Binding CommittSettingsChangesCommand}"/>
         </DockPanel>

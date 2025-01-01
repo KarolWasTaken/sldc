@@ -211,7 +211,7 @@ namespace sldc.ViewModel
 
 
             // set up commands
-            RevertSettingsToDefaultCommand = new RevertSettingsToDefaultCommand();
+            RevertSettingsToDefaultCommand = new RevertSettingsToDefaultCommand(this, OnPropertyChanged);
             CommittSettingsChangesCommand = new CommittSettingsChangesCommand(this);
             ToggleDRPCommand = new RelayCommand(ToggleDRP);
             ToggleDRPCreditCommand = new RelayCommand(ToggleDRPCredit);
