@@ -20,6 +20,7 @@ Whether you're battling through challenging bosses or running your next no-death
 
 **Streamer-Friendly Window:** A green-screen-compatible "Streamer Window" that displays your death count for seamless integration into your streams.
 
+**Minimize to Toolbar:** Say goodbye to taskbar clutter! With our cutting-edge Minimize-to-Toolbar feature, you can keep your workspace clean by tucking away windows into the toolbar until you need them.
 
 ## Install
 - Head over to the [latest release](https://github.com/KarolWasTaken/sldc/releases/latest) and download the zip file
