@@ -20,9 +20,25 @@ Whether you're battling through challenging bosses or running your next no-death
 
 **Streamer-Friendly Window:** A green-screen-compatible "Streamer Window" that displays your death count for seamless integration into your streams.
 
+
 ## Install
 - Head over to the [latest release](https://github.com/KarolWasTaken/sldc/releases/latest) and download the zip file
 - Extract the zip file into a folder
 - Run ``sldc.exe``
 - Press "Connect" when in-game
 - Enjoy!
+### Credit
+Thank you to [Nordgaren](https://github.com/Nordgaren) for making the library that made all this possible: [PropertyHook!](https://github.com/Nordgaren/PropertyHook)
+
+## Run Code Locally Notes
+
+Please create a file `.env` in the root of the project that stores the discord rich presence tokens in the following format
+```
+DS1_TOKEN=<token>
+DS2_TOKEN=<token>
+DS3_TOKEN=<token>
+BL_TOKEN=<token>
+```
+The files for each asset for the discord rich presence are found in the cov folders inside [resources](https://github.com/KarolWasTaken/sldc/tree/master/Resources).
+
+
