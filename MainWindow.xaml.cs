@@ -33,7 +33,7 @@ namespace sldc
             tbi.Visibility = Visibility.Collapsed;
             tbi.Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/sldc;component/icon.ico")).Stream); ;
             tbi.ToolTipText = "SLDC";
-            tbi.DoubleClickCommand = new RelayCommand(test2);
+            tbi.DoubleClickCommand = new RelayCommand(DoubleClickOpenWindow);
             tbi.ContextMenu = CreateContextMenu();
             tbi.MenuActivation = PopupActivationMode.RightClick;
         }
@@ -130,7 +130,7 @@ namespace sldc
                 tbi.Visibility = Visibility.Collapsed;
             }
         }
-        private void test2(object param)
+        private void DoubleClickOpenWindow(object param)
         {
             this.WindowState = WindowState.Normal;
         }
