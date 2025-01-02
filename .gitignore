@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 *.env
 /Resources/DS3Covs/old
+/icon.png
