@@ -3,6 +3,7 @@
 
 ## Dark and Light Theme
 ![MainWindow Design](https://github.com/KarolWasTaken/sldc/blob/master/GITHUB-RESOURCES/dark.gif)
+
 **Theme Support:** Choose between dark and light modes to suit your preferences.
 
 **Death Tracker:** Keep an accurate count of your in-game deaths in real-time.
@@ -16,6 +17,7 @@ Whether you're battling through challenging bosses or running your next no-death
 
 ## Streamer Window
 ![Streamer Window](https://github.com/KarolWasTaken/sldc/blob/master/GITHUB-RESOURCES/streamerWindow.png)
+
 **Streamer-Friendly Window:** A green-screen-compatible "Streamer Window" that displays your death count for seamless integration into your streams.
 
 ## Install
