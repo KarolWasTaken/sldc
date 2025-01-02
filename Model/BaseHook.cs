@@ -53,7 +53,7 @@ namespace sldc.Model
             while (CheckForDeaths)
             {
                 newDeath = Death;
-                if (newDeath != oldDeath && newDeath > oldDeath)
+                if (newDeath != oldDeath)
                 {
                     DeathCountChanged?.Invoke(Death);
                     oldDeath = newDeath;
