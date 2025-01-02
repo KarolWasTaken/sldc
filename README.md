@@ -9,6 +9,7 @@
 
 ## DRP
 ![DRP](https://github.com/KarolWasTaken/sldc/blob/master/GITHUB-RESOURCES/DRP.png)
+
 **Enhanced Discord Rich Presence:** Display dynamic details like your death count and current covenant directly in your Discord profile.
 
 Whether you're battling through challenging bosses or running your next no-death attempt, SLDC makes sure your progress (or lack thereof) is front and center.
