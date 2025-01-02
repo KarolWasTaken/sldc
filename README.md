@@ -40,6 +40,6 @@ DS2_TOKEN=<token>
 DS3_TOKEN=<token>
 BL_TOKEN=<token>
 ```
-The files for each asset for the discord rich presence are found in the cov folders inside [resources](https://github.com/KarolWasTaken/sldc/tree/master/Resources).
+The files for each asset for the discord rich presence are found inside [resources](https://github.com/KarolWasTaken/sldc/tree/master/Resources).
 
 
