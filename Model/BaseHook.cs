@@ -55,8 +55,47 @@ namespace sldc.Model
                 newDeath = Death;
                 if (newDeath != oldDeath)
                 {
-                    DeathCountChanged?.Invoke(Death);
-                    oldDeath = newDeath;
+                    if(newDeath < oldDeath)
+                    {
+                        bool waitComplete = false;
+
+                        // Start a Task that checks every second for a new non-zero value or if Death becomes zero
+                        var waitTask = Task.Run(async () =>
+                        {
+                            for (int i = 0; i < 30; i++)
+                            {
+                                // Wait for a second before checking again
+                                await Task.Delay(1000);
+                                newDeath = Death;
+
+                                // If we receive a non-zero value, we stop waiting
+                                if (newDeath != 0)
+                                {
+                                    waitComplete = true;
+                                    break;
+                                }
+                            }
+                        });
+                        await waitTask;
+
+                        // If we received a non-zero value, update and invoke the change
+                        if (waitComplete && newDeath != 0)
+                        {
+                            DeathCountChanged?.Invoke(Death);
+                            oldDeath = newDeath;
+                        }
+                        else if (!waitComplete || newDeath == 0)
+                        {
+                            // If 30 seconds passed and we received zero, still invoke the change
+                            DeathCountChanged?.Invoke(Death);
+                            oldDeath = newDeath;
+                        }
+                    }
+                    else
+                    {
+                        DeathCountChanged?.Invoke(Death);
+                        oldDeath = newDeath;
+                    }
                 }
                 // delay to not throttle cpu
                 await Task.Delay(150);
