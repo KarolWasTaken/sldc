@@ -7,7 +7,8 @@
         xmlns:ViewModels="clr-namespace:sldc.ViewModel"
         xmlns:Converters="clr-namespace:sldc.Converter"
         mc:Ignorable="d"
-        Title="StreamerWindow" Height="150" Width="500" Closing="Window_Closing">
+        Title="StreamerWindow" Height="150" Width="500" Closing="Window_Closing"
+        Icon="pack://application:,,,/icon.ico">
     <Window.Resources>
         <Converters:HexCodeToBrushConverter x:Key="HexCodeToBrushConverter"/>
     </Window.Resources>

@@ -1,4 +1,5 @@
-﻿using sldc.Themes;
+﻿using Hardcodet.Wpf.TaskbarNotification;
+using sldc.Themes;
 using sldc.ViewModel;
 using System.Text;
 using System.Windows;
@@ -19,15 +20,55 @@ namespace sldc
     /// </summary>
     public partial class MainWindow : Window
     {
+        private TaskbarIcon tbi;
         public MainWindow()
         {
             InitializeComponent();
-
             // Call the method asynchronously to allow for the delay after InitializeComponent
             // if it works, it works
             InitializeViewModelAsync();
+
+            // for minimising to tooltips
+            tbi = new TaskbarIcon();
+            tbi.Visibility = Visibility.Collapsed;
+            tbi.Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/sldc;component/icon.ico")).Stream); ;
+            tbi.ToolTipText = "SLDC";
+            tbi.DoubleClickCommand = new RelayCommand(test2);
+            tbi.ContextMenu = CreateContextMenu();
+            tbi.MenuActivation = PopupActivationMode.RightClick;
         }
 
+        private ContextMenu CreateContextMenu()
+        {
+            // Create the ContextMenu
+            ContextMenu contextMenu = new ContextMenu();
+
+            // Create the "Open" MenuItem
+            MenuItem openMenuItem = new MenuItem
+            {
+                Header = "Open"
+            };
+            openMenuItem.Click += (s, e) =>
+            {
+                this.ShowInTaskbar = true;
+                this.WindowState = WindowState.Normal;
+            };
+
+            // Create the "Close" MenuItem
+            MenuItem closeMenuItem = new MenuItem
+            {
+                Header = "Close"
+            };
+            closeMenuItem.Click += (s, e) =>
+            {
+                Application.Current.Shutdown(); // Example: Close the application
+            };
+
+            contextMenu.Items.Add(openMenuItem);
+            contextMenu.Items.Add(closeMenuItem);
+
+            return contextMenu;
+        }
         private async Task InitializeViewModelAsync()
         {
             // Wait for 0.25 seconds to ensure DataContext is set
@@ -70,6 +111,28 @@ namespace sldc
             DS3NavigateButton.IsChecked = false;
             //BLNavigateButton.IsChecked = false;
             //ERNavigateButton.IsChecked = false;
+        }
+
+        private void WindowStateChanged(object sender, EventArgs e)
+        {
+            Helper.ReturnSettings();
+            if (!Helper.settings.EnableMinimiseToToolbar)
+                return;
+
+            if(this.WindowState == WindowState.Minimized)
+            {
+                tbi.Visibility = Visibility.Visible;
+                this.ShowInTaskbar = false;
+            }
+            else if (this.WindowState == WindowState.Normal)
+            {
+                this.ShowInTaskbar = true;
+                tbi.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void test2(object param)
+        {
+            this.WindowState = WindowState.Normal;
         }
     }
 }

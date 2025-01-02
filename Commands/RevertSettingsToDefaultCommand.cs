@@ -25,6 +25,8 @@ namespace sldc.Commands
             _settingsViewModel.SelectedTheme = ThemeType.DarkTheme;
             _settingsViewModel.SelectedThemeIndex = (int)ThemeType.DarkTheme;
             _onPropertyChanged.Invoke(nameof(_settingsViewModel.SelectedThemeIndex));
+            _settingsViewModel.EnableMinimiseToToolbar = false;
+            _onPropertyChanged.Invoke(nameof(_settingsViewModel.EnableMinimiseToToolbar));
             _settingsViewModel.DRPStatus = true;
             _onPropertyChanged.Invoke(nameof(_settingsViewModel.DRPStatus));
             _settingsViewModel.EnableCovenantDisplay = true;

@@ -47,6 +47,7 @@ namespace sldc.ViewModel
             }
         }
         public bool EnableDRPCredit { get; set; }
+        public bool EnableMinimiseToToolbar { get; set; }
         public bool DRPStatus { get; set; }
         public bool EnableCovenantDisplay { get; set; }
 
@@ -170,6 +171,7 @@ namespace sldc.ViewModel
         public bool CanCommitChanges => AreChangesMade && !HasErrors;
         public ICommand RevertSettingsToDefaultCommand { get; }
         public ICommand CommittSettingsChangesCommand { get; }
+        public RelayCommand ToggleMinimiseToToolbarCommand { get; private set; }
         public RelayCommand ToggleDRPCommand { get; private set; }
         public RelayCommand ToggleDRPCreditCommand { get; private set; }
         public RelayCommand ToggleCovenantDisplayCommand { get; private set; }
@@ -180,7 +182,6 @@ namespace sldc.ViewModel
             _hookStore = hookStore;
             // grab settings
             Settings settings = Helper.ReturnSettings();
-            EnableCovenantDisplay = settings.EnableCovenantDisplay;
 
             // set enum from settings
             ThemeType currentTheme = ThemeType.DarkTheme;
@@ -201,6 +202,10 @@ namespace sldc.ViewModel
             else
                 FinalFontColour = settings.FontColour;
 
+            // setup minimise to toolbar
+            EnableMinimiseToToolbar = settings.EnableMinimiseToToolbar;
+            OnPropertyChanged(nameof(EnableMinimiseToToolbar));
+
             // setup drp button
             DRPStatus = settings.IsDRPEnabled == true;
             OnPropertyChanged(nameof(DRPStatus));
@@ -209,17 +214,26 @@ namespace sldc.ViewModel
             EnableDRPCredit = settings.EnableDRPCredit == true;
             OnPropertyChanged(nameof(EnableDRPCredit));
 
+            // setup covenant display
+            EnableCovenantDisplay = settings.EnableCovenantDisplay;
+            OnPropertyChanged(nameof(EnableCovenantDisplay));
 
             // set up commands
             RevertSettingsToDefaultCommand = new RevertSettingsToDefaultCommand(this, OnPropertyChanged);
             CommittSettingsChangesCommand = new CommittSettingsChangesCommand(this);
+            ToggleMinimiseToToolbarCommand = new RelayCommand(ToggleMinimiseToToolbar);
             ToggleDRPCommand = new RelayCommand(ToggleDRP);
             ToggleDRPCreditCommand = new RelayCommand(ToggleDRPCredit);
             ToggleCovenantDisplayCommand = new RelayCommand(ToggleCovenantDisplay);
 
             AreChangesMade = false;
         }
-
+        private void ToggleMinimiseToToolbar(object parameters)
+        {
+            EnableMinimiseToToolbar = !EnableMinimiseToToolbar;
+            OnPropertyChanged(nameof(EnableMinimiseToToolbar));
+            AreChangesMade = true;
+        }
         private void ToggleDRP(object paramters)
         {
             DRPStatus = !DRPStatus;

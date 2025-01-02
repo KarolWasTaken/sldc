@@ -10,7 +10,8 @@
         xmlns:ViewModels="clr-namespace:sldc.ViewModel"
         Title="SLDC" Height="650" Width="1000"
         ResizeMode="CanMinimize"
-        TextOptions.TextFormattingMode="Ideal">
+        TextOptions.TextFormattingMode="Ideal"
+        Icon="pack://application:,,,/icon.ico" StateChanged="WindowStateChanged">
     <Window.Resources>
         <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Storyboard x:Key="OpenErrorAnimation">

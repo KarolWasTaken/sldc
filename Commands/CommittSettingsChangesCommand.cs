@@ -43,6 +43,7 @@ namespace sldc.Commands
             Helper.settings.EnableDRPCredit = _settingsViewModel.EnableDRPCredit;
             Helper.settings.EnableCovenantDisplay = _settingsViewModel.EnableCovenantDisplay;
             Helper.settings.FontColour = _settingsViewModel.FinalFontColour;
+            Helper.settings.EnableMinimiseToToolbar = _settingsViewModel.EnableMinimiseToToolbar;
             // used null coalescing here later
             if (_settingsViewModel.SelectedFontFamily != null)
             {

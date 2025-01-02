@@ -1,4 +1,5 @@
 ﻿using DiscordRPC;
+using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using sldc.Commands.NavigateViewModelCommands;

@@ -17,6 +17,7 @@ namespace sldc.Stores
     public class Settings
     {
         public ThemeType Theme;
+        public bool EnableMinimiseToToolbar;
         public bool IsDRPEnabled;
         public bool EnableDRPCredit;
         public bool EnableCovenantDisplay;
