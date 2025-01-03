@@ -1,7 +1,7 @@
 # SLDC: Soulslike Death Counter & Discord Enhancer
 
 <p align="center">
-  <img src="https://github.com/KarolWasTaken/sldc/blob/master/Resources/Bonfire-black.svg" 
+  <img src="https://github.com/KarolWasTaken/sldc/blob/master/Resources/logo/Bonfire-black.svg" 
        alt="SLDC logo" 
        height="300">
 </p>
