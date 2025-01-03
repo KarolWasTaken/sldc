@@ -11,6 +11,8 @@
   <ItemGroup>
     <None Remove=".env" />
     <None Remove="icon.ico" />
+    <None Remove="icon.png" />
+    <None Remove="icon2.png" />
     <None Remove="Resources\BL-card-image.png" />
     <None Remove="Resources\DS2-banner-image.jpg" />
     <None Remove="Resources\DS2-card-image.png" />
@@ -61,10 +63,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="icon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include=".env">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="icon.ico">
+    <Resource Include="icon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\DS2-banner-image.jpg">

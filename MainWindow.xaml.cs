@@ -31,7 +31,7 @@ namespace sldc
             // for minimising to tooltips
             tbi = new TaskbarIcon();
             tbi.Visibility = Visibility.Collapsed;
-            tbi.Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/sldc;component/icon.ico")).Stream); ;
+            tbi.Icon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/sldc;component/icon.ico")).Stream);
             tbi.ToolTipText = "SLDC";
             tbi.DoubleClickCommand = new RelayCommand(DoubleClickOpenWindow);
             tbi.ContextMenu = CreateContextMenu();

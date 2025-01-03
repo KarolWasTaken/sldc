@@ -7,7 +7,7 @@
         xmlns:ElementThemes="clr-namespace:sldc.Themes.ElementThemes"
         mc:Ignorable="d"
         Title="UpdateNotifier" Height="250" Width="600"
-        Icon="pack://application:,,,/icon.ico">
+        Icon="pack://application:,,,/icon.png">
     <Border Grid.RowSpan="2"
             Background="{DynamicResource Background}"
             BorderBrush="{DynamicResource Background_Level_2}"
