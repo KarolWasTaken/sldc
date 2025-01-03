@@ -1,10 +1,10 @@
 # SLDC: Soulslike Death Counter & Discord Enhancer
 
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+<p align="center">
   <img src="https://github.com/KarolWasTaken/sldc/blob/master/Resources/Bonfire-black.svg" 
        alt="SLDC logo" 
        height="300">
-</div>
+</p>
 
 **SLDC** is your *ultimate companion* for Soulslike games, designed to track your in-game deaths and enhance your Discord Rich Presence.
 
